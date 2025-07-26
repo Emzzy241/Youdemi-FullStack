@@ -1,0 +1,26 @@
+{
+  "name": "youdemi-fullstack-mongodb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --env-file .env app.js",
+    "dev": "node --env-file .env --watch app.js"
+  },
+  "keywords": [],
+  "author": "Dynasty",
+  "license": "ISC",
+  "description": "Building the Youdemi Full-Stack Application",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.3",
+    "nodemailer": "^7.0.5"
+  }
+}
