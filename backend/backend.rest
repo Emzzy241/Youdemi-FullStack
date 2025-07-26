@@ -1,0 +1,16 @@
+GET http://localhost:5000/
+
+### Course
+GET http://localhost:5000/course
+
+### /courses
+GET http://localhost:5000/course/courses
+
+### /courses/new
+POST http://localhost:5000/course/courses/new
+Content-Type: application/json
+
+{
+    "title": "CSC 317",
+    "description": "Data Structures and Algorithm"
+}
