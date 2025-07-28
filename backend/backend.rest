@@ -14,3 +14,37 @@ Content-Type: application/json
     "title": "CSC 317",
     "description": "Data Structures and Algorithm"
 }
+
+
+### GET /courses/:id
+GET http://localhost:5000/course/courses/68847530446c48624a0c3fe7
+
+### PATCH /courses/:id
+
+PATCH http://localhost:5000/course/courses/68879935ef7902caa7de9591
+Content-Type: application/json
+
+{
+    "title": "CSC 212",
+    "description": "Introduction to Object-Oriented Programming II"
+}
+
+### DELETE /courses/:id
+DELETE  http://localhost:5000/course/courses/68879935ef7902caa7de9591
+
+### Testing Remote URL
+GET https://youdemi-fullstack.onrender.com/course
+
+
+### 
+
+GET https://youdemi-fullstack.onrender.com/course/courses
+
+### Creating A New Course Remotely
+POST https://youdemi-fullstack.onrender.com/course/courses/new
+Content-Type: application/json
+
+{
+    "title": "CSC 333",
+    "description": "Operating System"
+}
