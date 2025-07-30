@@ -14,10 +14,10 @@ const CreateCourse = async (req, res) => {
 
     try {
         const { title, description } = req.body
-        const result = await Course.create({
+        const newCourse = await Course.create({
             title, description
         })
-        res.status(201).json({ success: true, message: "Course Created", data: result })
+        res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
         console.log(error)
     }
@@ -27,29 +27,29 @@ const getCourse = async (req, res) => {
     try {
         const courseId = req.params.id;
         console.log(courseId)
-        const data = await Course.findById(courseId)
+        const courseData = await Course.findById(courseId)
 
         console.log(courseId)
-        console.log(data)
+        console.log(courseData)
 
         if (!courseId) {
             console.log("No course ID was inputted")
-            return res.status(400).json({ success: false, message: "No course ID was inputted" });
+            return res.status(400).json({ status: false, message: "No course ID was inputted" });
         }
 
 
-        if (!data) {
+        if (!courseData) {
             return res.json({ status: false, message: "Could not find a course with that ID" })
         }
 
-        res.status(200).json({ status: true, message: data })
+        return res.status(200).json({ status: true, message: "Specific Course has been gotten successfully", data: courseData })
     } catch (error) {
         console.error('Error fetching single course:', error);
         // Check for invalid ID format (Mongoose CastError)
         if (error.name === 'CastError') {
             return res.status(400).json({ success: false, error: 'Invalid Course ID format' });
         }
-        res.status(500).json({ success: false, error: 'Server Error: Could not fetch course.' });
+        res.status(500).json({ status: false, error: 'Server Error: Could not fetch course.' });
     }
 }
 
@@ -61,7 +61,7 @@ const updateCourse = async (req, res) => {
 
         if (!course)
         {
-            return res.status(404).json({ success: false, message: "Failed to find the particular course"})
+            return res.status(404).json({ status: false, message: "Failed to find the particular course"})
         }
         
         if (req.body.title != null)
@@ -75,7 +75,7 @@ const updateCourse = async (req, res) => {
         }
 
         const updatedCourse = await course.save()
-        res.json({updatedCourse})
+        return res.json({status: true, message: "Course has been updated successfully", data: updatedCourse})
 
     } catch (error) {
         console.log(error.message)
@@ -88,11 +88,11 @@ const deleteCourse = async (req, res) => {
         const course = await Course.findById(courseId)
 
         if (!course) {
-            return res.status(401).json({ success: false, message: "The Course you want to delete cannot be found"})
+            return res.status(401).json({ status: false, message: "The Course you want to delete cannot be found"})
         }
 
         await course.deleteOne({courseId})
-        return res.status(201).json({ success: false, message: "Course has been deleted successfully"})
+        return res.status(201).json({ status: false, message: "Course has been deleted successfully"})
     } catch (error)
     {
         console.log(error.message)
