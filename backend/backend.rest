@@ -21,7 +21,7 @@ GET http://localhost:5000/course/courses/68847530446c48624a0c3fe7
 
 ### PATCH /courses/:id
 
-PATCH http://localhost:5000/course/courses/68879935ef7902caa7de9591
+PATCH http://localhost:5000/course/courses/6889fd5394c988af485b6268
 Content-Type: application/json
 
 {
@@ -48,3 +48,20 @@ Content-Type: application/json
     "title": "CSC 333",
     "description": "Operating System"
 }
+
+###
+GET https://youdemi-fullstack.onrender.com/course/courses/6889feef3fa53509d9ab59a8
+
+### Updating A Course on the Remote Render Server
+
+PATCH https://youdemi-fullstack.onrender.com/course/courses/6889fd5394c988af485b6268
+Content-Type: application/json
+
+{
+    "title": "CSC 325",
+    "description": "System Programming"
+}
+
+### Deleting a Course from the Remote Render Server
+
+DELETE http://localhost:5000/course/courses/6889feef3fa53509d9ab59a8
