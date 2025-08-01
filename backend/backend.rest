@@ -1,13 +1,18 @@
 GET http://localhost:5000/
 
+# All Course Endpoints (CRUD) has been created and tested, now it is time for User Endpoints and Authentication 
+
+# USER ENDPOINTS
+
 ### Course
-GET http://localhost:5000/course
+GET http://localhost:5000/api/v1/course/
+
 
 ### /courses
-GET http://localhost:5000/course/courses
+GET http://localhost:5000/api/v1/course/courses
 
 ### /courses/new
-POST http://localhost:5000/course/courses/new
+POST http://localhost:5000/api/v1/course/courses/new
 Content-Type: application/json
 
 {
@@ -17,11 +22,11 @@ Content-Type: application/json
 
 
 ### GET /courses/:id
-GET http://localhost:5000/course/courses/68847530446c48624a0c3fe7
+GET http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
 
 ### PATCH /courses/:id
 
-PATCH http://localhost:5000/course/courses/6889fd5394c988af485b6268
+PATCH http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
 Content-Type: application/json
 
 {
@@ -30,13 +35,13 @@ Content-Type: application/json
 }
 
 ### DELETE /courses/:id
-DELETE  http://localhost:5000/course/courses/68879935ef7902caa7de9591
+DELETE  http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
 
 ### Testing Remote URL
 GET https://youdemi-fullstack.onrender.com/course
 
 
-### 
+### GET /:id
 
 GET https://youdemi-fullstack.onrender.com/course/courses
 
@@ -49,12 +54,12 @@ Content-Type: application/json
     "description": "Operating System"
 }
 
-###
-GET https://youdemi-fullstack.onrender.com/course/courses/6889feef3fa53509d9ab59a8
+### GET /:id
+GET https://youdemi-fullstack.onrender.com/course/courses/688c54a1cec4246beef36051
 
 ### Updating A Course on the Remote Render Server
 
-PATCH https://youdemi-fullstack.onrender.com/course/courses/6889fd5394c988af485b6268
+PATCH https://youdemi-fullstack.onrender.com/course/courses/688c54a1cec4246beef36051
 Content-Type: application/json
 
 {
@@ -64,4 +69,4 @@ Content-Type: application/json
 
 ### Deleting a Course from the Remote Render Server
 
-DELETE http://localhost:5000/course/courses/6889feef3fa53509d9ab59a8
+DELETE https://youdemi-fullstack.onrender.com/course/courses/688c54a1cec4246beef36051
