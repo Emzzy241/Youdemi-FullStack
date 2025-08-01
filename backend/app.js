@@ -9,6 +9,7 @@ import courseRoutes from "./routers/courseRouter.js"
 
 const app = express()
 
+const PORT = process.env.PORT
 
 // mongoose
 //     .connect(process.env.MONGOURI).then(()=>{
@@ -34,14 +35,13 @@ try {
 
 app.use(cookieParser())
 
-app.listen(process.env.PORT || "5000" )
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
-app.use("/course", courseRoutes)
+app.use("/api/v1/course", courseRoutes)
+
 app.get("/", async (req, res) => {
     res.send("App Has successfully started")
     console.log("Welcome to the Youdemi App")
 })
-
-// console.log("Hi there, trust you are okay!")
-
-// console.log("Welcome to my app once again")
