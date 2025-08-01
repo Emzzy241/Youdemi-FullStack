@@ -38,15 +38,15 @@ Content-Type: application/json
 DELETE  http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
 
 ### Testing Remote URL
-GET https://youdemi-fullstack.onrender.com/course
+GET https://youdemi-fullstack.onrender.com/api/v1/course
 
 
 ### GET /:id
 
-GET https://youdemi-fullstack.onrender.com/course/courses
+GET https://youdemi-fullstack.onrender.com/api/v1/course/courses
 
 ### Creating A New Course Remotely
-POST https://youdemi-fullstack.onrender.com/course/courses/new
+POST https://youdemi-fullstack.onrender.com/api/v1/course/courses/new
 Content-Type: application/json
 
 {
@@ -55,11 +55,11 @@ Content-Type: application/json
 }
 
 ### GET /:id
-GET https://youdemi-fullstack.onrender.com/course/courses/688c54a1cec4246beef36051
+GET https://youdemi-fullstack.onrender.com/api/v1/course/courses/688c583543a08901c96fc0cf
 
 ### Updating A Course on the Remote Render Server
 
-PATCH https://youdemi-fullstack.onrender.com/course/courses/688c54a1cec4246beef36051
+PATCH https://youdemi-fullstack.onrender.com/api/v1/course/courses/688c583543a08901c96fc0cf
 Content-Type: application/json
 
 {
@@ -69,4 +69,4 @@ Content-Type: application/json
 
 ### Deleting a Course from the Remote Render Server
 
-DELETE https://youdemi-fullstack.onrender.com/course/courses/688c54a1cec4246beef36051
+DELETE https://youdemi-fullstack.onrender.com/api/v1/course/courses/688c583543a08901c96fc0cf
