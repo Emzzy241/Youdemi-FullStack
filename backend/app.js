@@ -5,6 +5,8 @@
 import mongoose from "mongoose"
 import express from "express"
 import cookieParser from "cookie-parser"
+import authRoutes from "./routers/authRouter.js"
+// import authController from "./controllers/authController.js"
 import courseRoutes from "./routers/courseRouter.js"
 
 const app = express()
@@ -39,6 +41,7 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
+app.use("/api/v1", authRoutes)
 app.use("/api/v1/course", courseRoutes)
 
 app.get("/", async (req, res) => {
