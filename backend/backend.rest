@@ -9,13 +9,12 @@ POST http://localhost:5000/api/v1/signup
 Content-Type: application/json
 
 {
-    "email": "emzzyolueolw@gmail.com",
-    "password": "Dynazonep4#"
+    "email": "emzzyoluwole@gmail.com",
+    "password": "Dynastyda444#"
 }
 
 ### COURSE ENDPOINTS
 GET http://localhost:5000/api/v1/course/
-
 
 ### /courses
 GET http://localhost:5000/api/v1/course/courses
