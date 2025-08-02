@@ -1,6 +1,7 @@
-import authRoutes from "./../routers/authRouter"
-import { signUpSchema } from "./../middlewares/validator"
-import User from "../models/user"
+// import authRoutes from "./../routers/authRouter"
+import { signUpSchema } from "../middlewares/validator.js"
+import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
+import User from "../models/user.js"
 
 const signUp = async (req, res) => {
     const { email, password } = req.body
@@ -20,7 +21,7 @@ const signUp = async (req, res) => {
         const hashedPassword = await doHash(password, 12)
         const newUser = new User({
             email,
-            password
+            password: hashedPassword
         })
         const result = await newUser.save();
         result.password = undefined;
