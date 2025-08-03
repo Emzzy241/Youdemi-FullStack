@@ -4,13 +4,31 @@ GET http://localhost:5000/
 
 # USER ENDPOINTS
 
-### Sign UP
+### Sign UP Locally
 POST http://localhost:5000/api/v1/signup
 Content-Type: application/json
 
 {
-    "email": "emzzyoluwole@gmail.com",
-    "password": "Dynastyda444#"
+    "email": "dynasty@gmail.com",
+    "password": "Dynastyda4#"
+}
+
+### Sign Up On Prod
+POST  https://youdemi-fullstack.onrender.com/api/v1/signup
+Content-Type: application/json
+
+{
+    "email": "emazon@email.com",
+    "password": "Emazonda2**"
+}
+
+### Sign In Locally
+POST http://localhost:5000/api/v1/signin
+Content-Type: application/json
+
+{
+    "email": "emazon@email.com",
+    "password": "Emazonda2**"
 }
 
 ### COURSE ENDPOINTS
