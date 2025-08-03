@@ -31,6 +31,16 @@ Content-Type: application/json
     "password": "Emazonda2**"
 }
 
+
+### Sign In On Prod
+POST  https://youdemi-fullstack.onrender.com/api/v1/signin
+Content-Type: application/json
+
+{
+     "email": "emazon@email.com",
+    "password": "Emazonda2**"
+}
+
 ### COURSE ENDPOINTS
 GET http://localhost:5000/api/v1/course/
 
