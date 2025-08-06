@@ -2,6 +2,7 @@
 import jwt from "jsonwebtoken"
 import { signInSchema, signUpSchema } from "../middlewares/validator.js"
 import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
+import { getVerificationEmailTemplate } from "../utils/emailTemplates.js"
 import User from "../models/user.js"
 import {transport} from "./../middlewares/sendMail.js"
 
@@ -104,11 +105,17 @@ const sendVerificationCode = async (req, res) => {
             return res.status(400).json({ success: false, message: "User has already been verified"})
         }
         const codeValue = Math.floor(Math.random() * 1000000).toString()
+        
+        const userName = existingUser.name || existingUser.email.split('@')[0]
+        const expiryTimeInMinutes = 15
+
+        const htmlContent = getVerificationEmailTemplate(userName, codeValue, expiryTimeInMinutes)
+
         let info = await transport.sendMail({
-            from: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
+            from: `${process.env.NODE_CODE_SENDING_EMAIL_ADDRESS}`,
             to: existingUser.email,
-            subject: "Verification code",
-            html: "<h1>" + codeValue + "</h1>"
+            subject: "Verify Your Account - Action Required",
+            html: htmlContent
         })
 
         if (info.accepted[0] === existingUser.email) {
