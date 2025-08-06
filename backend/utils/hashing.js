@@ -1,4 +1,4 @@
-import createHmac from "node:crypto"
+import {createHmac} from "node:crypto"
 import { hash, compare } from "bcryptjs"
 
 export const doHash = (value, saltValue) => {
