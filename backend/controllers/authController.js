@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 import { signInSchema, signUpSchema } from "../middlewares/validator.js"
 import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
 import User from "../models/user.js"
+import {transport} from "./../middlewares/sendMail.js"
 
 const signUp = async (req, res) => {
     const { email, password } = req.body
@@ -83,11 +84,44 @@ const signIn = async (req, res) => {
 }
 
 const signOut = async (req, res) => {
-
+    res.clearCookie("Authorization").status(200).json({
+        success: true,
+        message: "Logged out successful"
+    })    
 }
 
 const sendVerificationCode = async (req, res) => {
+    const { email } = req.body
+    
+    try {
+        const existingUser = await User.findOne({ email })
 
+        if (!existingUser) {
+            return res.status(404).json({ success: false, message: "You do not have an account on our platform"})
+        }
+
+        if (existingUser.verified === true) {
+            return res.status(400).json({ success: false, message: "User has already been verified"})
+        }
+        const codeValue = Math.floor(Math.random() * 1000000).toString()
+        let info = await transport.sendMail({
+            from: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
+            to: existingUser.email,
+            subject: "Verification code",
+            html: "<h1>" + codeValue + "</h1>"
+        })
+
+        if (info.accepted[0] === existingUser.email) {
+            const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
+            existingUser.verificationCode = hashedCodeValue
+            existingUser.verificationCodeValidation = Date.now()
+            await existingUser.save()
+            return res.status(200).json({ success: true, message: "Code to verify User's account code has been sent"})
+        }
+        return res.status(400).json({ success: true, message: "Code sent failed"})
+    } catch (error) {
+        console.log(error)        
+    }
 }
 
 const verifyVerificationCode = async (req, res) => {
