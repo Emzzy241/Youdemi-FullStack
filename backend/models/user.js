@@ -1,4 +1,3 @@
-import Joi from "joi";
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
@@ -25,7 +24,7 @@ const userSchema = mongoose.Schema({
         select: false
     },    
     verificationCodeValidation: {
-        type: Boolean,
+        type: Number,
         default: false
     },
     forgotPasswordCode: {
@@ -33,7 +32,7 @@ const userSchema = mongoose.Schema({
         select: false
     },
     forgotPasswordCodeValidation: {
-        type: Boolean,
+        type: Number,
         default: false
     }
 
