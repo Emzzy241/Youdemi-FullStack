@@ -44,14 +44,24 @@ Content-Type: application/json
 ### Sign Out
 POST http://localhost:5000/api/v1/signout
 
-### VERIFY EMAIL
+### SEND VERIFICATION CODE TO EMAIL
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzU0NDc0MTU2LCJleHAiOjE3NTQ1MDI5NTZ9.J8Ubg5cH5eo9nfQlvknQOeK_nWZhnjGAtRa7A7Mbb9k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzU0NTEyMjgzLCJleHAiOjE3NTQ1NDEwODN9.G3hZZTBAfmn2VkPTo7FSZRr-y4Dd5b8DLjyek3Vvpk0
 
 {
     "email": "dynasty.dev241@gmail.com"
+}
+
+### VERIFY VERIFICATION CODE
+PATCH http://localhost:5000/api/v1/verify-verification-code
+Content-Type: application/json
+client: not-browser 
+
+{
+    "email": "dynasty.dev241@gmail.com",
+    "providedCode": 259886
 }
 
 ### COURSE ENDPOINTS
