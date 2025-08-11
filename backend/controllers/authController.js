@@ -132,7 +132,50 @@ const sendVerificationCode = async (req, res) => {
 }
 
 const verifyVerificationCode = async (req, res) => {
+    const { email, providedCode } = req.body
 
+    try {
+        const { error, value } = acceptCodeSchema.validate({ email, providedCode })
+
+        if (error) {
+            return res.status(401).json({ success: false, message: error.details[0].message })
+        }
+
+        const codeValue = providedCode.toString()
+        const existingUser = User.findOne({ email }).select("+verificationCode + verificationCOdeValidation ")
+
+        if (!existingUser) {
+            return res.status(404).json({ success: false, message: "User does not exist"})
+        }
+
+        if (existingUser.verified) {
+            return res.status(400).json({ success: false, message: "User has already verified their account"})
+        }
+
+        if (existingUser.verificationCode | !existingUser.verificationCodeValidation) {
+            return res.status(400).json({ success: false, message: "Something is wrong with the code"})
+        }
+
+        if (Date.now() - existingUser.verificationCodeValidation > 5 * 60 * 1000) {
+            return res.status(400).json({ success: false, message: "Code has expired!"})
+        }
+
+        const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
+
+        if (hashedCodeValue === existingUser.verificationCode) {
+            existingUser.verified = true
+            existingUser.verificationCode = undefined
+            existingUser.verificationCodeValidation = undefined
+
+            await existingUser.save()
+            return res.status(200).json({ success: true, message: "Your account has been verified"})
+        }
+
+        return res.status(400).json({ status: false, message: "AN Unexpected error occured"})
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const changePassword = async (req, res) => {
@@ -156,4 +199,5 @@ export default {
     changePassword,
     sendForgotPasswordCode,
     verifyForgotPasswordCode
+
 }
