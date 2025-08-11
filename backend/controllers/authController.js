@@ -1,6 +1,6 @@
 // import authRoutes from "./../routers/authRouter"
 import jwt from "jsonwebtoken"
-import { signInSchema, signUpSchema } from "../middlewares/validator.js"
+import { signInSchema, signUpSchema, acceptCodeSchema } from "../middlewares/validator.js"
 import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
 import { getVerificationEmailTemplate } from "../utils/emailTemplates.js"
 import User from "../models/user.js"
@@ -142,7 +142,8 @@ const verifyVerificationCode = async (req, res) => {
         }
 
         const codeValue = providedCode.toString()
-        const existingUser = User.findOne({ email }).select("+verificationCode + verificationCOdeValidation ")
+        const existingUser = await User.findOne({ email }).select("+verificationCode +verificationCodeValidation ")
+        console.log(existingUser)
 
         if (!existingUser) {
             return res.status(404).json({ success: false, message: "User does not exist"})
@@ -152,7 +153,7 @@ const verifyVerificationCode = async (req, res) => {
             return res.status(400).json({ success: false, message: "User has already verified their account"})
         }
 
-        if (existingUser.verificationCode | !existingUser.verificationCodeValidation) {
+        if (!existingUser.verificationCode || !existingUser.verificationCodeValidation) {
             return res.status(400).json({ success: false, message: "Something is wrong with the code"})
         }
 
@@ -167,8 +168,13 @@ const verifyVerificationCode = async (req, res) => {
             existingUser.verificationCode = undefined
             existingUser.verificationCodeValidation = undefined
 
-            await existingUser.save()
+            try {
+                await existingUser.save()
             return res.status(200).json({ success: true, message: "Your account has been verified"})
+            } catch (error) {
+                console.log("There was an error with saving the User: ")
+                console.log(error)
+            }
         }
 
         return res.status(400).json({ status: false, message: "AN Unexpected error occured"})
