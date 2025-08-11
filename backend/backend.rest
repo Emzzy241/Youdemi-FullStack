@@ -5,11 +5,18 @@ GET http://localhost:5000/
 # USER ENDPOINTS
 
 ### Sign UP Locally
+# POST http://localhost:5000/api/v1/signup
+# Content-Type: application/json
+
+# {
+#     "email": "dynasty.dev241@gmail.com",
+#     "password": "Dynastyda4#"
+# }
 POST http://localhost:5000/api/v1/signup
 Content-Type: application/json
 
 {
-    "email": "dynasty.dev241@gmail.com",
+    "email": "subomioguns07@gmail.com",
     "password": "Dynastyda4#"
 }
 
@@ -27,9 +34,16 @@ POST http://localhost:5000/api/v1/signin
 Content-Type: application/json
 
 {
-    "email": "dynasty.dev241@gmail.com",
+    "email": "subomioguns07@gmail.com",
     "password": "Dynastyda4#"
 }
+
+# {
+#     "email": "dynasty.dev241@gmail.com",
+#     "password": "Dynastyda4#"
+# }
+
+
 
 
 ### Sign In On Prod
@@ -48,20 +62,21 @@ POST http://localhost:5000/api/v1/signout
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzU0NTEyMjgzLCJleHAiOjE3NTQ1NDEwODN9.G3hZZTBAfmn2VkPTo7FSZRr-y4Dd5b8DLjyek3Vvpk0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhMjI3OWMxMTY3YjQwNDU5NGYwZWQiLCJlbWFpbCI6InN1Ym9taW9ndW5zMDdAZ21haWwuY29tIiwidmVyaWZpZWQiOmZhbHNlLCJpYXQiOjE3NTQ5MzE4NDgsImV4cCI6MTc1NDk2MDY0OH0.GNsaFeUPrnpHg2gLx_iT2cz_K5VMCOFFcOOs2jUipwg
 
 {
-    "email": "dynasty.dev241@gmail.com"
+    "email": "subomioguns07@gmail.com"
 }
 
 ### VERIFY VERIFICATION CODE
 PATCH http://localhost:5000/api/v1/verify-verification-code
 Content-Type: application/json
 client: not-browser 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhMjI3OWMxMTY3YjQwNDU5NGYwZWQiLCJlbWFpbCI6InN1Ym9taW9ndW5zMDdAZ21haWwuY29tIiwidmVyaWZpZWQiOmZhbHNlLCJpYXQiOjE3NTQ5MzE4NDgsImV4cCI6MTc1NDk2MDY0OH0.GNsaFeUPrnpHg2gLx_iT2cz_K5VMCOFFcOOs2jUipwg
 
 {
-    "email": "dynasty.dev241@gmail.com",
-    "providedCode": 259886
+    "email": "subomioguns07@gmail.com",
+    "providedCode": 364377
 }
 
 ### COURSE ENDPOINTS
