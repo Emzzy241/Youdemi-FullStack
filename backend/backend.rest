@@ -51,9 +51,14 @@ POST  https://youdemi-fullstack.onrender.com/api/v1/signin
 Content-Type: application/json
 
 {
-    "email": "emazon@email.com",
-    "password": "Emazonda2**"
+    "email": "subomioguns07@gmail.com",
+    "password": "Dynastyda4#"
 }
+
+# {
+#     "email": "emazon@email.com",
+#     "password": "Emazonda2**"
+# }
 
 ### Sign Out
 POST http://localhost:5000/api/v1/signout
@@ -83,11 +88,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhM
 PATCH http://localhost:5000/api/v1/change-password
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhMjI3OWMxMTY3YjQwNDU5NGYwZWQiLCJlbWFpbCI6InN1Ym9taW9ndW5zMDdAZ21haWwuY29tIiwidmVyaWZpZWQiOnRydWUsImlhdCI6MTc1NTAwNjc1NiwiZXhwIjoxNzU1MDM1NTU2fQ.-ALVi2uWPVt4AeW8krQWi6oAYUfeGQHHz8znADPbDno
 
 {
-    "oldPassword": "Emazonda2**",
-    "newPassword": "Emazonda44**"
+    "oldPassword": "Emazonda44**",
+    "newPassword": "Dynastyda4#"
 }
 
 ### COURSE ENDPOINTS
