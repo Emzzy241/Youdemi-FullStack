@@ -19,7 +19,7 @@ const CreateCourse = async (req, res) => {
         const { title, description } = req.body
         const userId = req.user
         const newCourse = await Course.create({
-            // title, description, userId
+            title, description //, userId
         })
         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
