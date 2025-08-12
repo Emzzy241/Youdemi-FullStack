@@ -2,8 +2,7 @@
 import jwt from "jsonwebtoken"
 import { signInSchema, signUpSchema, acceptCodeSchema, changePasswordSchema } from "../middlewares/validator.js"
 import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
-import { getVerificationEmailTemplate } from "../utils/emailTemplates.js"
-import { getForgotPasswordTemplate } from "../utils/forgotPasswordTemplate.js"
+import { getVerificationEmailTemplate, getForgotPasswordEmailTemplate } from "../utils/emailTemplates.js"
 import User from "../models/user.js"
 import {transport} from "./../middlewares/sendMail.js"
 
@@ -233,7 +232,7 @@ const sendForgotPasswordCode = async (req, res) => {
         const codeValue = Math.floor(Math.random() * 1000000).toString()
         const userName = existingUser.name || existingUser.email.split('@')[0]
         const expiryTimeInMinutes = 15
-        const htmlContent = getForgotPasswordTemplate(userName, codeValue, expiryTimeInMinutes)
+        const htmlContent = getForgotPasswordEmailTemplate(userName, codeValue, expiryTimeInMinutes)
 
         let info = await transport.sendMail({
             from: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
