@@ -110,6 +110,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzM
     "email": "dynasty.dev241@gmail.com"
 }
 
+### VERIFY RESET PASSWORD CODE
+PATCH http://localhost:5000/api/v1/verify-forgot-password-code
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTUwMTA0OTMsImV4cCI6MTc1NTAzOTI5M30.6ENLS6_b89k1tNwia6y1Bs7JGMICxTE_B4MPSF2DvZY
+
+{
+    "email": "dynasty.dev241@gmail.com",
+    "providedCode": ""
+}
+
 ### COURSE ENDPOINTS
 GET http://localhost:5000/api/v1/course/
 
