@@ -79,6 +79,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhM
     "providedCode": 364377
 }
 
+### CHANGE PASSWORD
+PATCH http://localhost:5000/api/v1/change-password
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer 
+
+{
+    "oldPassword": "Emazonda2**",
+    "newPassword": "Emazonda44**"
+}
+
 ### COURSE ENDPOINTS
 GET http://localhost:5000/api/v1/course/
 
