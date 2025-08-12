@@ -13,9 +13,13 @@ const CreateCourse = async (req, res) => {
     console.log(req.body)
 
     try {
+        // const { error, value } = CreateCourse.validate({
+        //     title, description, userId
+        // })
         const { title, description } = req.body
+        const userId = req.user
         const newCourse = await Course.create({
-            title, description
+            // title, description, userId
         })
         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
