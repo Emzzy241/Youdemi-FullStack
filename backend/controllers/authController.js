@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 import { signInSchema, signUpSchema, acceptCodeSchema, changePasswordSchema } from "../middlewares/validator.js"
 import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
 import { getVerificationEmailTemplate } from "../utils/emailTemplates.js"
+import { getForgotPasswordTemplate } from "../utils/forgotPasswordTemplate.js"
 import User from "../models/user.js"
 import {transport} from "./../middlewares/sendMail.js"
 
@@ -217,13 +218,41 @@ const changePassword = async (req, res) => {
     } catch (error) {
         console.log(error)        
     }
-
-
-
 }
 
 const sendForgotPasswordCode = async (req, res) => {
+    const { email } = req.body
 
+    try {
+        const existingUser = await User.findOne({ email })
+
+        if (!existingUser) {
+            return res.status(404).json({ success: false, message: "User does not exist. You do not have an account on our platform"})
+        }
+
+        const codeValue = Math.floor(Math.random() * 1000000).toString()
+        const userName = existingUser.name || existingUser.email.split('@')[0]
+        const expiryTimeInMinutes = 15
+        const htmlContent = getForgotPasswordTemplate(userName, codeValue, expiryTimeInMinutes)
+
+        let info = await transport.sendMail({
+            from: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
+            to: existingUser.email,
+            subject: "Forgot Password - Action Required",
+            html: htmlContent
+        })
+
+        if (info.accepted[0] === existingUser.email) {
+            const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
+            existingUser.forgotPasswordCode = hashedCodeValue
+            existingUser.forgotPasswordCodeValidation = Date.now()
+            await existingUser.save()
+            return res.status(200).json({ success: true, message: "Code to reset User's password has been sent to email"})
+        }
+        return res.status(400).json({ success: true, message: "The Reset Password Code failed to send"})
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 const verifyForgotPasswordCode = async (req, res) => {
