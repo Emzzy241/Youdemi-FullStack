@@ -34,7 +34,7 @@ POST http://localhost:5000/api/v1/signin
 Content-Type: application/json
 
 {
-    "email": "subomioguns07@gmail.com",
+    "email": "dynasty.dev241@gmail.com",
     "password": "Dynastyda4#"
 }
 
@@ -51,9 +51,14 @@ POST  https://youdemi-fullstack.onrender.com/api/v1/signin
 Content-Type: application/json
 
 {
-    "email": "subomioguns07@gmail.com",
+    "email": "dynasty.dev241@gmail.com",
     "password": "Dynastyda4#"
 }
+
+# {
+#     "email": "subomioguns07@gmail.com",
+#     "password": "Dynastyda4#"
+# }
 
 # {
 #     "email": "emazon@email.com",
@@ -93,6 +98,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhM
 {
     "oldPassword": "Emazonda44**",
     "newPassword": "Dynastyda4#"
+}
+
+### SEND RESET PASSWORD CODE
+PATCH http://localhost:5000/api/v1/send-forgot-password-code
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTUwMDk3NjMsImV4cCI6MTc1NTAzODU2M30.ypMQbsNqAcZRN0uv3tXnBwYqqv5IW-cuHCRXvBitDio
+
+{
+    "email": "dynasty.dev241@gmail.com"
 }
 
 ### COURSE ENDPOINTS
