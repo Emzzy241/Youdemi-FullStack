@@ -1,3 +1,4 @@
+import { CreateCourseSchema } from "../middlewares/validator.js"
 import Course from "../models/course.js"
 
 const getAllCourses = async (req, res) => {
@@ -9,17 +10,24 @@ const getAllCourses = async (req, res) => {
     }
 }
 
-const CreateCourse = async (req, res) => {
+const createCourse = async (req, res) => {
     console.log(req.body)
+    const { title, description } = req.body
+    const { userId } = req.user
+    console.log(userId)
+
 
     try {
-        // const { error, value } = CreateCourse.validate({
-        //     title, description, userId
-        // })
-        const { title, description } = req.body
-        const userId = req.user
+        const { error, value } = CreateCourseSchema.validate({
+            title, description, userId
+        })
+
+        if (error) {
+            return res.status(401).json({ success: false, error: error.details[0].message})
+        }
+
         const newCourse = await Course.create({
-            title, description //, userId
+            title, description, userId
         })
         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
@@ -105,7 +113,7 @@ const deleteCourse = async (req, res) => {
 
 export default {
     getAllCourses,
-    CreateCourse,
+    createCourse,
     getCourse,
     updateCourse,
     deleteCourse
