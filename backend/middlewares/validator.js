@@ -64,7 +64,7 @@ export const acceptForgotPasswordCodeSchema = Joi.object({
         .max(60)
         .required()
         .email({
-            tlds: { allow: ["com,", "net"]}
+            tlds: { allow: ["com", "net"] }
         }),
     providedCode: Joi.number().required(),
     newPassword: Joi.string()
