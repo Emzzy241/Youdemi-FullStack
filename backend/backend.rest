@@ -135,11 +135,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzM
 }
 
 ### GET /courses/:id
-GET http://localhost:5000/api/v1/course/courses/68ac8fce613f71e4514c094e
+GET http://localhost:5000/api/v1/course/courses/68ac99bdb02f40118c73945c
 
 ### PATCH /courses/:id
 
-PATCH http://localhost:5000/api/v1/course/courses/68ac8fce613f71e4514c094e
+PATCH http://localhost:5000/api/v1/course/courses/68ac99bdb02f40118c73945c
 Content-Type: application/json
 client: not-browser
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzc0MTQsImV4cCI6MTc1NjE2NjIxNH0.cXuQpedMptsv_5ivvYPetjxJ1-jydWGgnlKVhj2dzQw
@@ -150,7 +150,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzM
 }
 
 ### DELETE /courses/:id
-DELETE  http://localhost:5000/api/v1/course/courses/68ac85648678a7700507d819
+DELETE  http://localhost:5000/api/v1/course/courses/68ac99bdb02f40118c73945c
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzc0MTQsImV4cCI6MTc1NjE2NjIxNH0.cXuQpedMptsv_5ivvYPetjxJ1-jydWGgnlKVhj2dzQw
 
 ### Testing Remote URL
 GET https://youdemi-fullstack.onrender.com/api/v1/course
