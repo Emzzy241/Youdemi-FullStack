@@ -143,7 +143,7 @@ const verifyVerificationCode = async (req, res) => {
 
         const codeValue = providedCode.toString()
         const existingUser = await User.findOne({ email }).select("+verificationCode +verificationCodeValidation ")
-        console.log(existingUser)
+        // console.log(existingUser)
 
         if (!existingUser) {
             return res.status(404).json({ success: false, message: "User does not exist" })

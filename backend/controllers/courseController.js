@@ -1,3 +1,4 @@
+import { CreateCourseSchema } from "../middlewares/validator.js"
 import Course from "../models/course.js"
 
 const getAllCourses = async (req, res) => {
@@ -9,17 +10,24 @@ const getAllCourses = async (req, res) => {
     }
 }
 
-const CreateCourse = async (req, res) => {
-    console.log(req.body)
+const createCourse = async (req, res) => {
+    // console.log(req.body)
+    const { title, description } = req.body
+    const { userId } = req.user
+    // console.log(userId)
+
 
     try {
-        // const { error, value } = CreateCourse.validate({
-        //     title, description, userId
-        // })
-        const { title, description } = req.body
-        const userId = req.user
+        const { error, value } = CreateCourseSchema.validate({
+            title, description, userId
+        })
+
+        if (error) {
+            return res.status(401).json({ success: false, error: error.details[0].message })
+        }
+
         const newCourse = await Course.create({
-            title, description //, userId
+            title, description, userId
         })
         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
@@ -30,11 +38,11 @@ const CreateCourse = async (req, res) => {
 const getCourse = async (req, res) => {
     try {
         const courseId = req.params.id;
-        console.log(courseId)
+        // console.log(courseId)
         const courseData = await Course.findById(courseId)
 
-        console.log(courseId)
-        console.log(courseData)
+        // console.log(courseId)
+        // console.log(courseData)
 
         if (!courseId) {
             console.log("No course ID was inputted")
@@ -58,28 +66,42 @@ const getCourse = async (req, res) => {
 }
 
 const updateCourse = async (req, res) => {
+    const courseId = req.params.id
+
+    // console.log(req.user)
+    const userId = req.user.userId
+    const { title, description } = req.body
+
     try {
-        const courseId = req.params.id
-        const course = await Course.findById(courseId)
-        console.log(course)
+        const { error, value } = CreateCourseSchema.validate({
+            title, description, userId
+        })
 
-        if (!course)
-        {
-            return res.status(404).json({ status: false, message: "Failed to find the particular course"})
-        }
-        
-        if (req.body.title != null)
-        {
-            course.title = req.body.title
+        if (error) {
+            return res.status(401).json({ success: false, error: error.details[0].message })
         }
 
-        if (req.body.description != null) 
-        {
-            course.description = req.body.description
+        const existingCourse = await Course.findById(courseId)
+        // console.log(existingCourse)
+
+        if (!existingCourse) {
+            return res.status(404).json({ status: false, message: "Failed to find the particular course" })
         }
 
-        const updatedCourse = await course.save()
-        return res.json({status: true, message: "Course has been updated successfully", data: updatedCourse})
+        if (existingCourse.userId.toString() !== userId) {
+            return res.status(401).json({ status: false, message: "User is UnAuthorized to update this course"})
+        }
+
+        if (req.body.title != null) {
+            existingCourse.title = req.body.title
+        }
+
+        if (req.body.description != null) {
+            existingCourse.description = req.body.description
+        }
+
+        const updatedCourse = await existingCourse.save()
+        return res.json({ status: true, message: "Course has been updated successfully", data: updatedCourse })
 
     } catch (error) {
         console.log(error.message)
@@ -88,24 +110,30 @@ const updateCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
     try {
+        const userId = req.user.userId
+        // console.log(userId)
         const courseId = req.params.id
-        const course = await Course.findById(courseId)
+        const existingCourse = await Course.findById(courseId)
+        // console.log(existingCourse)
 
-        if (!course) {
-            return res.status(401).json({ status: false, message: "The Course you want to delete cannot be found"})
+        if (!existingCourse) {
+            return res.status(401).json({ status: false, message: "The Course you want to delete cannot be found" })
         }
 
-        await course.deleteOne({courseId})
-        return res.status(201).json({ status: false, message: "Course has been deleted successfully"})
-    } catch (error)
-    {
+        if (existingCourse.userId.toString() !== userId) {
+            return res.status(401).json({ status: false, message: "User is UnAuthorized to delete this course"})
+        }
+
+        await existingCourse.deleteOne({ courseId })
+        return res.status(201).json({ status: false, message: "Course has been deleted successfully" })
+    } catch (error) {
         console.log(error.message)
     }
 }
 
 export default {
     getAllCourses,
-    CreateCourse,
+    createCourse,
     getCourse,
     updateCourse,
     deleteCourse
