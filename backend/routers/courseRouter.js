@@ -14,7 +14,7 @@ router.post("/courses/new", identifier, courseController.createCourse)
 
 router.get("/courses/:id", courseController.getCourse)
 
-router.patch("/courses/:id", courseController.updateCourse)
+router.patch("/courses/:id", identifier, courseController.updateCourse)
 
 router.delete("/courses/:id", courseController.deleteCourse)
 
