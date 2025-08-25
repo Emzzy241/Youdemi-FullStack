@@ -177,7 +177,7 @@ const verifyVerificationCode = async (req, res) => {
             }
         }
 
-        return res.status(400).json({ status: false, message: "AN Unexpected error occured" })
+        return res.status(400).json({ success: false, message: "AN Unexpected error occured" })
 
     } catch (error) {
         console.log(error)
@@ -211,7 +211,7 @@ const changePassword = async (req, res) => {
         const hashedPassword = await doHash(newPassword, 12)
         existingUser.password = hashedPassword
         await existingUser.save()
-        return res.status(201).json({ status: true, message: "User's Password has been updated successfully" })
+        return res.status(201).json({ success: true, message: "User's Password has been updated successfully" })
 
     } catch (error) {
         console.log(error)
@@ -271,7 +271,7 @@ const verifyForgotPasswordCode = async (req, res) => {
             return res.status(404).json({ success: false, message: "User does not exist" })
         }
 
-        if (existingUser.forgotPasswordCode || !existingUser.forgotPasswordCodeValidation) {
+        if (!existingUser.forgotPasswordCode || !existingUser.forgotPasswordCodeValidation) {
             return res.status(400).json({ success: false, message: "Something is wrong with the code" })
         }
 
@@ -282,15 +282,20 @@ const verifyForgotPasswordCode = async (req, res) => {
         const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
 
         if (hashedCodeValue === existingUser.forgotPasswordCode) {
-            const hashedPassword = doHash(newPassword, 12)
+            const hashedPassword = await doHash(newPassword, 12)
             existingUser.password = hashedPassword
             existingUser.forgotPasswordCode = undefined
             existingUser.forgotPasswordCodeValidation = undefined
 
-            await existingUser.save()
-            return res.status(200).json({ success: true, message: "Password has been updated"})
+            try {
+                await existingUser.save()
+                return res.status(200).json({ success: true, message: "Password has been updated" })
+            } catch (error) {
+                console.log("There was an error with saving the User after password was changed." + error)
+            }
         }
-        return res.status(400).json({success: false, message: "An Unexpected error occurred"})
+
+        return res.status(400).json({ success: false, message: "An Unexpected error occurred" })
 
     } catch (error) {
         console.log(error)
