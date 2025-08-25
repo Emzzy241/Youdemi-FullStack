@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
     "email": "dynasty.dev241@gmail.com",
-    "password": "Dynastyda4#"
+    "password": "Dynastyda2#"
 }
 
 # {
@@ -52,7 +52,7 @@ Content-Type: application/json
 
 {
     "email": "dynasty.dev241@gmail.com",
-    "password": "Dynastyda4#"
+    "password": "Dynastyda2#"
 }
 
 # {
@@ -72,40 +72,36 @@ POST http://localhost:5000/api/v1/signout
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhMjI3OWMxMTY3YjQwNDU5NGYwZWQiLCJlbWFpbCI6InN1Ym9taW9ndW5zMDdAZ21haWwuY29tIiwidmVyaWZpZWQiOmZhbHNlLCJpYXQiOjE3NTQ5MzE4NDgsImV4cCI6MTc1NDk2MDY0OH0.GNsaFeUPrnpHg2gLx_iT2cz_K5VMCOFFcOOs2jUipwg
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
 {
-    "email": "subomioguns07@gmail.com"
+    "email": "dynasty.dev241@gmail.com"
 }
 
 ### VERIFY VERIFICATION CODE
 PATCH http://localhost:5000/api/v1/verify-verification-code
 Content-Type: application/json
 client: not-browser 
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhMjI3OWMxMTY3YjQwNDU5NGYwZWQiLCJlbWFpbCI6InN1Ym9taW9ndW5zMDdAZ21haWwuY29tIiwidmVyaWZpZWQiOmZhbHNlLCJpYXQiOjE3NTQ5MzE4NDgsImV4cCI6MTc1NDk2MDY0OH0.GNsaFeUPrnpHg2gLx_iT2cz_K5VMCOFFcOOs2jUipwg
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
 {
     "email": "subomioguns07@gmail.com",
     "providedCode": 364377
 }
 
 ### CHANGE PASSWORD
-PATCH http://localhost:5000/api/v1/change-password
-Content-Type: application/json
-client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODlhMjI3OWMxMTY3YjQwNDU5NGYwZWQiLCJlbWFpbCI6InN1Ym9taW9ndW5zMDdAZ21haWwuY29tIiwidmVyaWZpZWQiOnRydWUsImlhdCI6MTc1NTAwNjc1NiwiZXhwIjoxNzU1MDM1NTU2fQ.-ALVi2uWPVt4AeW8krQWi6oAYUfeGQHHz8znADPbDno
-
-{
-    "oldPassword": "Emazonda44**",
-    "newPassword": "Dynastyda4#"
-}
+# PATCH http://localhost:5000/api/v1/change-password
+# Content-Type: application/json
+# client: not-browser
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
+# {
+#     "oldPassword": "Emazonda44**",
+#     "newPassword": "Dynastyda4#"
+# }
 
 ### SEND RESET PASSWORD CODE
 PATCH http://localhost:5000/api/v1/send-forgot-password-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTUwMTA0OTMsImV4cCI6MTc1NTAzOTI5M30.6ENLS6_b89k1tNwia6y1Bs7JGMICxTE_B4MPSF2DvZY
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
 {
     "email": "dynasty.dev241@gmail.com"
 }
@@ -114,11 +110,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzM
 PATCH http://localhost:5000/api/v1/verify-forgot-password-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTUwMTA0OTMsImV4cCI6MTc1NTAzOTI5M30.6ENLS6_b89k1tNwia6y1Bs7JGMICxTE_B4MPSF2DvZY
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
 {
     "email": "dynasty.dev241@gmail.com",
-    "providedCode": ""
+    "providedCode": "70534",
+    "newPassword": "Dynastyda2#"
 }
 
 ### COURSE ENDPOINTS
