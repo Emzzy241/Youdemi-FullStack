@@ -1,6 +1,8 @@
 import express from "express"
-import authController from "./../controllers/authController"
+import authController from "./../controllers/authController.js"
+import {identifier} from "./../middlewares/identification.js"
 
+console.log("Reading the auth router file")
 const router = express()
 
 router.post("/signup", authController.signUp)
@@ -11,6 +13,6 @@ router.patch("/send-verification-code", identifier, authController.sendVerificat
 router.patch("/verify-verification-code", identifier, authController.verifyVerificationCode)
 router.patch("/change-password", identifier, authController.changePassword)
 router.patch("/send-forgot-password-code", identifier, authController.sendForgotPasswordCode)
-router.patch("verify-forgot-password-code", identifier, authController.verifyForgotPasswordCode)
+router.patch("/verify-forgot-password-code", identifier, authController.verifyForgotPasswordCode)
 
 export default router
