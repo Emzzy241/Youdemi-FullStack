@@ -23,7 +23,7 @@ const createCourse = async (req, res) => {
         })
 
         if (error) {
-            return res.status(401).json({ success: false, error: error.details[0].message})
+            return res.status(401).json({ success: false, error: error.details[0].message })
         }
 
         const newCourse = await Course.create({
@@ -66,28 +66,38 @@ const getCourse = async (req, res) => {
 }
 
 const updateCourse = async (req, res) => {
+    const courseId = req.params.id
+
+    console.log(req.user)
+    const userId = req.user.userId
+    const { title, description } = req.body
+
     try {
-        const courseId = req.params.id
-        const course = await Course.findById(courseId)
-        console.log(course)
+        const { error, value } = CreateCourseSchema.validate({
+            title, description, userId
+        })
 
-        if (!course)
-        {
-            return res.status(404).json({ status: false, message: "Failed to find the particular course"})
-        }
-        
-        if (req.body.title != null)
-        {
-            course.title = req.body.title
+        if (error) {
+            return res.status(401).json({ success: false, error: error.details[0].message })
         }
 
-        if (req.body.description != null) 
-        {
-            course.description = req.body.description
+        const existingCourse = await Course.findById(courseId)
+        console.log(existingCourse)
+
+        if (!existingCourse) {
+            return res.status(404).json({ status: false, message: "Failed to find the particular course" })
         }
 
-        const updatedCourse = await course.save()
-        return res.json({status: true, message: "Course has been updated successfully", data: updatedCourse})
+        if (req.body.title != null) {
+            existingCourse.title = req.body.title
+        }
+
+        if (req.body.description != null) {
+            existingCourse.description = req.body.description
+        }
+
+        const updatedCourse = await existingCourse.save()
+        return res.json({ status: true, message: "Course has been updated successfully", data: updatedCourse })
 
     } catch (error) {
         console.log(error.message)
@@ -100,13 +110,12 @@ const deleteCourse = async (req, res) => {
         const course = await Course.findById(courseId)
 
         if (!course) {
-            return res.status(401).json({ status: false, message: "The Course you want to delete cannot be found"})
+            return res.status(401).json({ status: false, message: "The Course you want to delete cannot be found" })
         }
 
-        await course.deleteOne({courseId})
-        return res.status(201).json({ status: false, message: "Course has been deleted successfully"})
-    } catch (error)
-    {
+        await course.deleteOne({ courseId })
+        return res.status(201).json({ status: false, message: "Course has been deleted successfully" })
+    } catch (error) {
         console.log(error.message)
     }
 }
