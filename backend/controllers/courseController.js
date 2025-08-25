@@ -88,6 +88,10 @@ const updateCourse = async (req, res) => {
             return res.status(404).json({ status: false, message: "Failed to find the particular course" })
         }
 
+        if (existingCourse.userId.toString() !== userId) {
+            return res.status(401).json({ status: false, message: "User is UnAuthorized to update this course"})
+        }
+
         if (req.body.title != null) {
             existingCourse.title = req.body.title
         }
