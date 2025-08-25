@@ -106,14 +106,21 @@ const updateCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
     try {
+        const userId = req.user.userId
+        console.log(userId)
         const courseId = req.params.id
-        const course = await Course.findById(courseId)
+        const existingCourse = await Course.findById(courseId)
+        console.log(existingCourse)
 
-        if (!course) {
+        if (!existingCourse) {
             return res.status(401).json({ status: false, message: "The Course you want to delete cannot be found" })
         }
 
-        await course.deleteOne({ courseId })
+        if (existingCourse.userId.toString() !== userId) {
+            return res.status(401).json({ status: false, message: "User is UnAuthorized to delete this course"})
+        }
+
+        await existingCourse.deleteOne({ courseId })
         return res.status(201).json({ status: false, message: "Course has been deleted successfully" })
     } catch (error) {
         console.log(error.message)
