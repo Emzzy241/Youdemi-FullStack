@@ -126,18 +126,20 @@ GET http://localhost:5000/api/v1/course/courses
 ### /courses/new
 POST http://localhost:5000/api/v1/course/courses/new
 Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzc0MTQsImV4cCI6MTc1NjE2NjIxNH0.cXuQpedMptsv_5ivvYPetjxJ1-jydWGgnlKVhj2dzQw
 
 {
-    "title": "CSC 317",
-    "description": "Data Structures and Algorithm"
+    "title": "CSC 425",
+    "description": "System Programming 2"
 }
 
 ### GET /courses/:id
-GET http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
+GET http://localhost:5000/api/v1/course/courses/68ac85648678a7700507d819
 
 ### PATCH /courses/:id
 
-PATCH http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
+PATCH http://localhost:5000/api/v1/course/courses/68ac85648678a7700507d819
 Content-Type: application/json
 
 {
@@ -146,7 +148,7 @@ Content-Type: application/json
 }
 
 ### DELETE /courses/:id
-DELETE  http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
+DELETE  http://localhost:5000/api/v1/course/courses/68ac85648678a7700507d819
 
 ### Testing Remote URL
 GET https://youdemi-fullstack.onrender.com/api/v1/course
