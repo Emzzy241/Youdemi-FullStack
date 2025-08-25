@@ -11,10 +11,10 @@ const getAllCourses = async (req, res) => {
 }
 
 const createCourse = async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const { title, description } = req.body
     const { userId } = req.user
-    console.log(userId)
+    // console.log(userId)
 
 
     try {
@@ -38,11 +38,11 @@ const createCourse = async (req, res) => {
 const getCourse = async (req, res) => {
     try {
         const courseId = req.params.id;
-        console.log(courseId)
+        // console.log(courseId)
         const courseData = await Course.findById(courseId)
 
-        console.log(courseId)
-        console.log(courseData)
+        // console.log(courseId)
+        // console.log(courseData)
 
         if (!courseId) {
             console.log("No course ID was inputted")
@@ -68,7 +68,7 @@ const getCourse = async (req, res) => {
 const updateCourse = async (req, res) => {
     const courseId = req.params.id
 
-    console.log(req.user)
+    // console.log(req.user)
     const userId = req.user.userId
     const { title, description } = req.body
 
@@ -82,7 +82,7 @@ const updateCourse = async (req, res) => {
         }
 
         const existingCourse = await Course.findById(courseId)
-        console.log(existingCourse)
+        // console.log(existingCourse)
 
         if (!existingCourse) {
             return res.status(404).json({ status: false, message: "Failed to find the particular course" })
@@ -111,10 +111,10 @@ const updateCourse = async (req, res) => {
 const deleteCourse = async (req, res) => {
     try {
         const userId = req.user.userId
-        console.log(userId)
+        // console.log(userId)
         const courseId = req.params.id
         const existingCourse = await Course.findById(courseId)
-        console.log(existingCourse)
+        // console.log(existingCourse)
 
         if (!existingCourse) {
             return res.status(401).json({ status: false, message: "The Course you want to delete cannot be found" })

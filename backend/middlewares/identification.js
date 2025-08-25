@@ -12,7 +12,7 @@ export const identifier = async (req, res, next) => {
     if (!token) {
         return res.status(403).json({ success: false, message: "Unauthorized"})
     }
-    console.log(token)
+    // console.log(token)
 
     try {
         const userToken = token.split(' ')[1]
