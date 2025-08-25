@@ -16,6 +16,6 @@ router.get("/courses/:id", courseController.getCourse)
 
 router.patch("/courses/:id", identifier, courseController.updateCourse)
 
-router.delete("/courses/:id", courseController.deleteCourse)
+router.delete("/courses/:id", identifier, courseController.deleteCourse)
 
 export default router
