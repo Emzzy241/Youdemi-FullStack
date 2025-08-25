@@ -135,15 +135,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzM
 }
 
 ### GET /courses/:id
-GET http://localhost:5000/api/v1/course/courses/68ac85648678a7700507d819
+GET http://localhost:5000/api/v1/course/courses/68ac8fce613f71e4514c094e
 
 ### PATCH /courses/:id
 
-PATCH http://localhost:5000/api/v1/course/courses/68ac85648678a7700507d819
+PATCH http://localhost:5000/api/v1/course/courses/68ac8fce613f71e4514c094e
 Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzc0MTQsImV4cCI6MTc1NjE2NjIxNH0.cXuQpedMptsv_5ivvYPetjxJ1-jydWGgnlKVhj2dzQw
 
 {
-    "title": "CSC 212",
+    "title": "CSC 219",
     "description": "Introduction to Object-Oriented Programming II"
 }
 
