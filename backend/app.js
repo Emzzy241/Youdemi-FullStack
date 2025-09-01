@@ -8,10 +8,19 @@ import cookieParser from "cookie-parser"
 import authRoutes from "./routers/authRouter.js"
 // import authController from "./controllers/authController.js"
 import courseRoutes from "./routers/courseRouter.js"
+import cors from "cors"
 
 const app = express()
 
 const PORT = process.env.PORT
+
+// Whitelisting the frontend's url
+const corsOptions = {
+    origin: "http://127.0.0/1:5500",
+};
+
+app.use(cors(corsOptions))
+
 
 // mongoose
 //     .connect(process.env.MONGOURI).then(()=>{
