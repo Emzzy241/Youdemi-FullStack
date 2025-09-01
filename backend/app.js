@@ -16,7 +16,7 @@ const PORT = process.env.PORT
 
 // Whitelisting the frontend's url
 const corsOptions = {
-    origin: "http://127.0.0/1:5500",
+    origin: "http://127.0.0.1:5500",
 };
 
 app.use(cors(corsOptions))
