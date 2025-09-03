@@ -9,17 +9,28 @@ import authRoutes from "./routers/authRouter.js"
 // import authController from "./controllers/authController.js"
 import courseRoutes from "./routers/courseRouter.js"
 import cors from "cors"
+import path, { dirname } from "path"
+import { fileURLToPath } from "url"
 
 const app = express()
 
 const PORT = process.env.PORT
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 // Whitelisting the frontend's url
 const corsOptions = {
     origin: "http://127.0.0.1:5500",
+    origin: "http://localhost:5000/"
 };
 
 app.use(cors(corsOptions))
+app.use(express.static(path.join(__dirname, "../frontend")))
+
+// app.get("/", (req, res) => {
+//     res.sendFile(path.join(__dirname, "frontend", "index.html"))
+// })
 
 
 // mongoose
@@ -53,7 +64,8 @@ app.listen(PORT, () => {
 app.use("/api/v1", authRoutes)
 app.use("/api/v1/course", courseRoutes)
 
-app.get("/", async (req, res) => {
-    res.send("App Has successfully started")
-    console.log("Welcome to the Youdemi App")
-})
+// app.get("/", async (req, res) => {
+//     // res.send("App Has successfully started")
+//     console.log("Welcome to the Youdemi App")
+//     res.sendFile(path.join(__dirname, "frontend", "index.html"))
+// })
