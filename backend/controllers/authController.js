@@ -78,6 +78,7 @@ const signIn = async (req, res) => {
             token,
             message: "logged in successfully"
         });
+        console.log("Yay!!!!!!!!!!!! You logged in successfully :)")
 
     } catch (error) {
         console.log(error.message)
