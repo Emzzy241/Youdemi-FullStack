@@ -15,8 +15,8 @@
         </div>
         <br> <br>
         <div>
-            <label for="email">Enter your email</label>
-            <input type="text">
+            <label for="password">Enter your password</label>
+            <input type="text" id="password">
         </div>
 
         <button type="submit" id="auth-btn">submit</button>
@@ -33,6 +33,8 @@
         const email = document.getElementById("email")
         const password = document.getElementById("password")
         const authBtn = document.getElementById("auth-btn")
+        const apiBase = "http://localhost:5000/api/v1/"
+        let data
 
         async function authenticate() {
             const emailVal = email.value
@@ -47,7 +49,16 @@
 
             authBtn.innerText = "Authenticating...."
 
-            const response = await fetch()
+            const response = await fetch(apiBase + "signin", {
+                method: "POST",
+                headers: { "Content-Type": "application/json "},
+                body: JSON.stringify({ email: emailVal, password: passwordVal })
+            })
+            data = await response.json()
+            console.log(data)
+
+            console.log("logged in successfully")
+            
 
 
 
