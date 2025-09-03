@@ -4,9 +4,123 @@ GET http://localhost:5000/
 
 # USER ENDPOINTS
 
-### Course
-GET http://localhost:5000/api/v1/course/
+### Sign UP Locally
+# POST http://localhost:5000/api/v1/signup
+# Content-Type: application/json
 
+# {
+#     "email": "dynasty.dev241@gmail.com",
+#     "password": "Dynastyda4#"
+# }
+POST http://localhost:5000/api/v1/signup
+Content-Type: application/json
+
+{
+    "email": "subomioguns07@gmail.com",
+    "password": "Dynastyda4#"
+}
+
+### Sign Up On Prod
+POST  https://youdemi-fullstack.onrender.com/api/v1/signup
+Content-Type: application/json
+
+{
+    "email": "emazon@email.com",
+    "password": "Emazonda2**"
+}
+
+### Sign In Locally
+POST http://localhost:5000/api/v1/signin
+Content-Type: application/json
+
+{
+    "email": "dynasty.dev241@gmail.com",
+    "password": "Dynastyda2#"
+}
+
+# {
+#     "email": "dynasty.dev241@gmail.com",
+#     "password": "Dynastyda4#"
+# }
+
+
+
+
+### Sign In On Prod
+POST  https://youdemi-fullstack.onrender.com/api/v1/signin
+Content-Type: application/json
+
+{
+    "email": "dynasty.dev241@gmail.com",
+    "password": "Dynastyda2#"
+}
+
+# {
+#     "email": "subomioguns07@gmail.com",
+#     "password": "Dynastyda4#"
+# }
+
+# {
+#     "email": "emazon@email.com",
+#     "password": "Emazonda2**"
+# }
+
+### Sign Out
+POST http://localhost:5000/api/v1/signout
+
+### SEND VERIFICATION CODE TO EMAIL
+PATCH http://localhost:5000/api/v1/send-verification-code
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
+{
+    "email": "dynasty.dev241@gmail.com"
+}
+
+### VERIFY VERIFICATION CODE
+PATCH http://localhost:5000/api/v1/verify-verification-code
+Content-Type: application/json
+client: not-browser 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
+{
+    "email": "subomioguns07@gmail.com",
+    "providedCode": 364377
+}
+
+### CHANGE PASSWORD
+# PATCH http://localhost:5000/api/v1/change-password
+# Content-Type: application/json
+# client: not-browser
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
+# {
+#     "oldPassword": "Emazonda44**",
+#     "newPassword": "Dynastyda4#"
+# }
+
+### SEND RESET PASSWORD CODE
+PATCH http://localhost:5000/api/v1/send-forgot-password-code
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxNDM1NTgsImV4cCI6MTc1NjE3MjM1OH0.bpQwP1ge55-fIYftEbePgYlF2QTZYgjyAka1B9KIf2k
+
+{
+    "email": "emzzyoluwole@gmail.com"
+}
+
+### VERIFY RESET PASSWORD CODE
+PATCH http://localhost:5000/api/v1/verify-forgot-password-code
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxNDM1NTgsImV4cCI6MTc1NjE3MjM1OH0.bpQwP1ge55-fIYftEbePgYlF2QTZYgjyAka1B9KIf2k
+
+{
+    "email": "emzzyoluwole@gmail.com",
+    "providedCode": "980162",
+    "newPassword": "Dynastyda2#"
+}
+
+### COURSE ENDPOINTS
+GET http://localhost:5000/api/v1/course/
 
 ### /courses
 GET http://localhost:5000/api/v1/course/courses
@@ -14,28 +128,34 @@ GET http://localhost:5000/api/v1/course/courses
 ### /courses/new
 POST http://localhost:5000/api/v1/course/courses/new
 Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxNDM1NTgsImV4cCI6MTc1NjE3MjM1OH0.bpQwP1ge55-fIYftEbePgYlF2QTZYgjyAka1B9KIf2k
 
 {
-    "title": "CSC 317",
-    "description": "Data Structures and Algorithm"
+    "title": "CSC 499",
+    "description": "Quantum Computing"
 }
 
-
 ### GET /courses/:id
-GET http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
+GET http://localhost:5000/api/v1/course/courses/68aca014f46beb1464d97026
 
 ### PATCH /courses/:id
 
-PATCH http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
+PATCH http://localhost:5000/api/v1/course/courses/68aca014f46beb1464d97026
 Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxNDM1NTgsImV4cCI6MTc1NjE3MjM1OH0.bpQwP1ge55-fIYftEbePgYlF2QTZYgjyAka1B9KIf2k
 
 {
-    "title": "CSC 212",
-    "description": "Introduction to Object-Oriented Programming II"
+    "title": "CSC 289",
+    "description": "Introduction to Object-Oriented Programming II v8"
 }
 
 ### DELETE /courses/:id
-DELETE  http://localhost:5000/api/v1/course/courses/688c53d19ad56ad0d2476a69
+DELETE  http://localhost:5000/api/v1/course/courses/68aca014f46beb1464d97026
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxNDM1NTgsImV4cCI6MTc1NjE3MjM1OH0.bpQwP1ge55-fIYftEbePgYlF2QTZYgjyAka1B9KIf2k
 
 ### Testing Remote URL
 GET https://youdemi-fullstack.onrender.com/api/v1/course
