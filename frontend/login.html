@@ -8,10 +8,10 @@
 </head>
 <body>
     <h1 onclick="heyThere()">Click here for the greeting</h1>
-    <form>
+    <form id="login-form">
         <div>
             <label for="email">Enter your email</label>
-            <input type="text">
+            <input type="text" id="email">
         </div>
         <br> <br>
         <div>
@@ -19,7 +19,38 @@
             <input type="text">
         </div>
 
-        <button type="submit">submit</button>
+        <button type="submit" id="auth-btn">submit</button>
     </form>
+
+
+    <script>
+
+        document.getElementById("login-form").addEventListener("submit", (e) => {
+            e.preventDefault()
+        })
+        
+        const email = document.getElementById("email")
+        const password = document.getElementById("password")
+        const authBtn = document.getElementById("auth-btn")
+
+        async function authenticate() {
+            const emailVal = email.value
+            const passwordVal = password.value
+
+            if (
+                !emailVal ||
+                !passwordVal ||
+                passwordVal.length < 6 || 
+                !emailVal.includes("@")
+            ) return
+
+            authBtn.innerText = "Authenticating...."
+
+            const response = await fetch()
+
+
+
+        }
+    </script>
 </body>
 </html>
