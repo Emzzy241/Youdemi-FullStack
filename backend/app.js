@@ -16,16 +16,16 @@ const app = express()
 
 const PORT = process.env.PORT
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
 
 // Whitelisting the frontend's url
-const corsOptions = {
-    origin: ["http://127.0.0.1:5500", "http://localhost:5000/", "http://localhost:3000/"]
-};
+// const corsOptions = {
+//     origin: ["http://127.0.0.1:5500", "http://localhost:5000/", "http://localhost:3000/"]
+// };
 
-app.use(cors(corsOptions))
-app.use(express.static(path.join(__dirname, "../frontend")))
+// app.use(cors(corsOptions))
+// app.use(express.static(path.join(__dirname, "../frontend")))
 
 // app.get("/", (req, res) => {
 //     res.sendFile(path.join(__dirname, "frontend", "index.html"))
@@ -41,6 +41,9 @@ app.use(express.static(path.join(__dirname, "../frontend")))
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Enable CORS for all origins
+app.use(cors());
 
 // Middleware to parse URL-encoded bodies (for form data)
 // The 'extended: true' option allows for rich objects and arrays to be encoded into the URL-encoded format
