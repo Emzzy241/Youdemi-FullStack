@@ -74,7 +74,7 @@ const signIn = async (req, res) => {
         const userSafeData = {
             _id: existingUser._id,
             email: existingUser.email,
-            name: `${existingUser.email.split("@")[0]}`,  // will improve later and update user model with a name field
+            name: `${existingUser.email.split("@")[0]}`,  // will improve later and update user model with a name field and return a proper output.
             verified: existingUser.verified 
         }
 
