@@ -70,12 +70,21 @@ const signIn = async (req, res) => {
             }
         );
 
+        // A Data Transfer Object for exposing only what is needed at the frontend
+        const userSafeData = {
+            _id: existingUser._id,
+            email: existingUser.email,
+            name: `${existingUser.email.split("@")[0]}`,  // will improve later and update user model with a name field and return a proper output.
+            verified: existingUser.verified 
+        }
+
         res.cookie("Authorization", "Bearer", + token, {
             expires: new Date(Date.now() + 8
                 * 3600000), httpOnly: process.env.NODE_ENV === 'production', secure: process.env.NODE_ENV
         }).json({
             success: true,
             token,
+            user: userSafeData,
             message: "logged in successfully"
         });
 
