@@ -20,13 +20,38 @@ Content-Type: application/json
     "password": "Dynastyda4#"
 }
 
+
+### Test New Sign Up Route --> Updated user model
+POST http://localhost:5000/api/v1/signup
+Content-Type: application/json
+
+{
+    "fullName": "Mojiboye Emmanuel Oluwole",
+    "email": "emzzyoluwole@gmail.com",
+    "password": "Dynastyda2*"
+}
+
+# {
+#     "fullName": "Mojiboye Emmanuel Oluwole",
+#     "email": "dynasty.dev241@gmail.com",
+#     "password": "Dynastyda2*"
+# }
+
+
+# {
+#     "fullName": "Ben John Doe",
+#     "email": "dynaman@email.com",
+#     "password": "Dynadam2*"
+# }
+
 ### Sign Up On Prod
 POST  https://youdemi-fullstack.onrender.com/api/v1/signup
 Content-Type: application/json
 
 {
-    "email": "emazon@email.com",
-    "password": "Emazonda2**"
+    "fullName": "Mojiboye Emmanuel Oluwole",
+    "email": "emzzyoluwole@gmail.com",
+    "password": "Dynastyda2*"
 }
 
 ### Sign In Locally
@@ -34,9 +59,15 @@ POST http://localhost:5000/api/v1/signin
 Content-Type: application/json
 
 {
-    "email": "dynasty.dev241@gmail.com",
-    "password": "Dynastyda2#"
+    "email": "emzzyoluwole@gmail.com",
+    "password": "Dynastyda22#"
 }
+
+
+# {
+#     "email": "dynasty.dev241@gmail.com",
+#     "password": "Dynastyda2#"
+# }
 
 # {
 #     "email": "dynasty.dev241@gmail.com",
@@ -72,19 +103,21 @@ POST http://localhost:5000/api/v1/signout
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
+
 {
-    "email": "dynasty.dev241@gmail.com"
+    "email": "emzzyoluwole@gmail.com"
 }
 
 ### VERIFY VERIFICATION CODE
 PATCH http://localhost:5000/api/v1/verify-verification-code
 Content-Type: application/json
 client: not-browser 
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxMzM2OTMsImV4cCI6MTc1NjE2MjQ5M30.yMxCgG6U6iK4rYJs1lB0YhN7znhpmBQ5e0ChTr0AZAk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYWUzYmJiYWFkMzBlZDBmYzdkYTciLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc1ODE4MDk2NSwiZXhwIjoxNzU4MjA5NzY1fQ.7ra4BQh2sRpuEEJy7iWbzRUE1_cRrD1GBac9DfRENLQ
+
 {
-    "email": "subomioguns07@gmail.com",
-    "providedCode": 364377
+    "email": "emzzyoluwole@gmail.com",
+    "providedCode": 918040
 }
 
 ### CHANGE PASSWORD
@@ -101,7 +134,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzM
 PATCH http://localhost:5000/api/v1/send-forgot-password-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxNDM1NTgsImV4cCI6MTc1NjE3MjM1OH0.bpQwP1ge55-fIYftEbePgYlF2QTZYgjyAka1B9KIf2k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
 
 {
     "email": "emzzyoluwole@gmail.com"
@@ -111,12 +144,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzM
 PATCH http://localhost:5000/api/v1/verify-forgot-password-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODkzMWM3YzlmMzVjMmYyNzBmMTJjMDkiLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTYxNDM1NTgsImV4cCI6MTc1NjE3MjM1OH0.bpQwP1ge55-fIYftEbePgYlF2QTZYgjyAka1B9KIf2k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
 
-{
+{   "fullName": "Mojiboye Emmanuel Oluwole",
     "email": "emzzyoluwole@gmail.com",
-    "providedCode": "980162",
-    "newPassword": "Dynastyda2#"
+    "providedCode": "915052",
+    "newPassword": "Dynastyda22#"
 }
 
 ### COURSE ENDPOINTS
