@@ -60,7 +60,7 @@ Content-Type: application/json
 
 {
     "email": "emzzyoluwole@gmail.com",
-    "password": "Dynastyda2*"
+    "password": "Dynastyda22#"
 }
 
 
@@ -103,7 +103,7 @@ POST http://localhost:5000/api/v1/signout
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYWUzYmJiYWFkMzBlZDBmYzdkYTciLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc1ODE4MDk2NSwiZXhwIjoxNzU4MjA5NzY1fQ.7ra4BQh2sRpuEEJy7iWbzRUE1_cRrD1GBac9DfRENLQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
 
 {
     "email": "emzzyoluwole@gmail.com"
@@ -134,10 +134,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
 PATCH http://localhost:5000/api/v1/send-forgot-password-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYWYzOTNmMDg5ZmRmZmRhZTVhYzciLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzU4MTc5MTkyLCJleHAiOjE3NTgyMDc5OTJ9._JrDur6zZMtlnPSuE5VIq0CD9zGQzUeeQ-_bs5nsh6k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
 
 {
-    "email": "dynasty.dev241@gmail.com"
+    "email": "emzzyoluwole@gmail.com"
 }
 
 ### VERIFY RESET PASSWORD CODE
@@ -147,9 +147,10 @@ client: not-browser
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYWYzOTNmMDg5ZmRmZmRhZTVhYzciLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzU4MTc5MTkyLCJleHAiOjE3NTgyMDc5OTJ9._JrDur6zZMtlnPSuE5VIq0CD9zGQzUeeQ-_bs5nsh6k
 
 {
-    "email": "dynasty.dev241@gmail.com",
-    "providedCode": "377178",
-    "newPassword": "Dynastyda2#"
+    "fullName": "Mojiboye Emmanuel Oluwole",
+    "email": "emzzyoluwole@gmail.com",
+    "providedCode": "290993",
+    "newPassword": "Dynastyda22#"
 }
 
 ### COURSE ENDPOINTS

@@ -1,6 +1,6 @@
 // import authRoutes from "./../routers/authRouter"
 import jwt from "jsonwebtoken"
-import { signInSchema, signUpSchema, acceptCodeSchema, changePasswordSchema, acceptForgotPasswordCodeSchema } from "../middlewares/validator.js"
+import { signInSchema, signUpSchema, acceptCodeSchema, acceptForgotPasswordCodeSchema } from "../middlewares/validator.js"
 import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
 import { getVerificationEmailTemplate, getForgotPasswordEmailTemplate } from "../utils/emailTemplates.js"
 import User from "../models/user.js"
@@ -194,39 +194,39 @@ const verifyVerificationCode = async (req, res) => {
     }
 }
 
-const changePassword = async (req, res) => {
-    const { userId, verified } = req.user
-    const { oldPassword, newPassword } = req.body
+// const changePassword = async (req, res) => {
+//     const { userId, verified } = req.user
+//     const { oldPassword, newPassword } = req.body
 
-    try {
-        const { error, value } = changePasswordSchema.validate({ oldPassword, newPassword })
-        if (error) {
-            return res.status(401).json({ success: false, message: error.details[0].message })
-        }
-        if (!verified) {
-            return res.status(401).json({ success: false, message: "You are not a verified User, so you are unable to change your password" })
-        }
+//     try {
+//         const { error, value } = changePasswordSchema.validate({ oldPassword, newPassword })
+//         if (error) {
+//             return res.status(401).json({ success: false, message: error.details[0].message })
+//         }
+//         if (!verified) {
+//             return res.status(401).json({ success: false, message: "You are not a verified User, so you are unable to change your password" })
+//         }
 
-        const existingUser = await User.findOne({ _id: userId }).select("+password")
+//         const existingUser = await User.findOne({ _id: userId }).select("+password")
 
-        if (!existingUser) {
-            return res.status(404).json({ success: false, message: "The User does not exist, hence the User's password cannot be changed" })
-        }
+//         if (!existingUser) {
+//             return res.status(404).json({ success: false, message: "The User does not exist, hence the User's password cannot be changed" })
+//         }
 
-        const result = await doHashValidation(oldPassword, existingUser.password)
-        if (!result) {
-            return res.status(401).json({ success: false, message: "Invalid credentials" })
-        }
+//         const result = await doHashValidation(oldPassword, existingUser.password)
+//         if (!result) {
+//             return res.status(401).json({ success: false, message: "Invalid credentials" })
+//         }
 
-        const hashedPassword = await doHash(newPassword, 12)
-        existingUser.password = hashedPassword
-        await existingUser.save()
-        return res.status(201).json({ success: true, message: "User's Password has been updated successfully" })
+//         const hashedPassword = await doHash(newPassword, 12)
+//         existingUser.password = hashedPassword
+//         await existingUser.save()
+//         return res.status(201).json({ success: true, message: "User's Password has been updated successfully" })
 
-    } catch (error) {
-        console.log(error)
-    }
-}
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 
 const sendForgotPasswordCode = async (req, res) => {
     const { email } = req.body
@@ -264,10 +264,10 @@ const sendForgotPasswordCode = async (req, res) => {
 }
 
 const verifyForgotPasswordCode = async (req, res) => {
-    const { email, providedCode, newPassword } = req.body
+    const { fullName, email, providedCode, newPassword } = req.body
 
     try {
-        const { error, value } = acceptForgotPasswordCodeSchema.validate({ email, providedCode, newPassword })
+        const { error, value } = acceptForgotPasswordCodeSchema.validate({ fullName, email, providedCode, newPassword })
 
         if (error) {
             return res.status(401).json({ success: false, message: error.details[0].message })
@@ -299,7 +299,7 @@ const verifyForgotPasswordCode = async (req, res) => {
 
             try {
                 await existingUser.save()
-                return res.status(200).json({ success: true, message: "Password has been updated" })
+                return res.status(200).json({ success: true, message: `Password has been updated for: ${existingUser.fullName}` })
             } catch (error) {
                 console.log("There was an error with saving the User after password was changed." + error)
             }
@@ -318,7 +318,6 @@ export default {
     signOut,
     sendVerificationCode,
     verifyVerificationCode,
-    changePassword,
     sendForgotPasswordCode,
     verifyForgotPasswordCode
 }
