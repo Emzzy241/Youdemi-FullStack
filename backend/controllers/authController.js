@@ -7,7 +7,7 @@ import User from "../models/user.js"
 import { transport } from "./../middlewares/sendMail.js"
 
 const signUp = async (req, res) => {
-    const { email, password } = req.body
+    const { fullName, email, password } = req.body
 
     try {
         const { error, value } = signUpSchema.validate({ email, password })
@@ -23,8 +23,9 @@ const signUp = async (req, res) => {
 
         const hashedPassword = await doHash(password, 12)
         const newUser = new User({
+            fullName,
             email,
-            password: hashedPassword
+            password: hashedPassword,
         })
         const result = await newUser.save();
         result.password = undefined;

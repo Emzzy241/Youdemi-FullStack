@@ -26,8 +26,8 @@ POST http://localhost:5000/api/v1/signup
 Content-Type: application/json
 
 {
-    "fullName": "John Doe Billy",
-    "email": "dynamite@email.com",
+    "fullName": "Ben John Doe",
+    "email": "dynaman@email.com",
     "password": "Dynadam2*"
 }
 
@@ -36,8 +36,9 @@ POST  https://youdemi-fullstack.onrender.com/api/v1/signup
 Content-Type: application/json
 
 {
-    "email": "emazon@email.com",
-    "password": "Emazonda2**"
+    "fullName": "Ben John Doe",
+    "email": "dynaman@email.com",
+    "password": "Dynadam2*"
 }
 
 ### Sign In Locally
