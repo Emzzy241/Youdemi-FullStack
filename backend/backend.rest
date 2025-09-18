@@ -144,12 +144,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
 PATCH http://localhost:5000/api/v1/verify-forgot-password-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYWYzOTNmMDg5ZmRmZmRhZTVhYzciLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzU4MTc5MTkyLCJleHAiOjE3NTgyMDc5OTJ9._JrDur6zZMtlnPSuE5VIq0CD9zGQzUeeQ-_bs5nsh6k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
 
-{
-    "fullName": "Mojiboye Emmanuel Oluwole",
+{   "fullName": "Mojiboye Emmanuel Oluwole",
     "email": "emzzyoluwole@gmail.com",
-    "providedCode": "290993",
+    "providedCode": "915052",
     "newPassword": "Dynastyda22#"
 }
 

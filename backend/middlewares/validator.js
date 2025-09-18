@@ -59,7 +59,8 @@ export const forgotPasswordCodeSchema = Joi.object({
 })
 
 export const acceptForgotPasswordCodeSchema = Joi.object({
-    fullName: Joi.string(),
+    fullName: Joi.string()
+            .required(),
     email: Joi.string()
         .min(6)
         .max(60)
