@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
+    fullName: {
+        type: String,
+        required: [true, "Full name is required"],
+        trim: true,
+    },
     email: {
         type: String,
         required: [true, "Email is required"],
@@ -14,6 +19,12 @@ const userSchema = mongoose.Schema({
         required: true,
         trim: true,
         select: false
+    },
+    role: {
+        type: String,
+        required: true,
+        trim: true,
+        default: "student"
     },
     verified: {
         type: Boolean,
