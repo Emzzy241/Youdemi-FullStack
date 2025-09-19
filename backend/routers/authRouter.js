@@ -3,6 +3,8 @@ import authController from "./../controllers/authController.js"
 import {identifier} from "./../middlewares/identification.js"
 
 console.log("Reading the auth router file")
+
+
 const router = express()
 
 router.post("/signup", authController.signUp)
