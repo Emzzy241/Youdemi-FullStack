@@ -130,15 +130,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
 #     "newPassword": "Dynastyda4#"
 # }
 
-### SEND RESET PASSWORD CODE
+### SEND RESET PASSWORD CODE --> LOCAL
 PATCH http://localhost:5000/api/v1/send-forgot-password-code
 Content-Type: application/json
 client: not-browser
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
 
 {
-    "email": "emzzyoluwole@gmail.com"
+    "email": "dynasty.dev241@gmail.com"
 }
+
+### SEND RESET PASSWORD CODE --> PROD
+# PATCH  https://youdemi-fullstack.onrender.com/api/v1/signin
+# Content-Type: application/json
+# client: not-browser
+# Authorization: Bearer 
 
 ### VERIFY RESET PASSWORD CODE
 PATCH http://localhost:5000/api/v1/verify-forgot-password-code
