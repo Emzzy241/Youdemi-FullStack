@@ -1,5 +1,6 @@
 import express from "express"
 import authController from "./../controllers/authController.js"
+import courseController from "../controllers/courseController.js"
 
 console.log("Reading the publicRouter file")
 
@@ -12,8 +13,6 @@ publicRouter.post("/signin", authController.signIn)
 publicRouter.post("/signout", authController.signOut)
 
 // Public routes for  course
-publicRouter.get("/", async (req, res) => {
-    res.send("Welcome to the Course Routes")
-})
+publicRouter.get("/", courseController.courseGreeting)
 
 export default publicRouter

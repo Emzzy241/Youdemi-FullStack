@@ -59,8 +59,8 @@ try {
 }
 
 app.use(cookieParser())
-app.use("/api/v1", privateRouter)
 app.use("/api/v1", publicRouter)
+app.use("/api/v1", privateRouter)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
