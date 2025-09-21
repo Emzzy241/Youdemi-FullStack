@@ -36,6 +36,7 @@ const signUp = async (req, res) => {
         })
 
     } catch (error) {
+        res.send(error.message)
         console.log(error.message)
     }
 }
