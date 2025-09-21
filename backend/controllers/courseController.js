@@ -1,6 +1,10 @@
 import { CreateCourseSchema } from "../middlewares/validator.js"
 import Course from "../models/course.js"
 
+const courseGreeting = async (req, res) => {
+    res.send("Welcome to the Course Routes");
+}
+
 const getAllCourses = async (req, res) => {
     try {
         const result = await Course.find()
@@ -132,6 +136,7 @@ const deleteCourse = async (req, res) => {
 }
 
 export default {
+    courseGreeting,
     getAllCourses,
     createCourse,
     getCourse,

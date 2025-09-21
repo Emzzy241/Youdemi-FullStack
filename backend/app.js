@@ -5,12 +5,13 @@
 import mongoose from "mongoose"
 import express from "express"
 import cookieParser from "cookie-parser"
-import authRoutes from "./routers/authRouter.js"
-// import authController from "./controllers/authController.js"
-import courseRoutes from "./routers/courseRouter.js"
+// import authRoutes from "./routers/authRouter.js"
+// import courseRoutes from "./routers/courseRouter.js"
 import cors from "cors"
 import path, { dirname } from "path"
 import { fileURLToPath } from "url"
+import privateRouter from "./routers/privateRouter.js"
+import publicRouter from "./routers/publicRouter.js"
 
 const app = express()
 
@@ -58,13 +59,15 @@ try {
 }
 
 app.use(cookieParser())
+app.use("/api/v1", publicRouter)
+app.use("/api/v1", privateRouter)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-app.use("/api/v1", authRoutes)
-app.use("/api/v1/course", courseRoutes)
+// app.use("/api/v1", authRoutes)
+// app.use("/api/v1/course", courseRoutes)
 
 // app.get("/", async (req, res) => {
 //     // res.send("App Has successfully started")
