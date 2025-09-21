@@ -239,7 +239,7 @@ const sendForgotPasswordCode = async (req, res) => {
         }
 
         const codeValue = Math.floor(Math.random() * 1000000).toString()
-        const userName = existingUser.name || existingUser.email.split('@')[0]
+        const userName = existingUser.fullName || existingUser.email.split('@')[0]
         const expiryTimeInMinutes = 15
         const htmlContent = getForgotPasswordEmailTemplate(userName, codeValue, expiryTimeInMinutes)
 

@@ -11,8 +11,10 @@ const publicRouter = express()
 publicRouter.post("/signup", authController.signUp)
 publicRouter.post("/signin", authController.signIn)
 publicRouter.post("/signout", authController.signOut)
+publicRouter.patch("/send-forgot-password-code", authController.sendForgotPasswordCode)
+publicRouter.patch("/verify-forgot-password-code", authController.verifyForgotPasswordCode)
 
 // Public routes for  course
-publicRouter.get("/", courseController.courseGreeting)
+publicRouter.get("/course", courseController.courseGreeting)
 
 export default publicRouter

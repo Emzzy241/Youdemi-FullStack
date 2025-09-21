@@ -103,7 +103,7 @@ POST http://localhost:5000/api/v1/signout
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4NDI2NTY5LCJleHAiOjE3NTg0NTUzNjl9.Bqu_zqfGhrZ-th3AZVQVy3ijvZ1K0lK9j7pKBzZtLvw
 
 {
     "email": "emzzyoluwole@gmail.com"
@@ -132,12 +132,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
 
 ### SEND RESET PASSWORD CODE --> LOCAL
 PATCH http://localhost:5000/api/v1/send-forgot-password-code
-Content-Type: application/json
-client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MTgzMTkxLCJleHAiOjE3NTgyMTE5OTF9.h82lCBIOkzyV1wmwDYuPMpmLLMHOmW_YcRqKnVqOplU
+Content-Type: application/json 
 
 {
-    "email": "dynasty.dev241@gmail.com"
+    "email": "emzzyoluwole@gmail.com"
 }
 
 ### SEND RESET PASSWORD CODE --> PROD
@@ -154,14 +152,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
 
 {   "fullName": "Mojiboye Emmanuel Oluwole",
     "email": "emzzyoluwole@gmail.com",
-    "providedCode": "915052",
+    "providedCode": "167827",
     "newPassword": "Dynastyda22#"
 }
 
 ### COURSE ENDPOINTS
 GET http://localhost:5000/api/v1/course/
-client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiYjgyYmRkMmFmZTQ1MzQyYjIyNDgiLCJlbWFpbCI6ImVtenp5b2x1d29sZUBnbWFpbC5jb20iLCJ2ZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNzU4MjcwNTU3LCJleHAiOjE3NTgyOTkzNTd9.Dshu2U5JYDkkPt5uugcsauL4OsglSUm4RRgka3f1cp4
 
 ### /courses
 GET http://localhost:5000/api/v1/course/courses
