@@ -88,8 +88,8 @@ POST  https://youdemi-fullstack.onrender.com/api/v1/signin
 Content-Type: application/json
 
 {
-    "email": "dynasty.dev241@gmail.com",
-    "password": "Dynastyda2#"
+    "email": "dynastydagreat@gmail.com",
+    "password": "Dynastyda4#"
 }
 
 # {
@@ -109,7 +109,7 @@ POST http://localhost:5000/api/v1/signout
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzU4NDM0MDY3LCJleHAiOjE3NTg0NjI4Njd9.LiYwMlmRCZpoTPwEapeEaAVGYs5M6MRRrOwQMRO4yik
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTg2MjkyMzksImV4cCI6MTc1ODY1ODAzOX0.64rMzPelvbdOemcIZ7wFY0n4QFQ_q8J1emQLsQAABFI
 
 {
     "email": "dynastydagreat@gmail.com"
@@ -161,6 +161,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
     "providedCode": "167827",
     "newPassword": "Dynastyda22#"
 }
+
+### SEND RESET PASSWORD CODE --> PROD
+PATCH https://youdemi-fullstack.onrender.com/api/v1/send-forgot-password-code
+Content-Type: application/json 
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTg2MjkyMzksImV4cCI6MTc1ODY1ODAzOX0.64rMzPelvbdOemcIZ7wFY0n4QFQ_q8J1emQLsQAABFI
+
+{
+    "email": "dynastydagreat@gmail.com"
+}
+
 
 ### COURSE ENDPOINTS
 GET http://localhost:5000/api/v1/course/
