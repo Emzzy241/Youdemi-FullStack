@@ -77,7 +77,7 @@ const signIn = async (req, res) => {
             _id: existingUser._id,
             email: existingUser.email,
             name: existingUser.fullName,
-            verified: existingUser.verified 
+            verified: existingUser.verified
         }
 
         res.cookie("Authorization", "Bearer", + token, {
@@ -229,6 +229,8 @@ const verifyVerificationCode = async (req, res) => {
 //     }
 // }
 
+
+
 const sendForgotPasswordCode = async (req, res) => {
     const { email } = req.body
 
@@ -244,25 +246,90 @@ const sendForgotPasswordCode = async (req, res) => {
         const expiryTimeInMinutes = 15
         const htmlContent = getForgotPasswordEmailTemplate(userName, codeValue, expiryTimeInMinutes)
 
-        let info = await transport.sendMail({
-            from: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
-            to: existingUser.email,
-            subject: "Forgot Password - Action Required",
-            html: htmlContent
-        })
+        // 1. Send the response immediately to prevent Render timeout.
+        res.status(200).json({ success: true, message: "If a valid account exists, a password reset code has been sent to the email." });
 
-        if (info.accepted[0] === existingUser.email) {
-            const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
-            existingUser.forgotPasswordCode = hashedCodeValue
-            existingUser.forgotPasswordCodeValidation = Date.now()
-            await existingUser.save()
-            return res.status(200).json({ success: true, message: "Code to reset User's password has been sent to email" })
-        }
-        return res.status(400).json({ success: true, message: "The Reset Password Code failed to send" })
+        // 2. DETACH THE EMAIL/DB PROMISE: We call the async function but DO NOT await it.
+        // This moves the execution to a background task, allowing the main thread to continue.
+        (async () => {
+            try {
+                // The potentially slow network call
+                let info = await transport.sendMail({
+                    from: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
+                    to: existingUser.email,
+                    subject: "Forgot Password - Action Required",
+                    html: htmlContent
+                })
+
+                if (info.accepted && info.accepted[0] === existingUser.email) {
+                    // Update user only if the email was successfully accepted by the SMTP server
+                    const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
+                    existingUser.forgotPasswordCode = hashedCodeValue
+                    existingUser.forgotPasswordCodeValidation = Date.now()
+                    await existingUser.save()
+                    console.log(`Password reset code successfully saved for user: ${existingUser.email}`)
+                } else {
+                    // Log failure for server-side monitoring
+                    console.error("Email failed to be accepted by SMTP server:", info);
+                }
+            } catch (backgroundError) {
+                // Log any errors that occur during the background process
+                console.error("Background email sending or database update failed:", backgroundError.message)
+            }
+        })() // Immediately invoke the detached async function
+
+        // Note: The rest of the original code (the two 'return' statements after sendMail) 
+        // has been moved inside the background promise or removed, as the HTTP response is 
+        // already sent.
+
     } catch (error) {
-        console.log(error.message)
+        // This catch block only handles errors *before* the HTTP response is sent (e.g., DB lookup failure).
+        // If the response hasn't been sent, return an error.
+        if (!res.headersSent) {
+            return res.status(500).json({ success: false, message: "An unexpected server error occurred." })
+        }
+        console.error("Critical error before response sent:", error.message)
     }
 }
+
+
+// OLD CODE SNIPPET BEFORE FIXING RENDER TIMEOUT ISSUES
+// const sendForgotPasswordCode = async (req, res) => {
+//     const { email } = req.body
+
+//     try {
+//         const existingUser = await User.findOne({ email })
+
+//         if (!existingUser) {
+//             return res.status(404).json({ success: false, message: "User does not exist. You do not have an account on our platform" })
+//         }
+
+//         const codeValue = Math.floor(Math.random() * 1000000).toString()
+//         const userName = existingUser.fullName || existingUser.email.split('@')[0]
+//         const expiryTimeInMinutes = 15
+//         const htmlContent = getForgotPasswordEmailTemplate(userName, codeValue, expiryTimeInMinutes)
+
+//         res.status(200).json({ success: true, message: "Code sending initiated" });
+
+//         let info = await transport.sendMail({
+//             from: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
+//             to: existingUser.email,
+//             subject: "Forgot Password - Action Required",
+//             html: htmlContent
+//         })
+
+//         if (info.accepted[0] === existingUser.email) {
+//             const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
+//             existingUser.forgotPasswordCode = hashedCodeValue
+//             existingUser.forgotPasswordCodeValidation = Date.now()
+//             await existingUser.save()
+//             return res.status(200).json({ success: true, message: "Code to reset User's password has been sent to email" })
+//         }
+//         return res.status(400).json({ success: true, message: "The Reset Password Code failed to send" })
+//     } catch (error) {
+//         console.log(error.message)
+//     }
+// }
 
 const verifyForgotPasswordCode = async (req, res) => {
     const { fullName, email, providedCode, newPassword } = req.body

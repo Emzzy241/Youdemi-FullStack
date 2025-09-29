@@ -163,12 +163,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
 
 ### SEND RESET PASSWORD CODE --> PROD
 PATCH https://youdemi-fullstack.onrender.com/api/v1/send-forgot-password-code
-Content-Type: application/json 
-client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTg2MjkyMzksImV4cCI6MTc1ODY1ODAzOX0.64rMzPelvbdOemcIZ7wFY0n4QFQ_q8J1emQLsQAABFI
+Content-Type: application/json
 
 {
-    "email": "dynastydagreat@gmail.com"
+    "email": "emzzyoluwole@gmail.com"
 }
 
 
