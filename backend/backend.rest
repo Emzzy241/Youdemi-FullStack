@@ -88,8 +88,8 @@ POST  https://youdemi-fullstack.onrender.com/api/v1/signin
 Content-Type: application/json
 
 {
-    "email": "dynastydagreat@gmail.com",
-    "password": "Dynastyda4#"
+    "email": "emzzydynasty117@gmail.com",
+    "password": "Dynastyda241#"
 }
 
 # {
@@ -109,9 +109,20 @@ POST http://localhost:5000/api/v1/signout
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json 
 client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc1OTIxODQ2NSwiZXhwIjoxNzU5MjQ3MjY1fQ.vYdwkYH_u2KJmYcgWCWIFWeHcaUsOb0JyDyLKLjZPgI
 
 {
-    "email": "dynastydagreat@gmail.com"
+    "email": "emzzydynasty117@gmail.com"
+}
+
+### On PROD
+PATCH https://youdemi-fullstack.onrender.com/api/v1/send-verification-code
+Content-Type: application/json 
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc1OTIxODIwNCwiZXhwIjoxNzU5MjQ3MDA0fQ.8-Lc1sKlNkx1sKxA1POayZzg1wiLRXWlfqjKbOo5bP0
+
+{
+    "email": "emzzydynasty117@gmail.com"
 }
 
 ### VERIFY VERIFICATION CODE
@@ -162,7 +173,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
 }
 
 ### SEND RESET PASSWORD CODE --> PROD
-PATCH https://youdemi-fullstack.onrender.com/api/v1/send-forgot-password-code
+PATCH https://youdemi-fullstack.onrender.com/api/v1/send-f
+orgot-password-code
 Content-Type: application/json
 
 {
@@ -215,10 +227,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
 ### Testing Remote URL
 GET https://youdemi-fullstack.onrender.com/api/v1/course
 
+### Sign In, Quickly
 
-### GET /courses
 
-GET https://youdemi-fullstack.onrender.com/api/v1/course/courses
+POST https://youdemi-fullstack.onrender.com/api/v1/signin
+Content-Type: application/json
+
+{
+    "email": "dynastydagreat@gmail.com",
+    "password": "Dynastyda4#"
+}
+
+### GET /courses/ unique to a particular user i.e all courses a particular user has created
+
+GET https://youdemi-fullstack.onrender.com/api/v1/courses
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTkxNjIzNzgsImV4cCI6MTc1OTE5MTE3OH0._Pr59idXiJH2tOCL6JsG_bk-Ub4y86Tusf0GdqsksQM
 
 ### Creating A New Course Remotely
 POST https://youdemi-fullstack.onrender.com/api/v1/course/courses/new
