@@ -1,4 +1,4 @@
-GET http://localhost:5000/
+GET http://localhost:5000/api/v1/course
 
 # All Course Endpoints (CRUD) has been created and tested, now it is time for User Endpoints and Authentication 
 
