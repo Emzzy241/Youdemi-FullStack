@@ -8,6 +8,7 @@ console.log("Reading the publicRouter file")
 const publicRouter = express()
 
 // Public routes for  authentication
+publicRouter.get("/", authController.authGreeting)
 publicRouter.post("/signup", authController.signUp)
 publicRouter.post("/signin", authController.signIn)
 publicRouter.post("/signout", authController.signOut)
