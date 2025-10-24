@@ -6,6 +6,11 @@ import { getVerificationEmailTemplate, getForgotPasswordEmailTemplate } from "..
 import User from "../models/user.js"
 import { transport } from "./../middlewares/sendMail.js"
 
+
+const authGreeting = async (req, res) => {
+    res.send("Welcome to the root route of the Youdemi Application.")
+}
+
 const signUp = async (req, res) => {
     const { fullName, email, password } = req.body
 
@@ -345,6 +350,7 @@ const verifyForgotPasswordCode = async (req, res) => {
 }
 
 export default {
+    authGreeting,
     signUp,
     signIn,
     signOut,
