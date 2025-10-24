@@ -21,7 +21,7 @@ const createCourse = async (req, res) => {
     // console.log(userId)
 
 
-    try {
+    try { 
         const { error, value } = CreateCourseSchema.validate({
             title, description, userId
         })
