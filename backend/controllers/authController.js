@@ -195,42 +195,6 @@ const verifyVerificationCode = async (req, res) => {
     }
 }
 
-// const changePassword = async (req, res) => {
-//     const { userId, verified } = req.user
-//     const { oldPassword, newPassword } = req.body
-
-//     try {
-//         const { error, value } = changePasswordSchema.validate({ oldPassword, newPassword })
-//         if (error) {
-//             return res.status(401).json({ success: false, message: error.details[0].message })
-//         }
-//         if (!verified) {
-//             return res.status(401).json({ success: false, message: "You are not a verified User, so you are unable to change your password" })
-//         }
-
-//         const existingUser = await User.findOne({ _id: userId }).select("+password")
-
-//         if (!existingUser) {
-//             return res.status(404).json({ success: false, message: "The User does not exist, hence the User's password cannot be changed" })
-//         }
-
-//         const result = await doHashValidation(oldPassword, existingUser.password)
-//         if (!result) {
-//             return res.status(401).json({ success: false, message: "Invalid credentials" })
-//         }
-
-//         const hashedPassword = await doHash(newPassword, 12)
-//         existingUser.password = hashedPassword
-//         await existingUser.save()
-//         return res.status(201).json({ success: true, message: "User's Password has been updated successfully" })
-
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
-
-
-
 const sendForgotPasswordCode = async (req, res) => {
     const { email } = req.body
 
