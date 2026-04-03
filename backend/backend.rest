@@ -193,19 +193,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
 POST http://localhost:5000/api/v1/courses/new
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NzUxOTM2MzUsImV4cCI6MTc3NTIyMjQzNX0.On7QD6Ck_cK1JT2_wadit-ckSI-ND-3gOZHBW6CmGeI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NzUyMjAzNjgsImV4cCI6MTc3NTI0OTE2OH0.uBVi2TkcMGVwxIWnv1SGA8df2_apGmUIuF9AbKVz90U
 
 {
-    "title": "CSC 212",
-    "category": "C++",
-    "description": "Introduction to C++ Programming Language.",
-    "oldPrice": 19.99,
-    "newPrice": 10.99,
+    "title": "ACA 413: Chartered Accounting IV",
+    "category": "finance",
+    "description": "How Accounting can shape the life of Businesses from conception to maturity.",
+    "oldPrice": 450.22,
+    "newPrice": 390.32,
     "isBestSeller": true,
-    "tags": ["programming", "tech", "coding"],
-    "instructor": "Prof. A.O Bajeh",
-    "rating": 4.8,
-    "reviewsCount": 459090
+    "tags": ["business", "finance-business", "accounting"],
+    "instructor": "Dr. Philip Paul",
+    "rating": 5.0,
+    "reviewsCount": 248090
 }
 
 ### GET /courses/:id
