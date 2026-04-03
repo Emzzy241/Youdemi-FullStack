@@ -16,14 +16,12 @@ const getAllCourses = async (req, res) => {
 
 const createCourse = async (req, res) => {
     // console.log(req.body)
-    const { title, description } = req.body
+    const { title, category, description, price, instructor, rating } = req.body
     const { userId } = req.user
-    // console.log(userId)
-
 
     try { 
         const { error, value } = CreateCourseSchema.validate({
-            title, description, userId
+            title, category, description, price, instructor, rating, userId
         })
 
         if (error) {
@@ -31,7 +29,7 @@ const createCourse = async (req, res) => {
         }
 
         const newCourse = await Course.create({
-            title, description, userId
+            title, category, description, price, instructor, rating, userId
         })
         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
@@ -74,11 +72,11 @@ const updateCourse = async (req, res) => {
 
     // console.log(req.user)
     const userId = req.user.userId
-    const { title, description } = req.body
+    const { title, category, description, price, instructor, rating } = req.body
 
     try {
         const { error, value } = CreateCourseSchema.validate({
-            title, description, userId
+            title, category, description, price, instructor, rating, userId
         })
 
         if (error) {
@@ -100,8 +98,24 @@ const updateCourse = async (req, res) => {
             existingCourse.title = req.body.title
         }
 
+        if (req.body.category != null) {
+            existingCourse.category = req.body.category
+        }
+
         if (req.body.description != null) {
             existingCourse.description = req.body.description
+        }
+
+        if (req.body.price != null) {
+            existingCourse.price = req.body.price
+        }
+
+        if (req.body.instructor != null) {
+            existingCourse.instructor = req.body.instructor
+        }
+
+        if (req.body.rating != null) {
+            existingCourse.rating = req.body.rating
         }
 
         const updatedCourse = await existingCourse.save()
