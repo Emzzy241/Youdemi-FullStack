@@ -1,3 +1,4 @@
+import { required } from "joi";
 import mongoose from "mongoose";
 
 const courseSchema = mongoose.Schema({
@@ -6,9 +7,29 @@ const courseSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    category: {
+        type: String,
+        required: true,
+        trim: true
+    },
     description: {
         type: String,
         required: false,
+        trim: true
+    },
+    price: {
+        type: Decimal128,
+        required: true,
+        trim: true
+    },
+    instructor: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    rating: {
+        type: Double,
+        required: true,
         trim: true
     },
     userId: {
@@ -20,4 +41,4 @@ const courseSchema = mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-export default Course
+export default Course;
