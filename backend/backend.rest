@@ -188,17 +188,21 @@ GET http://localhost:5000/api/v1/course/
 ### /courses
 GET http://localhost:5000/api/v1/courses
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc2MTgzNzI3MCwiZXhwIjoxNzYxODY2MDcwfQ.OwvgH3b6iruTa0VlaigT0pQVD1APpM1eFYrhPTQBipA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NzUxOTM2MzUsImV4cCI6MTc3NTIyMjQzNX0.On7QD6Ck_cK1JT2_wadit-ckSI-ND-3gOZHBW6CmGeI
 
 ### /courses/new
 POST http://localhost:5000/api/v1/courses/new
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc2MTgzNzI3MCwiZXhwIjoxNzYxODY2MDcwfQ.OwvgH3b6iruTa0VlaigT0pQVD1APpM1eFYrhPTQBipA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NzUxOTM2MzUsImV4cCI6MTc3NTIyMjQzNX0.On7QD6Ck_cK1JT2_wadit-ckSI-ND-3gOZHBW6CmGeI
 
 {
     "title": "CSC 499",
-    "description": "Project, Project Supervisor - Prof. Jimoh"
+    "category": "Programming",
+    "description": "Project, Project Supervisor - Prof. R.G Jimoh",
+    "price": 19.99,
+    "instructor": "Prof. R.G Jimoh",
+    "rating": 4.8
 }
 
 ### GET /courses/:id

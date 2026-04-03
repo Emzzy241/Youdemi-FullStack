@@ -16,8 +16,8 @@ const getAllCourses = async (req, res) => {
 
 const createCourse = async (req, res) => {
     // console.log(req.body)
-    const { title, category, description, price, instructor, rating } = req.body
-    const { userId } = req.user
+    const { title, category, description, price, instructor, rating } = req.body;
+    const { userId } = req.user;
 
     try { 
         const { error, value } = CreateCourseSchema.validate({
