@@ -77,11 +77,29 @@ export const acceptForgotPasswordCodeSchema = Joi.object({
 export const CreateCourseSchema = Joi.object({
     title: Joi.string()
         .min(3)
+        .max(120)
+        .required(),
+    category: Joi.string()
+        .min(2)
         .max(60)
         .required(),
     description: Joi.string()
-        .min(6)
-        .max(60)
+        .min(20)
+        .max(2000)
+        .required(),
+    price: Joi.number()
+        .min(0)
+        .precision(2)
+        .required(),
+    instructor: Joi.string()
+        .min(3)
+        .max(120)
+        .required(),
+    rating: Joi.number()
+        .min(0)
+        .max(5)
         .required(),
     userId: Joi.string().required()
 })
+
+//   { id: 3, title: 'Starting your SaaS', category: 'startup-company', description: "Best Course in the world.",price: 59.99, instructor: 'Elon M.', rating: 4.7 },
