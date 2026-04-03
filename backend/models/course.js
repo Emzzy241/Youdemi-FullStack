@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const courseSchema = mongoose.Schema({
     title: {
@@ -17,7 +18,7 @@ const courseSchema = mongoose.Schema({
         trim: true
     },
     price: {
-        type: Decimal128,
+        type: Schema.Types.Decimal128,
         required: true,
         trim: true
     },
@@ -27,7 +28,7 @@ const courseSchema = mongoose.Schema({
         trim: true
     },
     rating: {
-        type: Double,
+        type: Schema.Types.Double,
         required: true,
         trim: true
     },
