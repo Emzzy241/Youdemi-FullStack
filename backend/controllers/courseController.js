@@ -5,6 +5,15 @@ const courseGreeting = async (req, res) => {
     res.send("Welcome to the Course Routes");
 }
 
+const getAllCatalogCourses = async (req, res) => {
+    try {
+        const result = await Course.find()
+        res.status(200).json({ success: true, message: "All Catalog Courses returned", data: result })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 const getAllCourses = async (req, res) => {
     try {
         const result = await Course.find()
@@ -150,6 +159,7 @@ const deleteCourse = async (req, res) => {
 }
 
 export default {
+    getAllCatalogCourses,
     courseGreeting,
     getAllCourses,
     createCourse,

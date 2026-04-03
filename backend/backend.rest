@@ -232,7 +232,6 @@ GET https://youdemi-fullstack.onrender.com/api/v1/course
 
 ### Sign In, Quickly
 
-
 POST https://youdemi-fullstack.onrender.com/api/v1/signin
 Content-Type: application/json
 
@@ -240,12 +239,12 @@ Content-Type: application/json
     "email": "dynastydagreat@gmail.com",
     "password": "Dynastyda4#"
 }
-y
+
 ### GET /courses/ unique to a particular user i.e all courses a particular user has created
 
 GET https://youdemi-fullstack.onrender.com/api/v1/courses
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NTkxNjIzNzgsImV4cCI6MTc1OTE5MTE3OH0._Pr59idXiJH2tOCL6JsG_bk-Ub4y86Tusf0GdqsksQM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NzUxOTg5NzYsImV4cCI6MTc3NTIyNzc3Nn0.Ryhv0SsI4X0qeELCXoonKfLg_-CdV52K7JZiJ3Fr0XI
 
 ### Creating A New Course Remotely
 POST https://youdemi-fullstack.onrender.com/api/v1/course/courses/new
