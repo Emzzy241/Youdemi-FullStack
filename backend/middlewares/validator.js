@@ -60,7 +60,7 @@ export const acceptCodeSchema = Joi.object({
 
 export const acceptForgotPasswordCodeSchema = Joi.object({
     fullName: Joi.string()
-            .required(),
+        .required(),
     email: Joi.string()
         .min(6)
         .max(60)
@@ -97,6 +97,12 @@ export const CreateCourseSchema = Joi.object({
         .precision(2)
         .strict()
         .required(),
+    isBestSeller: Joi.boolean()
+        .optional(),
+    tags: Joi.array()
+        .min(1)
+        .max(200)
+        .optional(),
     instructor: Joi.string()
         .min(3)
         .max(120)
@@ -104,6 +110,10 @@ export const CreateCourseSchema = Joi.object({
     rating: Joi.number()
         .min(0)
         .max(5)
+        .required(),
+    reviewsCount: Joi.number()
+        .min(0)
+        .max(2000000000)
         .required(),
     userId: Joi.string().required()
 })

@@ -25,12 +25,12 @@ const getAllCourses = async (req, res) => {
 
 const createCourse = async (req, res) => {
     // console.log(req.body)
-    const { title, category, description, oldPrice, newPrice, instructor, rating } = req.body;
+    const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount } = req.body;
     const { userId } = req.user;
 
     try { 
         const { error, value } = CreateCourseSchema.validate({
-            title, category, description, oldPrice, newPrice, instructor, rating, userId
+            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId
         })
 
         if (error) {
@@ -38,7 +38,7 @@ const createCourse = async (req, res) => {
         }
 
         const newCourse = await Course.create({
-            title, category, description, oldPrice, newPrice, instructor, rating, userId
+            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId
         })
         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
@@ -81,11 +81,11 @@ const updateCourse = async (req, res) => {
 
     // console.log(req.user)
     const userId = req.user.userId
-    const { title, category, description, oldPrice, newPrice, instructor, rating } = req.body
+    const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount } = req.body
 
     try {
         const { error, value } = CreateCourseSchema.validate({
-            title, category, description, oldPrice, newPrice, instructor, rating, userId
+            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId
         })
 
         if (error) {
@@ -104,31 +104,43 @@ const updateCourse = async (req, res) => {
         }
 
         if (req.body.title != null) {
-            existingCourse.title = req.body.title
+            existingCourse.title = req.body.title;
         }
 
         if (req.body.category != null) {
-            existingCourse.category = req.body.category
+            existingCourse.category = req.body.category;
         }
 
         if (req.body.description != null) {
-            existingCourse.description = req.body.description
+            existingCourse.description = req.body.description;
         }
 
         if (req.body.oldPrice != null) {
-            existingCourse.oldPrice = req.body.oldPrice
+            existingCourse.oldPrice = req.body.oldPrice;
         }
-        
+
         if (req.body.newPrice != null) {
-            existingCourse.newPrice = req.body.newPrice
+            existingCourse.newPrice = req.body.newPrice;
+        }
+
+        if (req.body.isBestSeller != null) {
+            existingCourse.isBestSeller = req.body.isBestSeller;
+        }
+       
+        if (req.body.tags != null) {
+            existingCourse.tags = req.body.tags;
         }
 
         if (req.body.instructor != null) {
-            existingCourse.instructor = req.body.instructor
+            existingCourse.instructor = req.body.instructor;
         }
 
         if (req.body.rating != null) {
-            existingCourse.rating = req.body.rating
+            existingCourse.rating = req.body.rating;
+        }
+
+        if (req.body.reviewsCount != null) {
+            existingCourse.reviewsCount = req.body.reviewsCount;
         }
 
         const updatedCourse = await existingCourse.save()

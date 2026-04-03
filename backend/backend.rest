@@ -201,8 +201,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
     "description": "Introduction to C++ Programming Language.",
     "oldPrice": 19.99,
     "newPrice": 10.99,
+    "isBestSeller": true,
+    "tags": ["programming", "tech", "coding"],
     "instructor": "Prof. A.O Bajeh",
-    "rating": 4.8
+    "rating": 4.8,
+    "reviewsCount": 459090
 }
 
 ### GET /courses/:id

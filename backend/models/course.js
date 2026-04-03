@@ -19,12 +19,21 @@ const courseSchema = mongoose.Schema({
     },
     oldPrice: {
         type: Schema.Types.Decimal128,
-        required: true,
         trim: true
     },
     newPrice: {
         type: Schema.Types.Decimal128,
         required: true,
+        trim: true
+    },
+    isBestSeller: {
+        type: Boolean,
+        required: false,
+        trim: true
+    },
+    tags: {
+        type: Array,
+        required: false,
         trim: true
     },
     instructor: {
@@ -35,6 +44,11 @@ const courseSchema = mongoose.Schema({
     rating: {
         type: Schema.Types.Double,
         required: true,
+        trim: true
+    },
+    reviewsCount: {
+        type: Schema.Types.Int32,
+        required: false,
         trim: true
     },
     userId: {
