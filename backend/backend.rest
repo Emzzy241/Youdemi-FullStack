@@ -198,7 +198,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiO
 
 {
     "title": "CSC 499",
-    "description": "Quantum Computing"
+    "description": "Project, Project Supervisor - Prof. Jimoh"
 }
 
 ### GET /courses/:id
@@ -237,7 +237,7 @@ Content-Type: application/json
     "email": "dynastydagreat@gmail.com",
     "password": "Dynastyda4#"
 }
-
+y
 ### GET /courses/ unique to a particular user i.e all courses a particular user has created
 
 GET https://youdemi-fullstack.onrender.com/api/v1/courses
