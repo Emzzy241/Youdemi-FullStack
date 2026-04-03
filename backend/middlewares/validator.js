@@ -90,6 +90,7 @@ export const CreateCourseSchema = Joi.object({
     price: Joi.number()
         .min(0)
         .precision(2)
+        .strict()
         .required(),
     instructor: Joi.string()
         .min(3)

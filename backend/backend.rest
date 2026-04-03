@@ -181,7 +181,6 @@ Content-Type: application/json
     "email": "emzzyoluwole@gmail.com"
 }
 
-
 ### COURSE ENDPOINTS
 GET http://localhost:5000/api/v1/course/
 
@@ -200,7 +199,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
     "title": "CSC 499",
     "category": "Programming",
     "description": "Project, Project Supervisor - Prof. R.G Jimoh",
-    "price": 19.99,
+    "price": 19.9944,
     "instructor": "Prof. R.G Jimoh",
     "rating": 4.8
 }
