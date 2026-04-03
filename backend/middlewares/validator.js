@@ -101,5 +101,3 @@ export const CreateCourseSchema = Joi.object({
         .required(),
     userId: Joi.string().required()
 })
-
-//   { id: 3, title: 'Starting your SaaS', category: 'startup-company', description: "Best Course in the world.",price: 59.99, instructor: 'Elon M.', rating: 4.7 },
