@@ -9,7 +9,7 @@ const publicRouter = express()
 
 // Public routes for  authentication
 publicRouter.get("/", authController.authGreeting)
-publicRouter.get("/course/catalog", courseController.getAllCatalogCourses)
+publicRouter.get("/courses/catalog", courseController.getAllCatalogCourses)
 publicRouter.post("/signup", authController.signUp)
 publicRouter.post("/signin", authController.signIn)
 publicRouter.post("/signout", authController.signOut)
