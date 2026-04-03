@@ -17,7 +17,12 @@ const courseSchema = mongoose.Schema({
         required: false,
         trim: true
     },
-    price: {
+    oldPrice: {
+        type: Schema.Types.Decimal128,
+        required: true,
+        trim: true
+    },
+    newPrice: {
         type: Schema.Types.Decimal128,
         required: true,
         trim: true

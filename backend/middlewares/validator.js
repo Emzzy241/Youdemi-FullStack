@@ -87,7 +87,12 @@ export const CreateCourseSchema = Joi.object({
         .min(20)
         .max(2000)
         .required(),
-    price: Joi.number()
+    oldPrice: Joi.number()
+        .min(0)
+        .precision(2)
+        .strict()
+        .optional(),
+    newPrice: Joi.number()
         .min(0)
         .precision(2)
         .strict()

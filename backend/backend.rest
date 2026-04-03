@@ -196,11 +196,12 @@ client: not-browser
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NzUxOTM2MzUsImV4cCI6MTc3NTIyMjQzNX0.On7QD6Ck_cK1JT2_wadit-ckSI-ND-3gOZHBW6CmGeI
 
 {
-    "title": "CSC 499",
-    "category": "Programming",
-    "description": "Project, Project Supervisor - Prof. R.G Jimoh",
-    "price": 19.9944,
-    "instructor": "Prof. R.G Jimoh",
+    "title": "CSC 212",
+    "category": "C++",
+    "description": "Introduction to C++ Programming Language.",
+    "oldPrice": 19.99,
+    "newPrice": 10.99,
+    "instructor": "Prof. A.O Bajeh",
     "rating": 4.8
 }
 
