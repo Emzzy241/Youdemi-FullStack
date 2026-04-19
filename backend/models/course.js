@@ -61,3 +61,5 @@ const courseSchema = mongoose.Schema({
 const Course = mongoose.model('Course', courseSchema);
 
 export default Course;
+
+// Staring to upload images and use cloudinary for storign media (image, and video)
