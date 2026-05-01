@@ -195,7 +195,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
 POST http://localhost:5000/api/v1/courses/new
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3NzUyMjAzNjgsImV4cCI6MTc3NTI0OTE2OH0.uBVi2TkcMGVwxIWnv1SGA8df2_apGmUIuF9AbKVz90U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NDkxNTYsImV4cCI6MTc3NzY3Nzk1Nn0.bYEaVAu3rujqZGZUr0uI1UfvDebHucgthKEHYeg_BAc
 
 {
     "title": "ACA 413: Chartered Accounting IV",
@@ -207,7 +207,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
     "tags": ["business", "finance-business", "accounting"],
     "instructor": "Dr. Philip Paul",
     "rating": 5.0,
-    "reviewsCount": 248090
+    "reviewsCount": 248090,
+    "imageUrl": "",
+    "publicId": ""
 }
 
 ### GET /courses/:id

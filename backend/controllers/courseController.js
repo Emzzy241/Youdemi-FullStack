@@ -31,14 +31,14 @@ const createCourse = async (req, res) => {
     const { userId } = req.user;
 
     try {
-        if (!req.file) return res.status(400).json({ message: "Image is required" });
+        // if (!req.file) return res.status(400).json({ message: "Image is required" });
 
-        const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
-            folder: "courses", // Optional: organizes images in Cloudinary folders
-        });
+        // const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
+        //     folder: "courses", // Optional: organizes images in Cloudinary folders
+        // });
 
         const { error, value } = CreateCourseSchema.validate({
-            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId
+            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId, userId
         })
 
         if (error) {
@@ -46,9 +46,7 @@ const createCourse = async (req, res) => {
         }
 
         const newCourse = await Course.create({
-            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId,
-            imageUrl: cloudinaryResult.secure_url,
-            publicId: result.publicId
+            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId, imageUrl, publicId
         })
         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
