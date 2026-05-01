@@ -27,7 +27,7 @@ const getAllCourses = async (req, res) => {
 
 const createCourse = async (req, res) => {
     // console.log(req.body)
-    const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount } = req.body;
+    const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId } = req.body;
     const { userId } = req.user;
 
     try {

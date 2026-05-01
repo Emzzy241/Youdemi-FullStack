@@ -123,3 +123,52 @@ export const CreateCourseSchema = Joi.object({
         .required(),
     userId: Joi.string().required()
 })
+
+export const CreateCatalogSchema = Joi.object({
+    title: Joi.string()
+        .min(3)
+        .max(120)
+        .required(),
+    category: Joi.string()
+        .min(2)
+        .max(60)
+        .required(),
+    description: Joi.string()
+        .min(20)
+        .max(2000)
+        .required(),
+    oldPrice: Joi.number()
+        .min(0)
+        .precision(2)
+        .strict()
+        .optional(),
+    newPrice: Joi.number()
+        .min(0)
+        .precision(2)
+        .strict()
+        .required(),
+    isBestSeller: Joi.boolean()
+        .optional(),
+    tags: Joi.array()
+        .min(1)
+        .max(200)
+        .optional(),
+    instructor: Joi.string()
+        .min(3)
+        .max(120)
+        .required(),
+    rating: Joi.number()
+        .min(0)
+        .max(5)
+        .required(),
+    reviewsCount: Joi.number()
+        .min(0)
+        .max(2000000000)
+        .required(),
+    imageUrl: Joi.string()
+        .min(5)
+        .required(),
+    publicId: Joi.string()
+        .min(2)
+        .required()
+})
