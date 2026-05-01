@@ -280,3 +280,49 @@ Content-Type: application/json
 
 DELETE https://youdemi-fullstack.onrender.com/api/v1/course/courses/688e2f29d59f2c245339c9ae
 
+
+
+### TESTING GET: /catalog
+
+GET http://localhost:5000/api/v1/courses/catalog 
+
+### POST: /courses/catalog
+
+POST http://localhost:5000/api/v1/courses/catalog/new 
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer 
+
+{
+    "title": "ACA 413: Chartered Accounting IV",
+    "category": "finance",
+    "description": "How Accounting can shape the life of Businesses from conception to maturity.",
+    "oldPrice": 450.22,
+    "newPrice": 390.32,
+    "isBestSeller": true,
+    "tags": ["business", "finance-business", "accounting"],
+    "instructor": "Dr. Philip Paul",
+    "rating": 5.0,
+    "reviewsCount": 248090,
+    "imageUrl": "https://res.cloudinary.com/dynastycloudinary/image/upload/v1777647588/student-virtual-learn_rivhlq.jpg",
+    "publicId": "v1777647588"
+}
+
+### PATCH: /courses/catalog/:id
+
+PATCH  http://localhost:5000/api/v1/courses/catalog
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc2MTgzNzI3MCwiZXhwIjoxNzYxODY2MDcwfQ.OwvgH3b6iruTa0VlaigT0pQVD1APpM1eFYrhPTQBipA
+
+{
+    "title": "CSC 500",
+    "description": "Artificial Intelligence x250"
+}
+
+### DELETE: /courses/catalog/:id
+
+DELETE  http://localhost:5000/api/v1/courses/68ac9c601add052956b07e82
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc2MTgzNzI3MCwiZXhwIjoxNzYxODY2MDcwfQ.OwvgH3b6iruTa0VlaigT0pQVD1APpM1eFYrhPTQBipA
