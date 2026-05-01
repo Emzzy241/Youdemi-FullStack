@@ -32,8 +32,9 @@ const courseSchema = mongoose.Schema({
         trim: true
     },
     tags: {
-        type: Array,
+        type: [String],
         required: false,
+        default: [],
         trim: true
     },
     instructor: {

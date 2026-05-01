@@ -18,12 +18,7 @@ const app = express()
 const PORT = process.env.PORT
 
 
-cloudinary.config({
-    cloud_name: '<your_cloud_name>',
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-    secure: true,
-});
+
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)

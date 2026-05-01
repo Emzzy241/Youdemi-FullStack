@@ -1,3 +1,4 @@
+import cloudinary from "../utils/cloudinaryConfig.js";
 import { CreateCourseSchema } from "../middlewares/validator.js"
 import Course from "../models/course.js"
 
@@ -28,7 +29,13 @@ const createCourse = async (req, res) => {
     const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount } = req.body;
     const { userId } = req.user;
 
-    try { 
+    try {
+        if (!req.file) return res.status(400).json({ message: "Image is required" });
+
+        const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
+            folder: "courses", // Optional: organizes images in Cloudinary folders
+        });
+
         const { error, value } = CreateCourseSchema.validate({
             title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId
         })
@@ -38,7 +45,9 @@ const createCourse = async (req, res) => {
         }
 
         const newCourse = await Course.create({
-            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId
+            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId,
+            imageUrl: cloudinaryResult.secure_url,
+            publicId: result.publicId
         })
         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
     } catch (error) {
@@ -100,7 +109,7 @@ const updateCourse = async (req, res) => {
         }
 
         if (existingCourse.userId.toString() !== userId) {
-            return res.status(401).json({ status: false, message: "User is UnAuthorized to update this course"})
+            return res.status(401).json({ status: false, message: "User is UnAuthorized to update this course" })
         }
 
         if (req.body.title != null) {
@@ -126,7 +135,7 @@ const updateCourse = async (req, res) => {
         if (req.body.isBestSeller != null) {
             existingCourse.isBestSeller = req.body.isBestSeller;
         }
-       
+
         if (req.body.tags != null) {
             existingCourse.tags = req.body.tags;
         }
@@ -164,8 +173,11 @@ const deleteCourse = async (req, res) => {
         }
 
         if (existingCourse.userId.toString() !== userId) {
-            return res.status(401).json({ status: false, message: "User is UnAuthorized to delete this course"})
+            return res.status(401).json({ status: false, message: "User is UnAuthorized to delete this course" })
         }
+
+        // Delete from Cloudinary first
+        await cloudinary.uploader.destroy(course.publicId);
 
         await existingCourse.deleteOne({ courseId })
         return res.status(201).json({ status: false, message: "Course has been deleted successfully" })
