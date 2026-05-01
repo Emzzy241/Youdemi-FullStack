@@ -284,11 +284,14 @@ DELETE https://youdemi-fullstack.onrender.com/api/v1/course/courses/688e2f29d59f
 
 ### TESTING GET: /catalog
 
-GET http://localhost:5000/api/v1/courses/catalog 
+GET http://localhost:5000/api/v1/catalog
 
-### POST: /courses/catalog
+### GET: /catalog
+GET http://localhost:5000/api/v1/catalog/greeting
 
-POST http://localhost:5000/api/v1/courses/catalog/new 
+### POST: /catalog
+
+POST http://localhost:5000/api/v1/catalog/new 
 Content-Type: application/json
 client: not-browser
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
@@ -308,9 +311,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
     "publicId": "v1777647588"
 }
 
-### PATCH: /courses/catalog/:id
+### PATCH: /catalog/:id
 
-PATCH  http://localhost:5000/api/v1/courses/catalog
+PATCH  http://localhost:5000/api/v1/catalog
 Content-Type: application/json
 client: not-browser
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
@@ -320,9 +323,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
     "description": "Artificial Intelligence x250"
 }
 
-### DELETE: /courses/catalog/:id
+### DELETE: /catalog/:id
 
-DELETE  http://localhost:5000/api/v1/courses/68ac9c601add052956b07e82
+DELETE  http://localhost:5000/api/v1/68ac9c601add052956b07e82
 Content-Type: application/json
 client: not-browser
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc

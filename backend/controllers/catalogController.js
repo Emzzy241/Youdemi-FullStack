@@ -45,7 +45,7 @@ const createCatalog = async (req, res) => {
         }
 
         const newCatalog = await Catalog.create({
-            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId, imageUrl, publicId
+            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId
         })
         res.status(201).json({ success: true, message: "Catalog Created", data: newCatalog })
     } catch (error) {
@@ -86,11 +86,11 @@ const getCatalog = async (req, res) => {
 const updateCatalog = async (req, res) => {
     const catalogId = req.params.id
 
-    const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount } = req.body
+    const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId } = req.body
 
     try {
         const { error, value } = CreateCatalogSchema.validate({
-            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId
+            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId
         })
 
         if (error) {
