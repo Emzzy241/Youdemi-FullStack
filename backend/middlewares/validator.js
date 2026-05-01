@@ -115,5 +115,11 @@ export const CreateCourseSchema = Joi.object({
         .min(0)
         .max(2000000000)
         .required(),
+    imageUrl: Joi.string()
+        .min(5)
+        .required(),
+    publicId: Joi.string()
+        .min(2)
+        .required(),
     userId: Joi.string().required()
 })

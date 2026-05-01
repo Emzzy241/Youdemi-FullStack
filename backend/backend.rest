@@ -173,8 +173,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNiY
 }
 
 ### SEND RESET PASSWORD CODE --> PROD
-PATCH https://youdemi-fullstack.onrender.com/api/v1/send-f
-orgot-password-code
+PATCH https://youdemi-fullstack.onrender.com/api/v1/send-forgot-password-code
 Content-Type: application/json
 
 {
