@@ -280,7 +280,7 @@ Content-Type: application/json
 
 DELETE https://youdemi-fullstack.onrender.com/api/v1/course/courses/688e2f29d59f2c245339c9ae
 
-
+# Testing /courses/cata
 
 ### TESTING GET: /catalog
 
