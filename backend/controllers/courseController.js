@@ -8,7 +8,8 @@ const courseGreeting = async (req, res) => {
 
 const getAllCatalogCourses = async (req, res) => {
     try {
-        const result = await Course.find()
+        const result = await Course.find();
+        console.log(result);
         res.status(200).json({ success: true, message: "All Catalog Courses returned", data: result })
     } catch (error) {
         console.log(error.message);

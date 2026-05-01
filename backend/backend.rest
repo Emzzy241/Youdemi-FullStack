@@ -184,6 +184,9 @@ Content-Type: application/json
 ### COURSE ENDPOINTS
 GET http://localhost:5000/api/v1/course/
 
+### GET /course/catalog
+GET http://localhost:5000/api/v1/courses/catalog
+
 ### /courses
 GET http://localhost:5000/api/v1/courses
 client: not-browser
