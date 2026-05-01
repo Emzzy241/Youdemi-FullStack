@@ -291,7 +291,7 @@ GET http://localhost:5000/api/v1/courses/catalog
 POST http://localhost:5000/api/v1/courses/catalog/new 
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
 
 {
     "title": "ACA 413: Chartered Accounting IV",
@@ -313,7 +313,7 @@ Authorization: Bearer
 PATCH  http://localhost:5000/api/v1/courses/catalog
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc2MTgzNzI3MCwiZXhwIjoxNzYxODY2MDcwfQ.OwvgH3b6iruTa0VlaigT0pQVD1APpM1eFYrhPTQBipA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
 
 {
     "title": "CSC 500",
@@ -325,4 +325,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiO
 DELETE  http://localhost:5000/api/v1/courses/68ac9c601add052956b07e82
 Content-Type: application/json
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc2MTgzNzI3MCwiZXhwIjoxNzYxODY2MDcwfQ.OwvgH3b6iruTa0VlaigT0pQVD1APpM1eFYrhPTQBipA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
