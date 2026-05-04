@@ -280,43 +280,41 @@ Content-Type: application/json
 
 DELETE https://youdemi-fullstack.onrender.com/api/v1/course/courses/688e2f29d59f2c245339c9ae
 
-# Testing /courses/cata
+# Testing /catalog
 
 ### TESTING GET: /catalog
 
 GET http://localhost:5000/api/v1/catalog
 
-### GET: /catalog
+### GET: /catalog/greeting
 GET http://localhost:5000/api/v1/catalog/greeting
 
 ### POST: /catalog
 
 POST http://localhost:5000/api/v1/catalog/new 
 Content-Type: application/json
-client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
 
 {
-    "title": "ACA 413: Chartered Accounting IV",
-    "category": "finance",
-    "description": "How Accounting can shape the life of Businesses from conception to maturity.",
-    "oldPrice": 450.22,
-    "newPrice": 390.32,
+    "title": "CSC 454: Compiler Construction",
+    "category": "programming-tech",
+    "description": "How to construct compilers with Automata Theory.",
+    "oldPrice": 220.99,
+    "newPrice": 158.99,
     "isBestSeller": true,
-    "tags": ["business", "finance-business", "accounting"],
-    "instructor": "Dr. Philip Paul",
-    "rating": 5.0,
-    "reviewsCount": 248090,
-    "imageUrl": "https://res.cloudinary.com/dynastycloudinary/image/upload/v1777647588/student-virtual-learn_rivhlq.jpg",
-    "publicId": "v1777647588"
+    "tags": ["technology", "programming-tech", "programming"],
+    "instructor": "Mrs. Taiwat Adebakin",
+    "rating": 4.7,
+    "reviewsCount": 49032,
+    "imageUrl": "https://res.cloudinary.com/dynastycloudinary/image/upload/v1777647585/react-tailwind-course_ruagoa.png",
+    "publicId": "v1777647585"
 }
 
 ### PATCH: /catalog/:id
 
 PATCH  http://localhost:5000/api/v1/catalog
 Content-Type: application/json
-client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
+# client: not-browser
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
 
 {
     "title": "CSC 500",
@@ -327,5 +325,3 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
 
 DELETE  http://localhost:5000/api/v1/68ac9c601add052956b07e82
 Content-Type: application/json
-client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzc2NTM1NzAsImV4cCI6MTc3NzY4MjM3MH0.lh_tTonU29ATnI_bzHuWSYw8mVKdmLfaja04c6fPbIc
