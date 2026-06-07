@@ -17,39 +17,24 @@ const courseSchema = mongoose.Schema({
         required: false,
         trim: true
     },
+    status: {
+        type: String,
+        enum: ["draft", "pending", "approved", "rejected"],
+        default: "draft"
+    },
     oldPrice: {
         type: Schema.Types.Decimal128,
         trim: true
     },
-    newPrice: {
+    price: {
         type: Schema.Types.Decimal128,
         required: true,
-        trim: true
-    },
-    isBestSeller: {
-        type: Boolean,
-        required: false,
         trim: true
     },
     tags: {
         type: [String],
         required: false,
         default: [],
-        trim: true
-    },
-    instructor: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    rating: {
-        type: Schema.Types.Double,
-        required: true,
-        trim: true
-    },
-    reviewsCount: {
-        type: Schema.Types.Int32,
-        required: false,
         trim: true
     },
     imageUrl: {
@@ -62,7 +47,7 @@ const courseSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    userId: {
+    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
