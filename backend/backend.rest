@@ -16,9 +16,10 @@ POST http://localhost:5000/api/v1/signup
 Content-Type: application/json
 
 {
-    "fullName": "Dynasty",
+    "fullName": "Dynasty Dagreat",
     "email": "dynastydagreat@gmail.com",
-    "password": "Dynastyda4#"
+    "password": "Dynastyda4#",
+    "confirmPassword": "Dynastyda4#"
 }
 
 
@@ -104,6 +105,11 @@ Content-Type: application/json
 
 ### Sign Out
 POST http://localhost:5000/api/v1/signout
+
+### Endpoint to get user's profile
+GET http://localhost:5000/api/v1/profile
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmOTA0ODIyMWUwY2U4NzdiNWU2ZDYiLCJlbWFpbCI6ImR5bmFzdHlkYWdyZWF0QGdtYWlsLmNvbSIsInZlcmlmaWVkIjp0cnVlLCJpYXQiOjE3Nzg2ODU1MDAsImV4cCI6MTc3ODcxNDMwMH0.yJrgr2vihUV4IX9gBWL1irvATjTG1yZNN1mG5awZEi8
 
 ### SEND VERIFICATION CODE TO EMAIL
 PATCH http://localhost:5000/api/v1/send-verification-code
@@ -301,7 +307,7 @@ Content-Type: application/json
     "oldPrice": 220.99,
     "newPrice": 158.99,
     "isBestSeller": true,
-    "tags": ["technology", "programming-tech", "programming"],
+    "tags": ["technology", "programming-tech", "tech", "programming"],
     "instructor": "Mrs. Taiwat Adebakin",
     "rating": 4.7,
     "reviewsCount": 49032,
@@ -325,3 +331,37 @@ Content-Type: application/json
 
 DELETE  http://localhost:5000/api/v1/68ac9c601add052956b07e82
 Content-Type: application/json
+
+# Up Next would be a test on uploading an Image o cloudinary whilst a User creates a course, i.e an Image of the course would be required
+# Anytime any user wants to create a course and then they upload this image which gets sent to cloudinary and a url is gotten and then that course image URL is stored in the database instead of the image itself, since it is a terrible idea to store an image in a database.
+# So now, one needs an upload feature to be built into this course platform, also for an easy identification, th eImage's publicId would also be stored.
+# Again, Instructor uploads course image and then the image gets sent to cloudinary only to get the imageUrl and the publicId from it which will be stored inside the database.
+# But before then, I think I need to define roles because basically the backend for any course and it already expects these fields (imageUrl and publicId).
+ 
+# Writing the Test for that
+
+### POST : /course -- Saving an Image's cloudinary URL instead of the image itself.
+POST http://localhost:5000/api/v1/courses/new
+Content-Type: application/json
+client: not-browser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc4MDc1MTQ3NSwiZXhwIjoxNzgwNzgwMjc1fQ.E1gBnyiRe9JwBb3bX-EYuQDdy-u16jR75KJtjughPR4
+
+{
+    "title": "ACA 413: Chartered Accounting IV",
+    "category": "finance",
+    "description": "How Accounting can shape the life of Businesses from conception to maturity.",
+    "oldPrice": 450.22,
+    "newPrice": 390.32,
+    "isBestSeller": true,
+    "tags": ["computer", "software", "tech"],
+    "instructor": "Dr. Philip Paul",
+    "rating": 5.0,
+    "reviewsCount": 248090,
+    "imageUrl": "https://res.cloudinary.com/dynastycloudinary/image/upload/v1777647588/student-virtual-learn_rivhlq.jpg",
+    "publicId": "v1777647588"
+}
+
+# POST http://localhost
+
+# How would Admin Sign In?
+# How would a normal/regular User actually Sign In self?
