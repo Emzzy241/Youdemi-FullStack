@@ -12,18 +12,30 @@ const authGreeting = async (req, res) => {
 }
 
 const signUp = async (req, res) => {
-    const { fullName, email, password } = req.body
+    // const { fullName, email, password } = req.body
+
+    let { fullName, email, password, confirmPassword } = req.body;
+
+    email = email.toLowerCase().trim();
+
+    if (password !== confirmPassword) {
+        return res.status(400).json({
+            success: false,
+            message: "Passwords do not match"
+        });
+    } // Recently just added the confirmPassword feature.
+
 
     try {
         const { error, value } = signUpSchema.validate({ email, password })
         if (error) {
-            return res.status(401).json({ success: false, message: error.details[0].message })
+            return res.status(400).json({ success: false, message: error.details[0].message })
         }
 
         const existingUser = await User.findOne({ email })
 
         if (existingUser) {
-            res.status(401).json({ success: false, message: "User already exists, sign in instead" })
+            return res.status(401).json({ success: false, message: "User already exists, sign in instead" })
         }
 
         const hashedPassword = await doHash(password, 12)
@@ -31,6 +43,7 @@ const signUp = async (req, res) => {
             fullName,
             email,
             password: hashedPassword,
+            roles: ["user"]
         })
         const result = await newUser.save();
         result.password = undefined;
@@ -41,23 +54,30 @@ const signUp = async (req, res) => {
         })
 
     } catch (error) {
-        res.send(error.message)
-        console.log(error.message)
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
     }
 }
 
 const signIn = async (req, res) => {
-    const { email, password } = req.body
+    let { email, password } = req.body
+
+    email = email.toLowerCase().trim();
+
     try {
         const { error, value } = signInSchema.validate({ email, password })
         if (error) {
-            return res.status(401).json({ success: false, message: error.details[0].message })
+            return res.status(400).json({ success: false, message: error.details[0].message })
         }
 
         const existingUser = await User.findOne({ email }).select("+password")
 
         if (!existingUser) {
-            return res.status(401).json({ success: false, message: "User does not exist, sign up for an account today" })
+            return res.status(401).json({ success: false, message: "Invalid credentials, sign up for an account today if you don't have an account yet." })
         }
 
         const result = await doHashValidation(password, existingUser.password)
@@ -68,6 +88,7 @@ const signIn = async (req, res) => {
 
         const token = jwt.sign({
             userId: existingUser._id,
+            roles: existingUser.roles,
             email: existingUser.email,
             verified: existingUser.verified
         },
@@ -77,22 +98,25 @@ const signIn = async (req, res) => {
             }
         );
 
-        // A Data Transfer Object for exposing only what is needed at the frontend
+        // A Data Transfer Object for exposing only what is needed at the frontend, it won't ever expose User's password and other details.
         const userSafeData = {
             _id: existingUser._id,
             email: existingUser.email,
-            name: existingUser.fullName,
+            fullName: existingUser.fullName,
             verified: existingUser.verified
         }
 
-        res.cookie("Authorization", "Bearer", + token, {
+        res.cookie("Authorization", `Bearer ${token}`, {
             expires: new Date(Date.now() + 8
-                * 3600000), httpOnly: process.env.NODE_ENV === 'production', secure: process.env.NODE_ENV
+                * 3600000),
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict"
         }).json({
             success: true,
             token,
             user: userSafeData,
-            message: "logged in successfully"
+            message: "Logged in successfully"
         });
 
     } catch (error) {
@@ -104,6 +128,18 @@ const signOut = async (req, res) => {
     res.clearCookie("Authorization").status(200).json({
         success: true,
         message: "Logged out successful"
+    })
+}
+
+const getProfile = async (req, res) => {
+    // jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+    //     if (err && err.name === "TokenExpiredError") {
+    //         return res.status(401).json({ success: false, message: "Token has expired" });
+    //     }
+    // })
+
+    res.json({
+        user: req.user
     })
 }
 
@@ -146,6 +182,7 @@ const sendVerificationCode = async (req, res) => {
         console.log(error)
     }
 }
+
 
 const verifyVerificationCode = async (req, res) => {
     const { email, providedCode } = req.body
@@ -261,45 +298,6 @@ const sendForgotPasswordCode = async (req, res) => {
     }
 }
 
-
-// OLD CODE SNIPPET BEFORE FIXING RENDER TIMEOUT ISSUES
-// const sendForgotPasswordCode = async (req, res) => {
-//     const { email } = req.body
-
-//     try {
-//         const existingUser = await User.findOne({ email })
-
-//         if (!existingUser) {
-//             return res.status(404).json({ success: false, message: "User does not exist. You do not have an account on our platform" })
-//         }
-
-//         const codeValue = Math.floor(Math.random() * 1000000).toString()
-//         const userName = existingUser.fullName || existingUser.email.split('@')[0]
-//         const expiryTimeInMinutes = 15
-//         const htmlContent = getForgotPasswordEmailTemplate(userName, codeValue, expiryTimeInMinutes)
-
-//         res.status(200).json({ success: true, message: "Code sending initiated" });
-
-//         let info = await transport.sendMail({
-//             from: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
-//             to: existingUser.email,
-//             subject: "Forgot Password - Action Required",
-//             html: htmlContent
-//         })
-
-//         if (info.accepted[0] === existingUser.email) {
-//             const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
-//             existingUser.forgotPasswordCode = hashedCodeValue
-//             existingUser.forgotPasswordCodeValidation = Date.now()
-//             await existingUser.save()
-//             return res.status(200).json({ success: true, message: "Code to reset User's password has been sent to email" })
-//         }
-//         return res.status(400).json({ success: true, message: "The Reset Password Code failed to send" })
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// }
-
 const verifyForgotPasswordCode = async (req, res) => {
     const { fullName, email, providedCode, newPassword } = req.body
 
@@ -354,6 +352,7 @@ export default {
     signUp,
     signIn,
     signOut,
+    getProfile,
     sendVerificationCode,
     verifyVerificationCode,
     sendForgotPasswordCode,
