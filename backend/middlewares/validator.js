@@ -10,7 +10,10 @@ export const signUpSchema = Joi.object({
         }),
     password: Joi.string()
         .required()
-        .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*d).{8,}$'))
+        .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/) 
+        .messages({
+            'string.pattern.base': 'Password must contain at least one uppercase letter, one lowercase letter, and one number.'
+        })
 })
 
 export const signInSchema = Joi.object({
@@ -75,7 +78,7 @@ export const acceptForgotPasswordCodeSchema = Joi.object({
 })
 
 export const CreateCourseSchema = Joi.object({
-    title: Joi.string()
+     title: Joi.string()
         .min(3)
         .max(120)
         .required(),
@@ -92,36 +95,21 @@ export const CreateCourseSchema = Joi.object({
         .precision(2)
         .strict()
         .optional(),
-    newPrice: Joi.number()
+    price: Joi.number()
         .min(0)
         .precision(2)
         .strict()
         .required(),
-    isBestSeller: Joi.boolean()
-        .optional(),
     tags: Joi.array()
         .min(1)
         .max(200)
         .optional(),
-    instructor: Joi.string()
-        .min(3)
-        .max(120)
-        .required(),
-    rating: Joi.number()
-        .min(0)
-        .max(5)
-        .required(),
-    reviewsCount: Joi.number()
-        .min(0)
-        .max(2000000000)
-        .required(),
     imageUrl: Joi.string()
         .min(5)
         .required(),
     publicId: Joi.string()
         .min(2)
-        .required(),
-    userId: Joi.string().required()
+        .required()
 })
 
 export const CreateCatalogSchema = Joi.object({
