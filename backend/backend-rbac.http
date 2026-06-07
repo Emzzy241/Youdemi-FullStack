@@ -1,0 +1,87 @@
+POST http://localhost:5000/api/v1/signup
+Content-Type: application/json
+
+{
+   "fullName": "Student Name",
+   "email": "student@test.com",
+   "password": "Dynastyda2*",
+   "confirmPassword": "Dynastyda2*"
+}
+
+### /signin
+POST http://localhost:5000/api/v1/signin
+Content-Type: application/json
+
+{
+   "email": "student@test.com",
+   "password": "Dynastyda2*"
+}
+
+# {
+#    "email": "dynasty.dev241@gmail.com",
+#    "password": "Dynastyda2*"
+# }
+
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0MzAxYTE3YWE1OWZkNWU4NTJlYTAiLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoiZW16enlvbHV3b2xlQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzgwNzU2OTU4LCJleHAiOjE3ODA3ODU3NTh9.j22B7Ohnks2GRr_VQTlgReHKnDGXoXD0K-qKYr3x5UI
+
+###
+GET http://localhost:5000/api/v1/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0YWViNjg1MTFhZWE1MTgzNjI3YjciLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoic3R1ZGVudEB0ZXN0LmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzgwNzg5MDM4LCJleHAiOjE3ODA4MTc4Mzh9.dva3H-pd0QnPPCKXYr2vmOgUR1l3HrGWx0lbAPTzLEk
+
+# Test Admin
+
+###
+POST http://localhost:5000/api/v1/signin
+Content-Type: application/json
+
+{
+    "email": "dynasty.dev241@gmail.com",
+    "password": "Dynastyda2*"
+}
+
+###
+GET http://localhost:5000/api/v1/admin-test
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0YWViNjg1MTFhZWE1MTgzNjI3YjciLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoic3R1ZGVudEB0ZXN0LmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzgwNzg5MDM4LCJleHAiOjE3ODA4MTc4Mzh9.dva3H-pd0QnPPCKXYr2vmOgUR1l3HrGWx0lbAPTzLEk
+
+# Create Course
+
+###
+POST http://localhost:5000/api/v1/courses/new
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0MzAxYTE3YWE1OWZkNWU4NTJlYTAiLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoiZW16enlvbHV3b2xlQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzgwNzYyMDU1LCJleHAiOjE3ODA3OTA4NTV9.azoyVZc8aRFdjUx6j0z-rMAtE-om2zPGCc0pWnWsHl8
+Content-Type: application/json
+
+{
+    "title": "ACA 413: Chartered Accounting V",
+    "category": "finance",
+    "description": "How Accounting can shape the life of Businesses from conception to maturity.",
+    "oldPrice": 450.22,
+    "price": 390.32,
+    "isBestSeller": true,
+    "tags": ["business", "finance-business", "accounting"],
+    "imageUrl": "https://res.cloudinary.com/dynastycloudinary/image/upload/v1777647588/student-virtual-learn_rivhlq.jpg",
+    "publicId": "v1777647588"
+}
+
+###
+GET http://localhost:5000/api/v1/courses/6a24462a232c144d868bcc43
+# Authorization: 
+
+### Submit Course
+PATCH http://localhost:5000/api/v1/courses/6a24462a232c144d868bcc43/submit
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0MzAxYTE3YWE1OWZkNWU4NTJlYTAiLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoiZW16enlvbHV3b2xlQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzgwNzYyMDU1LCJleHAiOjE3ODA3OTA4NTV9.azoyVZc8aRFdjUx6j0z-rMAtE-om2zPGCc0pWnWsHl8
+
+### Approve course
+PATCH http://localhost:5000/api/v1/courses/6a24462a232c144d868bcc43/approve
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0Mzc1NDNmMTJkOWZmOWNmZTI5MjEiLCJyb2xlcyI6WyJhZG1pbiJdLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzgwNzg4MDE1LCJleHAiOjE3ODA4MTY4MTV9.uw6lZSbMtyS1N9Ih8rRmU84oTm9GFgaY8sgSD6cbayM
+Content-Type: application/json
+
+### Enroll for course
+POST http://localhost:5000/api/v1/courses/6a24462a232c144d868bcc43/enroll
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0YWViNjg1MTFhZWE1MTgzNjI3YjciLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoic3R1ZGVudEB0ZXN0LmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzgwNzg5MDM4LCJleHAiOjE3ODA4MTc4Mzh9.dva3H-pd0QnPPCKXYr2vmOgUR1l3HrGWx0lbAPTzLEk
+
+### Test authorizeCourseRoles
+GET http://localhost:5000/api/v1/courses/6a24462a232c144d868bcc43/content
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0YWViNjg1MTFhZWE1MTgzNjI3YjciLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoic3R1ZGVudEB0ZXN0LmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzgwNzg5MDM4LCJleHAiOjE3ODA4MTc4Mzh9.dva3H-pd0QnPPCKXYr2vmOgUR1l3HrGWx0lbAPTzLEk
+
+###
+GET http://localhost:5000
