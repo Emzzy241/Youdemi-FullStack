@@ -20,11 +20,12 @@ const userSchema = mongoose.Schema({
         trim: true,
         select: false
     },
-    role: {
-        type: String,
+    roles: {
+        type: [String],
+        enum: ["admin", "user"],
         required: true,
         trim: true,
-        default: "student"
+        default: ["user"]
     },
     verified: {
         type: Boolean,
@@ -33,7 +34,7 @@ const userSchema = mongoose.Schema({
     verificationCode: {
         type: String,
         select: false
-    },    
+    },
     verificationCodeValidation: {
         type: Number,
         default: false
