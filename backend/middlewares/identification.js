@@ -19,7 +19,7 @@ export const identifier = async (req, res, next) => {
         const jwtVerified = jwt.verify(userToken, process.env.TOKEN_SECRET)
         if (jwtVerified) {
             req.user = jwtVerified
-            console.log("Decoded JWT Payload (req.user): ", req.user)
+            // console.log("Decoded JWT Payload (req.user): ", req.user)
             next()
         } else {
             throw new Error("Error in the token")
