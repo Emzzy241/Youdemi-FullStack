@@ -10,6 +10,8 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 import path, { dirname } from "path"
 import { fileURLToPath } from "url"
+import morgan from "morgan"
+import setupMorganSanitization from "./utils/morganSanitizationUtility.js"
 import privateRouter from "./routers/privateRouter.js"
 import publicRouter from "./routers/publicRouter.js"
 
@@ -43,11 +45,25 @@ const PORT = process.env.PORT
 //         console.log(err)
 //     })
 
+// using morgan for easy debugging during integration testing
+// app.use(morgan("dev"))
+
+// Hiding secrets (query often contain tokens, emails)for production
+// A custom token that strips out query parameters completely
+setupMorganSanitization();
+
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan(':method :safe-url :status - :response-time ms'));
+} else {
+  app.use(morgan('dev')); // Keep 'dev' logs active for local development
+}
+
 // Middleware to parse JSON bodies
-app.use(express.json());
+app.use(express.json())
 
 // Enable CORS for all origins
-app.use(cors());
+app.use(cors())
 
 // Middleware to parse URL-encoded bodies (for form data)
 // The 'extended: true' option allows for rich objects and arrays to be encoded into the URL-encoded format
@@ -65,8 +81,12 @@ app.use("/api/v1", publicRouter)
 app.use("/api/v1", privateRouter)
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+    console.log(`Server running on port ${PORT}`)
+})
+
+app.get("/", (req, res) => {
+    res.send("Welcome to the root of Youdemi");
+})
 
 // app.use("/api/v1", authRoutes)
 // app.use("/api/v1/course", courseRoutes)
