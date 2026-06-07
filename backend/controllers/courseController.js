@@ -1,6 +1,7 @@
 import cloudinary from "../utils/cloudinaryConfig.js";
 import { CreateCourseSchema } from "../middlewares/validator.js"
-import Course from "../models/course.js"
+import Course from "../models/course.js";
+import Enrollment from "../models/enrollment.js";
 
 const courseGreeting = async (req, res) => {
     res.send("Welcome to the Course Routes");
@@ -25,34 +26,281 @@ const getAllCourses = async (req, res) => {
     }
 }
 
+// const createCourse = async (req, res) => {
+//     // console.log(req.body)
+//     const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId } = req.body;
+//     const { userId } = req.user;
+
+//     try {
+//         // if (!req.file) return res.status(400).json({ message: "Image is required" });
+
+//         // const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
+//         //     folder: "courses", // Optional: organizes images in Cloudinary folders
+//         // });
+
+//         const { error, value } = CreateCourseSchema.validate({
+//             title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId, userId
+//         })
+
+//         if (error) {
+//             return res.status(401).json({ success: false, error: error.details[0].message })
+//         }
+
+//         const newCourse = await Course.create({
+//             title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId, imageUrl, publicId
+//         })
+//         res.status(201).json({ success: true, message: "Course Created", data: newCourse })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
 const createCourse = async (req, res) => {
-    // console.log(req.body)
-    const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId } = req.body;
-    const { userId } = req.user;
+
+    const {
+        title,
+        category,
+        description,
+        oldPrice,
+        price,
+        tags,
+        imageUrl,
+        publicId
+    } = req.body;
 
     try {
-        // if (!req.file) return res.status(400).json({ message: "Image is required" });
 
-        // const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
-        //     folder: "courses", // Optional: organizes images in Cloudinary folders
-        // });
-
-        const { error, value } = CreateCourseSchema.validate({
-            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, imageUrl, publicId, userId
-        })
+        const { error } = CreateCourseSchema.validate({
+            title,
+            category,
+            description,
+            oldPrice,
+            price,
+            tags,
+            imageUrl,
+            publicId
+        });
 
         if (error) {
-            return res.status(401).json({ success: false, error: error.details[0].message })
+            return res.status(400).json({
+                success: false,
+                message: error.details[0].message
+            });
         }
 
         const newCourse = await Course.create({
-            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId, imageUrl, publicId
-        })
-        res.status(201).json({ success: true, message: "Course Created", data: newCourse })
+            title,
+            category,
+            description,
+            oldPrice,
+            price,
+            tags,
+            imageUrl,
+            publicId,
+            createdBy: req.user._id,
+            status: "draft"
+        });
+
+        return res.status(201).json({
+            success: true,
+            message: "Course draft created successfully",
+            data: newCourse
+        });
+
     } catch (error) {
-        console.log(error)
+
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
     }
-}
+};
+
+const submitCourseForReview = async (req, res) => {
+
+    const { courseId } = req.params;
+
+    try {
+
+        // Find course
+        const course = await Course.findById(courseId);
+
+        // Course not found
+        if (!course) {
+            return res.status(404).json({
+                success: false,
+                message: "Course not found"
+            });
+        }
+
+        // Ensure ownership
+        if (course.createdBy.toString() !== req.user._id.toString()) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not allowed to modify this course"
+            });
+        }
+
+        // Ensure course is still draft
+        if (course.status !== "draft") {
+            return res.status(400).json({
+                success: false,
+                message: `Course cannot be submitted because it is already ${course.status}`
+            });
+        }
+
+        // Update status
+        course.status = "pending";
+
+        await course.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Course submitted for review successfully",
+            data: course
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
+
+const approveCourse = async (req, res) => {
+
+    const { courseId } = req.params;
+
+    try {
+
+        // Find course
+        const course = await Course.findById(courseId);
+
+        console.log(course)
+        console.log(courseId)
+
+        // Course not found
+        if (!course) {
+            return res.status(404).json({
+                success: false,
+                message: "Course not found"
+            });
+        }
+
+        // Ensure course is pending
+        if (course.status !== "pending") {
+            return res.status(400).json({
+                success: false,
+                message: `Only pending courses can be approved`
+            });
+        }
+
+        // Approve course
+        course.status = "approved";
+
+        await course.save();
+
+        // Prevent duplicate instructor enrollment
+        const existingEnrollment = await Enrollment.findOne({
+            user: course.createdBy,
+            course: course._id,
+            role: "instructor"
+        });
+
+        // Create instructor enrollment
+        if (!existingEnrollment) {
+
+            await Enrollment.create({
+                user: course.createdBy,
+                course: course._id,
+                role: "instructor"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Course approved successfully",
+            data: course
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
+
+const enrollInCourse = async (req, res) => {
+
+    const { courseId } = req.params;
+
+    try {
+
+        // Find course
+        const course = await Course.findById(courseId);
+
+        // Course not found
+        if (!course) {
+            return res.status(404).json({
+                success: false,
+                message: "Course not found"
+            });
+        }
+
+        // Only approved courses can be enrolled into
+        if (course.status !== "approved") {
+            return res.status(400).json({
+                success: false,
+                message: "You can only enroll in approved courses"
+            });
+        }
+
+        // Check existing enrollment
+        const existingEnrollment = await Enrollment.findOne({
+            user: req.user._id,
+            course: course._id
+        });
+
+        if (existingEnrollment) {
+            return res.status(400).json({
+                success: false,
+                message: "You are already enrolled in this course"
+            });
+        }
+
+        // Create student enrollment
+        const enrollment = await Enrollment.create({
+            user: req.user._id,
+            course: course._id,
+            role: "student"
+        });
+
+        return res.status(201).json({
+            success: true,
+            message: "Successfully enrolled in course",
+            data: enrollment
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
 
 const getCourse = async (req, res) => {
     try {
@@ -107,7 +355,7 @@ const updateCourse = async (req, res) => {
             return res.status(404).json({ status: false, message: "Failed to find the particular course" })
         }
 
-        if (existingCourse.userId.toString() !== userId) {
+        if (existingCourse.createdBy.toString() !== userId) {
             return res.status(401).json({ status: false, message: "User is UnAuthorized to update this course" })
         }
 
@@ -171,7 +419,7 @@ const deleteCourse = async (req, res) => {
             return res.status(401).json({ status: false, message: "The Course you want to delete cannot be found" })
         }
 
-        if (existingCourse.userId.toString() !== userId) {
+        if (existingCourse.createdBy.toString() !== userId) {
             return res.status(401).json({ status: false, message: "User is UnAuthorized to delete this course" })
         }
 
@@ -190,6 +438,9 @@ export default {
     courseGreeting,
     getAllCourses,
     createCourse,
+    submitCourseForReview,
+    enrollInCourse,
+    approveCourse,
     getCourse,
     updateCourse,
     deleteCourse
