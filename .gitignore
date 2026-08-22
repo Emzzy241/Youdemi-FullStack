@@ -1,3 +1,4 @@
-node_modules/
+backend-rbac.http
 .env
+node_modules/
 node_modules

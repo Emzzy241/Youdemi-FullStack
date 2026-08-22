@@ -58,4 +58,4 @@ const Course = mongoose.model('Course', courseSchema);
 
 export default Course;
 
-// Staring to upload images and use cloudinary for storign media (image, and video)
+// Staring to upload images and use cloudinary for storing media (image, and video)

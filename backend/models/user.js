@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema({
         trim: true,
         default: ["user"]
     },
+    googleId: {
+        type: String,
+        required: false
+    },
     verified: {
         type: Boolean,
         default: false
