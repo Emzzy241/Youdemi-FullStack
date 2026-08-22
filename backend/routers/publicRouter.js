@@ -23,11 +23,6 @@ publicRouter.get(
     }
 )
 
-publicRouter.get("/auth/google", authController.googleAuthUrl)
-publicRouter.get("/oauth2callback", authController.googleCallback)
-publicRouter.post("/auth/signup", authController.signUp)
-publicRouter.post("/auth/signin", authController.signIn)
-
 publicRouter.get(
    "/admin-test",
    protect,
@@ -37,9 +32,15 @@ publicRouter.get(
    }
 )
 
+publicRouter.get("/auth/google", authController.googleAuthUrl)
+publicRouter.get("/oauth2callback", authController.googleCallback)
+publicRouter.post("/auth/signup", authController.signUp)
+publicRouter.post("/auth/signin", authController.signIn)
+publicRouter.post("/auth/signout", authController.signOut)
+
+
 publicRouter.patch("/catalog/:id", catalogController.updateCatalog)
 publicRouter.delete("/catalog/:id", catalogController.deleteCatalog)
-publicRouter.post("/signout", authController.signOut)
 publicRouter.patch("/send-forgot-password-code", authController.sendForgotPasswordCode)
 publicRouter.patch("/verify-forgot-password-code", authController.verifyForgotPasswordCode)
 
