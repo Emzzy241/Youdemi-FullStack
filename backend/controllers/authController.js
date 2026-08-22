@@ -98,7 +98,7 @@ const googleCallback = async (req, res) => {
         res.cookie("token", sessionToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax", // cross-site redirect from accounts.google.com needs "lax", not "strict"
+            sameSite: "none", // cross-site redirect from accounts.google.com needs "lax", not "strict"
             maxAge: 8 * 60 * 60 * 1000
         });
 
@@ -230,7 +230,7 @@ const signIn = async (req, res) => {
         res.cookie("token", sessionToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict", // fine here since it's a same-site fetch, not a redirect
+            sameSite: "none", // fine here since it's a same-site fetch, not a redirect
             maxAge: 8 * 60 * 60 * 1000
         }).json({
             success: true,
@@ -244,7 +244,7 @@ const signIn = async (req, res) => {
 }
 
 const signOut = async (req, res) => {
-    res.clearCookie("token").status(200).json({ success: true, message: "Logged out successful" });
+    res.clearCookie("token", { httpOnly: true, secure: true, sameSite: "none" }).status(200).json({ success: true, message: "Logged out successful" });
 }
 
 const getMe = async (req, res) => {
