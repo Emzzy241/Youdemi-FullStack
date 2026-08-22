@@ -62,7 +62,11 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.json())
 
 // Enable CORS for all origins
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}));
 
 // Middleware to parse URL-encoded bodies (for form data)
 // The 'extended: true' option allows for rich objects and arrays to be encoded into the URL-encoded format
