@@ -5,14 +5,14 @@ GET http://localhost:5000/api/v1/
 # USER ENDPOINTS
 
 ### Sign UP Locally
-# POST http://localhost:5000/api/v1/signup
+# POST http://localhost:5000/api/v1/auth/signup
 # Content-Type: application/json
 
 # {
 #     "email": "dynasty.dev241@gmail.com",
 #     "password": "Dynastyda4#"
 # }
-POST http://localhost:5000/api/v1/signup
+POST http://localhost:5000/api/v1/auth/signup
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 
 ### Test New Sign Up Route --> Updated user model
-POST http://localhost:5000/api/v1/signup
+POST http://localhost:5000/api/v1/auth/signup
 Content-Type: application/json
 
 {
@@ -47,7 +47,7 @@ Content-Type: application/json
 # }
 
 ### Sign Up On Prod
-POST  https://youdemi-fullstack.onrender.com/api/v1/signup
+POST  https://youdemi-fullstack.onrender.com/api/v1/auth/signup
 Content-Type: application/json
 
 {
@@ -57,7 +57,7 @@ Content-Type: application/json
 }
 
 ### Sign In Locally
-POST http://localhost:5000/api/v1/signin
+POST http://localhost:5000/api/v1/auth/signin
 Content-Type: application/json
 
 {
@@ -85,7 +85,7 @@ Content-Type: application/json
 
 
 ### Sign In On Prod
-POST  https://youdemi-fullstack.onrender.com/api/v1/signin
+POST  https://youdemi-fullstack.onrender.com/api/v1/auth/signin
 Content-Type: application/json
 
 {
@@ -104,7 +104,7 @@ Content-Type: application/json
 # }
 
 ### Sign Out
-POST http://localhost:5000/api/v1/signout
+POST http://localhost:5000/api/v1/auth/signout
 
 ### Endpoint to get user's profile
 GET http://localhost:5000/api/v1/profile
@@ -161,7 +161,7 @@ Content-Type: application/json
 }
 
 ### SEND RESET PASSWORD CODE --> PROD
-# PATCH  https://youdemi-fullstack.onrender.com/api/v1/signin
+# PATCH  https://youdemi-fullstack.onrender.com/api/v1/auth/signin
 # Content-Type: application/json
 # client: not-browser
 # Authorization: Bearer 
@@ -246,7 +246,7 @@ GET https://youdemi-fullstack.onrender.com/api/v1/course
 
 ### Sign In, Quickly
 
-POST https://youdemi-fullstack.onrender.com/api/v1/signin
+POST https://youdemi-fullstack.onrender.com/api/v1/auth/signin
 Content-Type: application/json
 
 {

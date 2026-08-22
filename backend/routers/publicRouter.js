@@ -19,30 +19,28 @@ publicRouter.get(
     "/me",
     protect,
     (req, res) => {
-        res.json(req.user);
+        res.json(req.user)
     }
-);
-
-// publicRouter.get("/api/v1/google", authController.googleAuthUrl);
-// publicRouter.get("/google/callback", authController.googleCallback);
-
-publicRouter.get("/auth/google", authController.googleAuthUrl); 
-publicRouter.get("/oauth2callback", authController.googleCallback);
+)
 
 publicRouter.get(
    "/admin-test",
    protect,
    authorizeRoles("admin"),
    (req,res)=>{
-      res.send("success");
+      res.send("success")
    }
-);
+)
+
+publicRouter.get("/auth/google", authController.googleAuthUrl)
+publicRouter.get("/oauth2callback", authController.googleCallback)
+publicRouter.post("/auth/signup", authController.signUp)
+publicRouter.post("/auth/signin", authController.signIn)
+publicRouter.post("/auth/signout", authController.signOut)
+
 
 publicRouter.patch("/catalog/:id", catalogController.updateCatalog)
 publicRouter.delete("/catalog/:id", catalogController.deleteCatalog)
-publicRouter.post("/signup", authController.signUp)
-publicRouter.post("/signin", authController.signIn)
-publicRouter.post("/signout", authController.signOut)
 publicRouter.patch("/send-forgot-password-code", authController.sendForgotPasswordCode)
 publicRouter.patch("/verify-forgot-password-code", authController.verifyForgotPasswordCode)
 
