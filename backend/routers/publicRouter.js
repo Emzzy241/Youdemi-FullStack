@@ -15,13 +15,13 @@ publicRouter.get("/catalog/greeting", catalogController.catalogGreeting)
 publicRouter.get("/catalog", catalogController.getAllCatalogs)
 publicRouter.post("/catalog/new", catalogController.createCatalog)
 publicRouter.get("/catalog/:id", catalogController.getCatalog)
-publicRouter.get(
-    "/me",
-    protect,
-    (req, res) => {
-        res.json(req.user)
-    }
-)
+// publicRouter.get(
+//     "/me",
+//     protect,
+//     (req, res) => {
+//         res.json(req.user)
+//     }
+// )
 
 // publicRouter.get("/auth/me")
 
