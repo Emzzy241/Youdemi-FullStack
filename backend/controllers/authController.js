@@ -126,6 +126,10 @@ const googleCallback = async (req, res) => {
 };
 
 // Previous way things were done.
+/**
+ * The result that was gotten from there:
+ * {"success":true,"message":"Google Authentication Successful","result":{"_id":"6a24301a17aa59fd5e852ea0","fullName":"Emmanuel Oluwole","email":"emzzyoluwole@gmail.com","roles":["user"],"verified":false,"verificationCodeValidation":0,"forgotPasswordCodeValidation":0,"createdAt":"2026-06-06T14:35:06.465Z","updatedAt":"2026-06-06T14:35:06.465Z","__v":0},"oAuthToken":{"_id":"6a26239640fddae271f1f190","accessToken":"ya29.a0AdMD6EjFR-Zs73AWmHhj-FglFM6xYuK_TCZA3SQw7qDtKvBIHkwO_tkTYVjX_yUrRC53BO68MXAVDQ28IvXRSkUDFDH8sMnFk6o1yl_iXLaDWoZOGf91W7lWL5v9XLI_iYQWlqZi4Ag_zXqrv_IfGXS9WnG_MXz4i9Lgbrra1GsARwqoPdLnh3r2uR8SogD-K9sLxF8aCgYKAb8SARASFQHGX2MiqtC6-gLX4zfU9iwqtbBK5A0206","refreshToken":"1//06t4c2w6VpNduCgYIARAAGAYSNwF-L9Irv0_mABbd-JQZhbXmiYj-LGoAjIhfhKRuDW5QCSCD0iGOOJlJWOdBxEufHIpf6PEtlzU","provider":"google","expiryDate":"2026-08-22T08:53:06.893Z","userId":"6a24301a17aa59fd5e852ea0","createdAt":"2026-06-08T02:06:14.877Z","updatedAt":"2026-08-22T07:53:08.339Z","__v":0}}
+ */
 // const googleCallback = async (req, res) => {
 //     const code = req.query.code;
 //     console.log(`The code value from google ${code}`);
@@ -190,7 +194,10 @@ const googleCallback = async (req, res) => {
 
 // If User goes down the route of manually creating an account and typing a password
 
-
+/**
+ * The result gotten after protecting refresh and access tokens:
+ * 
+ */
 const signUp = async (req, res) => {
     // const { fullName, email, password } = req.body
 
