@@ -15,7 +15,7 @@ import authorizeCourseRoles from "../middlewares/authorizeCourseRoles.js"
 const privateRouter = express()
 
 // Apply the identifier middleware to all routes in this router
-privateRouter.use(identifier)
+// privateRouter.use(identifier)
 
 // privateRouter.get('/admin', restrict(admin), (req, res) => {
 //     // for handling admin route

@@ -5,11 +5,105 @@ import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
 import { getVerificationEmailTemplate, getForgotPasswordEmailTemplate } from "../utils/emailTemplates.js"
 import User from "../models/user.js"
 import { transport } from "./../middlewares/sendMail.js"
-
-
+import { google } from "googleapis"
+import oAuthToken from "../models/oAuthToken.js"
+import oauth2Client from "../config/google.config.js"
 const authGreeting = async (req, res) => {
     res.send("Welcome to the root route of the Youdemi Application.")
 }
+
+
+// const oauth2Client = new google.auth.OAuth2(
+//     process.env.GOOGLE_CLIENT_ID,
+//     process.env.GOOGLE_CLIENT_SECRET,
+//     process.env.GOOGLE_CLIENT_REDIRECT_URI,
+// );
+
+const SCOPES = [
+    "openid",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile"
+]
+
+const googleAuthUrl = (req, res) => {
+    try {
+        const url = oauth2Client.generateAuthUrl({
+            access_type: "offline",
+            prompt: "consent",
+            scope: SCOPES
+        });
+        console.log(url);
+
+        res.redirect(url);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const googleCallback = async (req, res) => {
+    const code = req.query.code;
+    console.log(`The code value from google ${code}`);
+
+    if (!code) {
+        return res.status(400).json({
+            message: "Authorization code missing"
+        });
+    }
+
+    try {
+        const { tokens } = await oauth2Client.getToken(code);
+        oauth2Client.setCredentials(tokens);
+
+        const oauth2 = google.oauth2({ auth: oauth2Client, version: "v2" });
+        const userInfo = await oauth2.userinfo.get();
+        const email = userInfo.data.email;
+        const googleId = userInfo.data.id;
+
+        let user = await User.findOne({ email });
+        if (!user) {
+            const newUser = new User({
+                fullName: userInfo.data.name,
+                email,
+                roles: "user",
+                googleId,
+            });
+            user = await newUser.save();
+        }
+
+        const updateFields = {
+            accessToken: tokens.access_token,
+            expiryDate: tokens.expiry_date,
+            provider: "google",
+            userId: user.id
+        };
+        if (tokens.refresh_token) {
+            updateFields.refreshToken = tokens.refresh_token;
+        }
+
+        const resultOAuthToken = await oAuthToken.findOneAndUpdate(
+            { userId: user.id, provider: "google" },
+            updateFields,
+            { upsert: true, new: true, setDefaultsOnInsert: true }
+        );
+
+        res.status(201).json({
+            success: true,
+            message: "Google Authentication Successful",
+            result: user,
+            oAuthToken: resultOAuthToken
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+}
+
+// If User goes down the route of manually creating an account and typing a password
+
 
 const signUp = async (req, res) => {
     // const { fullName, email, password } = req.body
@@ -351,6 +445,8 @@ export default {
     authGreeting,
     signUp,
     signIn,
+    googleAuthUrl,
+    googleCallback,
     signOut,
     getProfile,
     sendVerificationCode,

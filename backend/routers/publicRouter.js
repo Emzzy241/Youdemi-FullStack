@@ -6,7 +6,6 @@ import protect from "../middlewares/protect.js"
 import authorizeRoles from "../middlewares/authorizeRoles.js"
 // console.log("Reading the publicRouter file")
 
-
 const publicRouter = express()
 
 // Public routes for  authentication
@@ -23,6 +22,12 @@ publicRouter.get(
         res.json(req.user);
     }
 );
+
+// publicRouter.get("/api/v1/google", authController.googleAuthUrl);
+// publicRouter.get("/google/callback", authController.googleCallback);
+
+publicRouter.get("/auth/google", authController.googleAuthUrl); 
+publicRouter.get("/oauth2callback", authController.googleCallback);
 
 publicRouter.get(
    "/admin-test",

@@ -157,6 +157,13 @@ const updateCatalog = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+
+        // Always add this so it doesn't just keep rolling honestly, this ensures user gets a response always, 
+        // not just the user's console, add for all CRUD endpoints and more.
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error occurred while updating catalog"
+        });
     }
 }
 
