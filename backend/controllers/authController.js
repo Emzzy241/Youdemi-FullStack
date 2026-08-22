@@ -247,6 +247,20 @@ const signOut = async (req, res) => {
     res.clearCookie("token").status(200).json({ success: true, message: "Logged out successful" });
 }
 
+const getMe = async (req, res) => {
+    // protect middleware already verified the cookie and attached req.user
+    res.status(200).json({
+        success: true,
+        user: {
+            id: req.user._id,
+            fullName: req.user.fullName,
+            email: req.user.email,
+            roles: req.user.roles,
+            verified: req.user.verified
+        }
+    });
+};
+
 const getProfile = async (req, res) => {
     // jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
     //     if (err && err.name === "TokenExpiredError") {
@@ -470,6 +484,7 @@ export default {
     googleAuthUrl,
     googleCallback,
     signOut,
+    getMe,
     getProfile,
     sendVerificationCode,
     verifyVerificationCode,
