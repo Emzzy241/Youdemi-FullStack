@@ -98,26 +98,15 @@ const googleCallback = async (req, res) => {
         res.cookie("token", sessionToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+            sameSite: "lax", // cross-site redirect from accounts.google.com needs "lax", not "strict"
+            maxAge: 8 * 60 * 60 * 1000
         });
 
-        // res.status(isNewUser ? 201 : 200).json({
-        //     success: true,
-        //     message: isNewUser
-        //         ? "Account created and Google authentication successful"
-        //         : "Google authentication successful",
-        //     user: {
-        //         id: user._id,
-        //         fullName: user.fullName,
-        //         email: user.email,
-        //         roles: user.roles
-        //     }
-        // });
-
-        return res.redirect(
-            `${process.env.FRONTEND_URL}/dashboard`
-        );
+        if (!process.env.FRONTEND_URL) {
+            console.error("FRONTEND_URL is not set");
+            return res.redirect("/"); // fallback, avoid the literal "undefined" bug
+        }
+        return res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
 
     } catch (error) {
         console.error(error);
@@ -223,15 +212,28 @@ const signIn = async (req, res) => {
             verified: existingUser.verified
         }
 
-        res.cookie("Authorization", `Bearer ${token}`, {
-            expires: new Date(Date.now() + 8
-                * 3600000),
+        // res.cookie("Authorization", `Bearer ${token}`, {
+        //     expires: new Date(Date.now() + 8
+        //         * 3600000),
+        //     httpOnly: true,
+        //     secure: process.env.NODE_ENV === "production",
+        //     sameSite: "strict"
+        // }).json({
+        //     success: true,
+        //     token,
+        //     user: userSafeData,
+        //     message: "Logged in successfully"
+        // });
+
+        const sessionToken = generateAuthToken(existingUser);
+
+        res.cookie("token", sessionToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict"
+            sameSite: "strict", // fine here since it's a same-site fetch, not a redirect
+            maxAge: 8 * 60 * 60 * 1000
         }).json({
             success: true,
-            token,
             user: userSafeData,
             message: "Logged in successfully"
         });
@@ -242,10 +244,7 @@ const signIn = async (req, res) => {
 }
 
 const signOut = async (req, res) => {
-    res.clearCookie("Authorization").status(200).json({
-        success: true,
-        message: "Logged out successful"
-    })
+    res.clearCookie("token").status(200).json({ success: true, message: "Logged out successful" });
 }
 
 const getProfile = async (req, res) => {

@@ -5,43 +5,42 @@ const protect = async (req, res, next) => {
 
     try {
 
-        let token;
+        // let token;
 
-        // Check authorization header
-        if (
-            req.headers.authorization &&
-            req.headers.authorization.startsWith("Bearer")
-        ) {
+        // if (
+        //     req.headers.authorization &&
+        //     req.headers.authorization.startsWith("Bearer")
+        // ) {
 
+        //     token = req.headers.authorization.split(" ")[1];
+        // }
+
+        // if (!token) {
+        //     return res.status(401).json({
+        //         success: false,
+        //         message: "Not authorized, no token provided"
+        //     });
+        // }
+
+        // const decoded = jwt.verify(
+        //     token,
+        //     process.env.TOKEN_SECRET
+        // );
+
+        // const user = await User.findById(decoded.userId);
+
+        let token = req.cookies?.token;
+
+        // optional: still allow header-based auth for non-browser clients
+        if (!token && req.headers.authorization?.startsWith("Bearer")) {
             token = req.headers.authorization.split(" ")[1];
         }
 
-        // No token
         if (!token) {
-            return res.status(401).json({
-                success: false,
-                message: "Not authorized, no token provided"
-            });
+            return res.status(401).json({ success: false, message: "Not authorized, no token provided" });
         }
 
-        // Token expired 4
-        // if (Date.now() - token > 8 * 60 * 1000)
-        // {
-        //     return res.status(401).json({
-        //         success: false,
-        //         message: "Token has already expired"
-        //     })
-        // }
-
-
-
-        // Verify token
-        const decoded = jwt.verify(
-            token,
-            process.env.TOKEN_SECRET
-        );
-
-        // Find user
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
         const user = await User.findById(decoded.userId);
 
         if (!user) {
@@ -51,7 +50,6 @@ const protect = async (req, res, next) => {
             });
         }
 
-        // Attach user to request
         req.user = user;
 
         next();
@@ -60,7 +58,6 @@ const protect = async (req, res, next) => {
 
         console.error(error);
 
-        // Token expired
         if (error.name === "TokenExpiredError") {
             return res.status(401).json({
                 success: false,
