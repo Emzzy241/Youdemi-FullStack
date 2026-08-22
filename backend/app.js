@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser"
 // import authRoutes from "./routers/authRouter.js"
 // import courseRoutes from "./routers/courseRouter.js"
 import cors from "cors"
-import { identifier } from "./middlewares/identification.js"
+// import { identifier } from "./middlewares/identification.js"
 import google from "googleapis";
 import path, { dirname } from "path"
 import { fileURLToPath } from "url"
@@ -88,11 +88,11 @@ app.use("/api/v1", (req, res, next) => {
 app.use("/api/v1", publicRouter)
 
 // Test Log 2: Right before identifier
-app.use("/api/v1", (req, res, next) => {
-    console.log(`---> 2. Request reached App.js Identifier Gate: ${req.url}`);
-    next();
-});
-app.use("/api/v1", identifier);
+// app.use("/api/v1", (req, res, next) => {
+//     console.log(`---> 2. Request reached App.js Identifier Gate: ${req.url}`);
+//     next();
+// });
+// app.use("/api/v1", identifier);
 
 // Test Log 3: Right before private router
 app.use("/api/v1", (req, res, next) => {

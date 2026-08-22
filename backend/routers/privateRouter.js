@@ -29,7 +29,7 @@ const privateRouter = express()
 
 // })
 
-privateRouter.get('/admin-dashboard', ensureAdmin, (req, res) => {
+privateRouter.get('/admin-dashboard', protect, ensureAdmin, (req, res) => {
     console.log("Welcome to the admin dashboard, say no more :)");
 })
 
