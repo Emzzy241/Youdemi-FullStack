@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 import { signInSchema, signUpSchema, acceptCodeSchema, acceptForgotPasswordCodeSchema } from "../middlewares/validator.js"
 import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
 import { getVerificationEmailTemplate, getForgotPasswordEmailTemplate } from "../utils/emailTemplates.js"
+import { generateAuthToken } from "../utils/generateToken.js";
 import User from "../models/user.js"
 import { transport } from "./../middlewares/sendMail.js"
 import { google } from "googleapis"
@@ -40,12 +41,14 @@ const googleAuthUrl = (req, res) => {
     }
 };
 
+// Using an helper to ensure the refresh and access tokens never get leaked to the frontend
+
 const googleCallback = async (req, res) => {
     const code = req.query.code;
-    console.log(`The code value from google ${code}`);
 
     if (!code) {
         return res.status(400).json({
+            success: false,
             message: "Authorization code missing"
         });
     }
@@ -60,6 +63,8 @@ const googleCallback = async (req, res) => {
         const googleId = userInfo.data.id;
 
         let user = await User.findOne({ email });
+        let isNewUser = false;
+
         if (!user) {
             const newUser = new User({
                 fullName: userInfo.data.name,
@@ -68,8 +73,10 @@ const googleCallback = async (req, res) => {
                 googleId,
             });
             user = await newUser.save();
+            isNewUser = true;
         }
 
+        // Store Google tokens server-side only — never sent to client
         const updateFields = {
             accessToken: tokens.access_token,
             expiryDate: tokens.expiry_date,
@@ -80,17 +87,33 @@ const googleCallback = async (req, res) => {
             updateFields.refreshToken = tokens.refresh_token;
         }
 
-        const resultOAuthToken = await oAuthToken.findOneAndUpdate(
+        await oAuthToken.findOneAndUpdate(
             { userId: user.id, provider: "google" },
             updateFields,
             { upsert: true, new: true, setDefaultsOnInsert: true }
         );
 
-        res.status(201).json({
+        // Issue your OWN session token — this is what the client actually gets
+        const sessionToken = generateAuthToken(user);
+
+        res.cookie("token", sessionToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        });
+
+        res.status(isNewUser ? 201 : 200).json({
             success: true,
-            message: "Google Authentication Successful",
-            result: user,
-            oAuthToken: resultOAuthToken
+            message: isNewUser
+                ? "Account created and Google authentication successful"
+                : "Google authentication successful",
+            user: {
+                id: user._id,
+                fullName: user.fullName,
+                email: user.email,
+                roles: user.roles
+            }
         });
 
     } catch (error) {
@@ -100,7 +123,70 @@ const googleCallback = async (req, res) => {
             message: "Internal server error"
         });
     }
-}
+};
+
+// Previous way things were done.
+// const googleCallback = async (req, res) => {
+//     const code = req.query.code;
+//     console.log(`The code value from google ${code}`);
+
+//     if (!code) {
+//         return res.status(400).json({
+//             message: "Authorization code missing"
+//         });
+//     }
+
+//     try {
+//         const { tokens } = await oauth2Client.getToken(code);
+//         oauth2Client.setCredentials(tokens);
+
+//         const oauth2 = google.oauth2({ auth: oauth2Client, version: "v2" });
+//         const userInfo = await oauth2.userinfo.get();
+//         const email = userInfo.data.email;
+//         const googleId = userInfo.data.id;
+
+//         let user = await User.findOne({ email });
+//         if (!user) {
+//             const newUser = new User({
+//                 fullName: userInfo.data.name,
+//                 email,
+//                 roles: "user",
+//                 googleId,
+//             });
+//             user = await newUser.save();
+//         }
+
+//         const updateFields = {
+//             accessToken: tokens.access_token,
+//             expiryDate: tokens.expiry_date,
+//             provider: "google",
+//             userId: user.id
+//         };
+//         if (tokens.refresh_token) {
+//             updateFields.refreshToken = tokens.refresh_token;
+//         }
+
+//         const resultOAuthToken = await oAuthToken.findOneAndUpdate(
+//             { userId: user.id, provider: "google" },
+//             updateFields,
+//             { upsert: true, new: true, setDefaultsOnInsert: true }
+//         );
+
+//         res.status(201).json({
+//             success: true,
+//             message: "Google Authentication Successful",
+//             result: user,
+//             oAuthToken: resultOAuthToken
+//         });
+
+//     } catch (error) {
+//         console.error(error);
+//         return res.status(500).json({
+//             success: false,
+//             message: "Internal server error"
+//         });
+//     }
+// }
 
 // If User goes down the route of manually creating an account and typing a password
 
