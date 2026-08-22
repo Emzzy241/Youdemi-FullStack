@@ -33,6 +33,8 @@ privateRouter.get('/admin-dashboard', ensureAdmin, (req, res) => {
     console.log("Welcome to the admin dashboard, say no more :)");
 })
 
+privateRouter.get("/me", protect, authController.getMe)
+
 privateRouter.get("/profile", protect, authController.getProfile);
 
 // Private routes for authentication

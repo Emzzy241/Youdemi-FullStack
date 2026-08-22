@@ -23,6 +23,8 @@ publicRouter.get(
     }
 )
 
+// publicRouter.get("/auth/me")
+
 publicRouter.get(
    "/admin-test",
    protect,
