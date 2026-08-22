@@ -21,34 +21,6 @@ const app = express()
 
 const PORT = process.env.PORT
 
-// const __filename = fileURLToPath(import.meta.url)
-// const __dirname = dirname(__filename)
-
-// Whitelisting the frontend's url
-// const corsOptions = {
-//     origin: ["http://127.0.0.1:5500", "http://localhost:5000/", "http://localhost:3000/"]
-// };
-
-// app.use(cors(corsOptions))
-// app.use(express.static(path.join(__dirname, "../frontend")))
-
-// app.get("/", (req, res) => {
-//     res.sendFile(path.join(__dirname, "frontend", "index.html"))
-// })
-
-
-// mongoose
-//     .connect(process.env.MONGOURI).then(()=>{
-//         console.log("Database connected!!!")
-//     }).catch(err => {
-//         console.log(err)
-//     })
-
-// using morgan for easy debugging during integration testing
-// app.use(morgan("dev"))
-
-// Hiding secrets (query often contain tokens, emails)for production
-// A custom token that strips out query parameters completely
 setupMorganSanitization();
 
 
@@ -81,10 +53,10 @@ try {
 app.use(cookieParser())
 
 // Test Log 1: Right before public router
-app.use("/api/v1", (req, res, next) => {
-    console.log(`---> 1. Request reached App.js Public Layer: ${req.url}`);
-    next();
-});
+// app.use("/api/v1", (req, res, next) => {
+//     console.log(`---> 1. Request reached App.js Public Layer: ${req.url}`);
+//     next();
+// });
 app.use("/api/v1", publicRouter)
 
 // Test Log 2: Right before identifier
@@ -95,34 +67,12 @@ app.use("/api/v1", publicRouter)
 // app.use("/api/v1", identifier);
 
 // Test Log 3: Right before private router
-app.use("/api/v1", (req, res, next) => {
-    console.log(`---> 3. Request reached App.js Private Layer: ${req.url}`);
-    next();
-});
+// app.use("/api/v1", (req, res, next) => {
+//     console.log(`---> 3. Request reached App.js Private Layer: ${req.url}`);
+//     next();
+// });
 app.use("/api/v1", privateRouter)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
-
-// app.use(cookieParser())
-// app.use("/api/v1", publicRouter)
-// app.use("/api/v1", identifier);
-// app.use("/api/v1", privateRouter)
-
-// app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`)
-// })
-
-// app.get("/", (req, res) => {
-//     res.send("Welcome to the root of Youdemi");
-// })
-
-// app.use("/api/v1", authRoutes)
-// app.use("/api/v1/course", courseRoutes)
-
-// app.get("/", async (req, res) => {
-//     // res.send("App Has successfully started")
-//     console.log("Welcome to the Youdemi App")
-//     res.sendFile(path.join(__dirname, "frontend", "index.html"))
-// })
