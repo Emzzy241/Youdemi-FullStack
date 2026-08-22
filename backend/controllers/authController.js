@@ -41,7 +41,6 @@ const googleAuthUrl = (req, res) => {
     }
 };
 
-// Using an helper to ensure the refresh and access tokens never get leaked to the frontend
 
 const googleCallback = async (req, res) => {
     const code = req.query.code;
@@ -125,79 +124,6 @@ const googleCallback = async (req, res) => {
     }
 };
 
-// Previous way things were done.
-/**
- * The result that was gotten from there:
- * {"success":true,"message":"Google Authentication Successful","result":{"_id":"6a24301a17aa59fd5e852ea0","fullName":"Emmanuel Oluwole","email":"emzzyoluwole@gmail.com","roles":["user"],"verified":false,"verificationCodeValidation":0,"forgotPasswordCodeValidation":0,"createdAt":"2026-06-06T14:35:06.465Z","updatedAt":"2026-06-06T14:35:06.465Z","__v":0},"oAuthToken":{"_id":"6a26239640fddae271f1f190","accessToken":"ya29.a0AdMD6EjFR-Zs73AWmHhj-FglFM6xYuK_TCZA3SQw7qDtKvBIHkwO_tkTYVjX_yUrRC53BO68MXAVDQ28IvXRSkUDFDH8sMnFk6o1yl_iXLaDWoZOGf91W7lWL5v9XLI_iYQWlqZi4Ag_zXqrv_IfGXS9WnG_MXz4i9Lgbrra1GsARwqoPdLnh3r2uR8SogD-K9sLxF8aCgYKAb8SARASFQHGX2MiqtC6-gLX4zfU9iwqtbBK5A0206","refreshToken":"1//06t4c2w6VpNduCgYIARAAGAYSNwF-L9Irv0_mABbd-JQZhbXmiYj-LGoAjIhfhKRuDW5QCSCD0iGOOJlJWOdBxEufHIpf6PEtlzU","provider":"google","expiryDate":"2026-08-22T08:53:06.893Z","userId":"6a24301a17aa59fd5e852ea0","createdAt":"2026-06-08T02:06:14.877Z","updatedAt":"2026-08-22T07:53:08.339Z","__v":0}}
- */
-// const googleCallback = async (req, res) => {
-//     const code = req.query.code;
-//     console.log(`The code value from google ${code}`);
-
-//     if (!code) {
-//         return res.status(400).json({
-//             message: "Authorization code missing"
-//         });
-//     }
-
-//     try {
-//         const { tokens } = await oauth2Client.getToken(code);
-//         oauth2Client.setCredentials(tokens);
-
-//         const oauth2 = google.oauth2({ auth: oauth2Client, version: "v2" });
-//         const userInfo = await oauth2.userinfo.get();
-//         const email = userInfo.data.email;
-//         const googleId = userInfo.data.id;
-
-//         let user = await User.findOne({ email });
-//         if (!user) {
-//             const newUser = new User({
-//                 fullName: userInfo.data.name,
-//                 email,
-//                 roles: "user",
-//                 googleId,
-//             });
-//             user = await newUser.save();
-//         }
-
-//         const updateFields = {
-//             accessToken: tokens.access_token,
-//             expiryDate: tokens.expiry_date,
-//             provider: "google",
-//             userId: user.id
-//         };
-//         if (tokens.refresh_token) {
-//             updateFields.refreshToken = tokens.refresh_token;
-//         }
-
-//         const resultOAuthToken = await oAuthToken.findOneAndUpdate(
-//             { userId: user.id, provider: "google" },
-//             updateFields,
-//             { upsert: true, new: true, setDefaultsOnInsert: true }
-//         );
-
-//         res.status(201).json({
-//             success: true,
-//             message: "Google Authentication Successful",
-//             result: user,
-//             oAuthToken: resultOAuthToken
-//         });
-
-//     } catch (error) {
-//         console.error(error);
-//         return res.status(500).json({
-//             success: false,
-//             message: "Internal server error"
-//         });
-//     }
-// }
-
-// If User goes down the route of manually creating an account and typing a password
-
-/**
- * The result gotten after protecting refresh and access tokens:
- * 
- */
 const signUp = async (req, res) => {
     // const { fullName, email, password } = req.body
 
