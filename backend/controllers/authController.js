@@ -115,6 +115,10 @@ const googleCallback = async (req, res) => {
             }
         });
 
+        return res.redirect(
+            `${process.env.FRONTEND_URL}/auth/google/callback`
+        );
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({
