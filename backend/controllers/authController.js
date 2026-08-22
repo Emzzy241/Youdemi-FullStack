@@ -102,21 +102,21 @@ const googleCallback = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
-        res.status(isNewUser ? 201 : 200).json({
-            success: true,
-            message: isNewUser
-                ? "Account created and Google authentication successful"
-                : "Google authentication successful",
-            user: {
-                id: user._id,
-                fullName: user.fullName,
-                email: user.email,
-                roles: user.roles
-            }
-        });
+        // res.status(isNewUser ? 201 : 200).json({
+        //     success: true,
+        //     message: isNewUser
+        //         ? "Account created and Google authentication successful"
+        //         : "Google authentication successful",
+        //     user: {
+        //         id: user._id,
+        //         fullName: user.fullName,
+        //         email: user.email,
+        //         roles: user.roles
+        //     }
+        // });
 
         return res.redirect(
-            `${process.env.FRONTEND_URL}/auth/google/callback`
+            `${process.env.FRONTEND_URL}/dashboard`
         );
 
     } catch (error) {
