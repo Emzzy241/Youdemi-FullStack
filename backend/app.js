@@ -36,7 +36,7 @@ app.use(express.json())
 // Enable CORS for all origins
 // app.use(cors());
 app.use(cors({
-    origin: '*',
+    origin: true,
     // origin: process.env.FRONTEND_URL,
     credentials: true
 }));
