@@ -115,10 +115,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json 
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGRiODNiZTNjYzI1NjlhNzBiMzQxZTYiLCJlbWFpbCI6ImVtenp5ZHluYXN0eTExN0BnbWFpbC5jb20iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTc1OTIxODQ2NSwiZXhwIjoxNzU5MjQ3MjY1fQ.vYdwkYH_u2KJmYcgWCWIFWeHcaUsOb0JyDyLKLjZPgI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0Mzc1NDNmMTJkOWZmOWNmZTI5MjEiLCJyb2xlcyI6WyJhZG1pbiJdLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzg3NDY0MzQ4LCJleHAiOjE3ODc0OTMxNDh9.9mrdUYHNGM2OhNnxmr7FlToH2HzspNdyT_EhfXsrh5o
 
 {
-    "email": "emzzydynasty117@gmail.com"
+    "email": "emzzyoluwole@gmail.com"
 }
 
 ### On PROD

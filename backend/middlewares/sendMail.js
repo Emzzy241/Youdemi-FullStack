@@ -5,6 +5,9 @@ export const transport = nodeMailer.createTransport({
     auth: {
         user: process.env.NODE_CODE_SENDING_EMAIL_ADDRESS,
         pass: process.env.NODE_CODE_SENDING_EMAIL_PASSWORD
-    }
+    },
+    connectionTimeout: 10000, // 10s to establish connection
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
 })
 

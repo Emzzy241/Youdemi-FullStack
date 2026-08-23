@@ -242,7 +242,7 @@ const signIn = async (req, res) => {
         //     sameSite: "none", // fine here since it's a same-site fetch, not a redirect
         //     maxAge: 8 * 60 * 60 * 1000
         // }).json({
-        
+
         res.cookie("token", sessionToken, {
             httpOnly: true,
             secure: true,
@@ -304,7 +304,7 @@ const sendVerificationCode = async (req, res) => {
         }
         const codeValue = Math.floor(Math.random() * 1000000).toString()
 
-        const userName = existingUser.name || existingUser.email.split('@')[0]
+        const userName = existingUser.fullName || existingUser.email.split('@')[0]
         const expiryTimeInMinutes = 15
 
         const htmlContent = getVerificationEmailTemplate(userName, codeValue, expiryTimeInMinutes)
@@ -325,13 +325,13 @@ const sendVerificationCode = async (req, res) => {
         }
         return res.status(400).json({ success: true, message: "Code sent failed" })
     } catch (error) {
-        console.log(error)
-    }
+         console.error(error)   
+        return res.status(500).json({ success: false, message: "Internal server error" })    }
 }
 
 
 const verifyVerificationCode = async (req, res) => {
-    const { email, providedCode } = req.body
+    const { email, verificationCode: providedCode } = req.body
 
     try {
         const { error, value } = acceptCodeSchema.validate({ email, providedCode })
@@ -379,7 +379,8 @@ const verifyVerificationCode = async (req, res) => {
         return res.status(400).json({ success: false, message: "AN Unexpected error occured" })
 
     } catch (error) {
-        console.log(error)
+ console.error(error)
+        return res.status(500).json({ success: false, message: "Internal server error" })        
     }
 }
 
