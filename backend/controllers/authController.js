@@ -5,6 +5,7 @@ import { doHash, doHashValidation, hmacProcess } from "../utils/hashing.js"
 import { getVerificationEmailTemplate, getForgotPasswordEmailTemplate } from "../utils/emailTemplates.js"
 import { generateAuthToken } from "../utils/generateToken.js";
 import User from "../models/user.js"
+import { Resend } from "resend";
 import { transport } from "./../middlewares/sendMail.js"
 import { google } from "googleapis"
 import oAuthToken from "../models/oAuthToken.js"
@@ -12,6 +13,7 @@ import oauth2Client from "../config/google.config.js"
 const authGreeting = async (req, res) => {
     res.send("Welcome to the root route of the Youdemi Application.")
 }
+
 
 
 // const oauth2Client = new google.auth.OAuth2(
@@ -25,6 +27,8 @@ const SCOPES = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile"
 ]
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const googleAuthUrl = (req, res) => {
     try {
@@ -309,25 +313,67 @@ const sendVerificationCode = async (req, res) => {
 
         const htmlContent = getVerificationEmailTemplate(userName, codeValue, expiryTimeInMinutes)
 
-        let info = await transport.sendMail({
-            from: `${process.env.NODE_CODE_SENDING_EMAIL_ADDRESS}`,
+
+        const { data, error } = await resend.emails.send({
+            from: "Youdemi <onboarding@resend.dev>", // swap for your verified domain later
             to: existingUser.email,
             subject: "Verify Your Account - Action Required",
-            html: htmlContent
-        })
+            html: htmlContent,
+        });
 
-        if (info.accepted[0] === existingUser.email) {
-            const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
-            existingUser.verificationCode = hashedCodeValue
-            existingUser.verificationCodeValidation = Date.now()
-            await existingUser.save()
-            return res.status(200).json({ success: true, message: "Code to verify User's account code has been sent" })
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ success: false, message: "Failed to send verification email" });
         }
-        return res.status(400).json({ success: true, message: "Code sent failed" })
+
+        const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET);
+        existingUser.verificationCode = hashedCodeValue;
+        existingUser.verificationCodeValidation = Date.now();
+        await existingUser.save();
+        return res.status(200).json({ success: true, message: "Code to verify User's account has been sent" });
+
     } catch (error) {
-         console.error(error)   
-        return res.status(500).json({ success: false, message: "Internal server error" })    }
+    console.error(error)
+    return res.status(500).json({ success: false, message: "Internal server error" })
 }
+}
+
+    // try {
+    //     const existingUser = await User.findOne({ email })
+
+    //     if (!existingUser) {
+    //         return res.status(404).json({ success: false, message: "You do not have an account on our platform" })
+    //     }
+
+    //     if (existingUser.verified === true) {
+    //         return res.status(400).json({ success: false, message: "User has already been verified" })
+    //     }
+    //     const codeValue = Math.floor(Math.random() * 1000000).toString()
+
+    //     const userName = existingUser.fullName || existingUser.email.split('@')[0]
+    //     const expiryTimeInMinutes = 15
+
+    //     const htmlContent = getVerificationEmailTemplate(userName, codeValue, expiryTimeInMinutes)
+
+    //     let info = await transport.sendMail({
+    //         from: `${process.env.NODE_CODE_SENDING_EMAIL_ADDRESS}`,
+    //         to: existingUser.email,
+    //         subject: "Verify Your Account - Action Required",
+    //         html: htmlContent
+    //     })
+
+    //     if (info.accepted[0] === existingUser.email) {
+    //         const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
+    //         existingUser.verificationCode = hashedCodeValue
+    //         existingUser.verificationCodeValidation = Date.now()
+    //         await existingUser.save()
+    //         return res.status(200).json({ success: true, message: "Code to verify User's account code has been sent" })
+    //     }
+    //     return res.status(400).json({ success: true, message: "Code sent failed" })
+    // } catch (error) {
+    //      console.error(error)   
+    //     return res.status(500).json({ success: false, message: "Internal server error" })    }
+// }
 
 
 const verifyVerificationCode = async (req, res) => {
@@ -379,8 +425,8 @@ const verifyVerificationCode = async (req, res) => {
         return res.status(400).json({ success: false, message: "AN Unexpected error occured" })
 
     } catch (error) {
- console.error(error)
-        return res.status(500).json({ success: false, message: "Internal server error" })        
+        console.error(error)
+        return res.status(500).json({ success: false, message: "Internal server error" })
     }
 }
 
