@@ -95,12 +95,21 @@ const googleCallback = async (req, res) => {
         // Issue your OWN session token — this is what the client actually gets
         const sessionToken = generateAuthToken(user);
 
+        // res.cookie("token", sessionToken, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: "none", // cross-site redirect from accounts.google.com needs "lax", not "strict"
+        //     maxAge: 8 * 60 * 60 * 1000
+        // });
+
         res.cookie("token", sessionToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "none", // cross-site redirect from accounts.google.com needs "lax", not "strict"
+            secure: true,
+            sameSite: "none",
             maxAge: 8 * 60 * 60 * 1000
         });
+
+        // secure: process.env.NODE_ENV === "production",
 
         if (!process.env.FRONTEND_URL) {
             console.error("FRONTEND_URL is not set");
@@ -227,10 +236,17 @@ const signIn = async (req, res) => {
 
         const sessionToken = generateAuthToken(existingUser);
 
+        // res.cookie("token", sessionToken, {
+        //     httpOnly: true,
+        //     secure: process.env.NODE_ENV === "production",
+        //     sameSite: "none", // fine here since it's a same-site fetch, not a redirect
+        //     maxAge: 8 * 60 * 60 * 1000
+        // }).json({
+        
         res.cookie("token", sessionToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "none", // fine here since it's a same-site fetch, not a redirect
+            secure: true,
+            sameSite: "none",
             maxAge: 8 * 60 * 60 * 1000
         }).json({
             success: true,
