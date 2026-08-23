@@ -16,10 +16,17 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
-        trim: true,
+        required: function () {
+            return !this.googleId; // Google users authenticate via OAuth, not a local password
+        }, trim: true,
         select: false
     },
+    // password: {
+    //     type: String,
+    //     required: true,
+    //     trim: true,
+    //     select: false
+    // },
     roles: {
         type: [String],
         enum: ["admin", "user"],

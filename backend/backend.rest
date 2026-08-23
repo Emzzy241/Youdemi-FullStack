@@ -115,11 +115,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGNmO
 PATCH http://localhost:5000/api/v1/send-verification-code
 Content-Type: application/json 
 client: not-browser
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0Mzc1NDNmMTJkOWZmOWNmZTI5MjEiLCJyb2xlcyI6WyJhZG1pbiJdLCJlbWFpbCI6ImR5bmFzdHkuZGV2MjQxQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzg3NDY0MzQ4LCJleHAiOjE3ODc0OTMxNDh9.9mrdUYHNGM2OhNnxmr7FlToH2HzspNdyT_EhfXsrh5o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0MzAxYTE3YWE1OWZkNWU4NTJlYTAiLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoiZW16enlvbHV3b2xlQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzg3NDcyMDQ5LCJleHAiOjE3ODc1MDA4NDl9.Pgvxs8xBDxBGx8fH5qZD-50CcNCeW2SAPSMRvJK0qeI
 
 {
-    "email": "emzzyoluwole@gmail.com"
+    "email": "dynasty.dev241@gmail.com"
 }
+
+# For emzzyoluwole: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI0MzAxYTE3YWE1OWZkNWU4NTJlYTAiLCJyb2xlcyI6WyJ1c2VyIl0sImVtYWlsIjoiZW16enlvbHV3b2xlQGdtYWlsLmNvbSIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzg3NDcyMDQ5LCJleHAiOjE3ODc1MDA4NDl9.Pgvxs8xBDxBGx8fH5qZD-50CcNCeW2SAPSMRvJK0qeI
 
 ### On PROD
 PATCH https://youdemi-fullstack.onrender.com/api/v1/send-verification-code

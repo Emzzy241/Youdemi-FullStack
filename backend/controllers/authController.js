@@ -50,10 +50,7 @@ const googleCallback = async (req, res) => {
     const code = req.query.code;
 
     if (!code) {
-        return res.status(400).json({
-            success: false,
-            message: "Authorization code missing"
-        });
+        return res.status(400).json({ success: false, message: "Authorization code missing" });
     }
 
     try {
@@ -64,6 +61,7 @@ const googleCallback = async (req, res) => {
         const userInfo = await oauth2.userinfo.get();
         const email = userInfo.data.email;
         const googleId = userInfo.data.id;
+        const emailVerifiedByGoogle = userInfo.data.verified_email === true;
 
         let user = await User.findOne({ email });
         let isNewUser = false;
@@ -74,11 +72,29 @@ const googleCallback = async (req, res) => {
                 email,
                 roles: "user",
                 googleId,
+                verified: emailVerifiedByGoogle, // trust Google's own verification, not a blanket assumption
             });
             user = await newUser.save();
             isNewUser = true;
-        }
+        } else {
+            // Existing account (e.g. originally signed up via email/password) is now
+            // proven to control this inbox via Google — link the account and upgrade
+            // verification status, without overwriting anything else.
+            let needsSave = false;
 
+            if (!user.googleId) {
+                user.googleId = googleId;
+                needsSave = true;
+            }
+            if (!user.verified && emailVerifiedByGoogle) {
+                user.verified = true;
+                needsSave = true;
+            }
+            if (needsSave) {
+                await user.save();
+            }
+        }
+        
         // Store Google tokens server-side only — never sent to client
         const updateFields = {
             accessToken: tokens.access_token,
@@ -129,6 +145,89 @@ const googleCallback = async (req, res) => {
         });
     }
 };
+// const googleCallback = async (req, res) => {
+//     const code = req.query.code;
+
+//     if (!code) {
+//         return res.status(400).json({
+//             success: false,
+//             message: "Authorization code missing"
+//         });
+//     }
+
+//     try {
+//         const { tokens } = await oauth2Client.getToken(code);
+//         oauth2Client.setCredentials(tokens);
+
+//         const oauth2 = google.oauth2({ auth: oauth2Client, version: "v2" });
+//         const userInfo = await oauth2.userinfo.get();
+//         const email = userInfo.data.email;
+//         const googleId = userInfo.data.id;
+
+//         let user = await User.findOne({ email });
+//         let isNewUser = false;
+
+//         if (!user) {
+//             const newUser = new User({
+//                 fullName: userInfo.data.name,
+//                 email,
+//                 roles: "user",
+//                 googleId,
+//             });
+//             user = await newUser.save();
+//             isNewUser = true;
+//         }
+
+//         // Store Google tokens server-side only — never sent to client
+//         const updateFields = {
+//             accessToken: tokens.access_token,
+//             expiryDate: tokens.expiry_date,
+//             provider: "google",
+//             userId: user.id
+//         };
+//         if (tokens.refresh_token) {
+//             updateFields.refreshToken = tokens.refresh_token;
+//         }
+
+//         await oAuthToken.findOneAndUpdate(
+//             { userId: user.id, provider: "google" },
+//             updateFields,
+//             { upsert: true, new: true, setDefaultsOnInsert: true }
+//         );
+
+//         // Issue your OWN session token — this is what the client actually gets
+//         const sessionToken = generateAuthToken(user);
+
+//         // res.cookie("token", sessionToken, {
+//         //     httpOnly: true,
+//         //     secure: true,
+//         //     sameSite: "none", // cross-site redirect from accounts.google.com needs "lax", not "strict"
+//         //     maxAge: 8 * 60 * 60 * 1000
+//         // });
+
+//         res.cookie("token", sessionToken, {
+//             httpOnly: true,
+//             secure: true,
+//             sameSite: "none",
+//             maxAge: 8 * 60 * 60 * 1000
+//         });
+
+//         // secure: process.env.NODE_ENV === "production",
+
+//         if (!process.env.FRONTEND_URL) {
+//             console.error("FRONTEND_URL is not set");
+//             return res.redirect("/"); // fallback, avoid the literal "undefined" bug
+//         }
+//         return res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
+
+//     } catch (error) {
+//         console.error(error);
+//         return res.status(500).json({
+//             success: false,
+//             message: "Internal server error"
+//         });
+//     }
+// };
 
 const signUp = async (req, res) => {
     // const { fullName, email, password } = req.body
@@ -306,7 +405,7 @@ const sendVerificationCode = async (req, res) => {
         if (existingUser.verified === true) {
             return res.status(400).json({ success: false, message: "User has already been verified" })
         }
-        const codeValue = Math.floor(Math.random() * 1000000).toString()
+        const codeValue = Math.floor(100000 + Math.random() * 900000).toString();
 
         const userName = existingUser.fullName || existingUser.email.split('@')[0]
         const expiryTimeInMinutes = 15
@@ -333,46 +432,46 @@ const sendVerificationCode = async (req, res) => {
         return res.status(200).json({ success: true, message: "Code to verify User's account has been sent" });
 
     } catch (error) {
-    console.error(error)
-    return res.status(500).json({ success: false, message: "Internal server error" })
+        console.error(error)
+        return res.status(500).json({ success: false, message: "Internal server error" })
+    }
 }
-}
 
-    // try {
-    //     const existingUser = await User.findOne({ email })
+// try {
+//     const existingUser = await User.findOne({ email })
 
-    //     if (!existingUser) {
-    //         return res.status(404).json({ success: false, message: "You do not have an account on our platform" })
-    //     }
+//     if (!existingUser) {
+//         return res.status(404).json({ success: false, message: "You do not have an account on our platform" })
+//     }
 
-    //     if (existingUser.verified === true) {
-    //         return res.status(400).json({ success: false, message: "User has already been verified" })
-    //     }
-    //     const codeValue = Math.floor(Math.random() * 1000000).toString()
+//     if (existingUser.verified === true) {
+//         return res.status(400).json({ success: false, message: "User has already been verified" })
+//     }
+//     const codeValue = Math.floor(Math.random() * 1000000).toString()
 
-    //     const userName = existingUser.fullName || existingUser.email.split('@')[0]
-    //     const expiryTimeInMinutes = 15
+//     const userName = existingUser.fullName || existingUser.email.split('@')[0]
+//     const expiryTimeInMinutes = 15
 
-    //     const htmlContent = getVerificationEmailTemplate(userName, codeValue, expiryTimeInMinutes)
+//     const htmlContent = getVerificationEmailTemplate(userName, codeValue, expiryTimeInMinutes)
 
-    //     let info = await transport.sendMail({
-    //         from: `${process.env.NODE_CODE_SENDING_EMAIL_ADDRESS}`,
-    //         to: existingUser.email,
-    //         subject: "Verify Your Account - Action Required",
-    //         html: htmlContent
-    //     })
+//     let info = await transport.sendMail({
+//         from: `${process.env.NODE_CODE_SENDING_EMAIL_ADDRESS}`,
+//         to: existingUser.email,
+//         subject: "Verify Your Account - Action Required",
+//         html: htmlContent
+//     })
 
-    //     if (info.accepted[0] === existingUser.email) {
-    //         const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
-    //         existingUser.verificationCode = hashedCodeValue
-    //         existingUser.verificationCodeValidation = Date.now()
-    //         await existingUser.save()
-    //         return res.status(200).json({ success: true, message: "Code to verify User's account code has been sent" })
-    //     }
-    //     return res.status(400).json({ success: true, message: "Code sent failed" })
-    // } catch (error) {
-    //      console.error(error)   
-    //     return res.status(500).json({ success: false, message: "Internal server error" })    }
+//     if (info.accepted[0] === existingUser.email) {
+//         const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
+//         existingUser.verificationCode = hashedCodeValue
+//         existingUser.verificationCodeValidation = Date.now()
+//         await existingUser.save()
+//         return res.status(200).json({ success: true, message: "Code to verify User's account code has been sent" })
+//     }
+//     return res.status(400).json({ success: true, message: "Code sent failed" })
+// } catch (error) {
+//      console.error(error)   
+//     return res.status(500).json({ success: false, message: "Internal server error" })    }
 // }
 
 
