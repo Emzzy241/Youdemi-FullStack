@@ -39,12 +39,10 @@ const courseSchema = mongoose.Schema({
     },
     imageUrl: {
         type: String,
-        required: true,
         trim: true
     },
     publicId: {
         type: String,
-        required: true,
         trim: true
     },
     createdBy: {
