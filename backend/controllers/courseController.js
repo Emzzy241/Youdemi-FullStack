@@ -334,9 +334,10 @@ const getCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
     const courseId = req.params.id
+    
 
     // console.log(req.user)
-    const userId = req.user.userId
+    const userId = req.user._id.toString()
     const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount } = req.body
 
     try {
@@ -409,7 +410,7 @@ const updateCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
     try {
-        const userId = req.user.userId
+        const userId = req.user._id.toString()
         // console.log(userId)
         const courseId = req.params.id
         const existingCourse = await Course.findById(courseId)
