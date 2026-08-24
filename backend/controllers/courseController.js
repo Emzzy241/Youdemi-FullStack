@@ -424,7 +424,7 @@ const deleteCourse = async (req, res) => {
         }
 
         // Delete from Cloudinary first
-        await cloudinary.uploader.destroy(course.publicId);
+        await cloudinary.uploader.destroy(existingCourse.publicId);
 
         await existingCourse.deleteOne({ courseId })
         return res.status(201).json({ status: false, message: "Course has been deleted successfully" })
