@@ -179,7 +179,7 @@ const deleteCatalog = async (req, res) => {
         }
 
         // Delete from Cloudinary first
-        await cloudinary.uploader.destroy(Catalog.publicId);
+        await cloudinary.uploader.destroy(existingCatalog.publicId);
 
         await existingCatalog.deleteOne({ catalogId })
         return res.status(201).json({ status: false, message: "Catalog has been deleted successfully" })
