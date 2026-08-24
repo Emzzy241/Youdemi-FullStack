@@ -1,5 +1,5 @@
 import cloudinary from "../utils/cloudinaryConfig.js";
-import { CreateCourseSchema } from "../middlewares/validator.js"
+import { CreateCourseSchema, UpdateCourseSchema } from "../middlewares/validator.js"
 import Course from "../models/course.js";
 import Enrollment from "../models/enrollment.js";
 
@@ -334,15 +334,12 @@ const getCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
     const courseId = req.params.id
-    
-
-    // console.log(req.user)
     const userId = req.user._id.toString()
-    const { title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount } = req.body
+    const { title, category, description, oldPrice, price, tags} = req.body
 
     try {
-        const { error, value } = CreateCourseSchema.validate({
-            title, category, description, oldPrice, newPrice, isBestSeller, tags, instructor, rating, reviewsCount, userId
+        const { error, value } = UpdateCourseSchema.validate({
+            title, category, description, oldPrice, price, tags
         })
 
         if (error) {
@@ -376,28 +373,12 @@ const updateCourse = async (req, res) => {
             existingCourse.oldPrice = req.body.oldPrice;
         }
 
-        if (req.body.newPrice != null) {
-            existingCourse.newPrice = req.body.newPrice;
-        }
-
-        if (req.body.isBestSeller != null) {
-            existingCourse.isBestSeller = req.body.isBestSeller;
+        if (req.body.price != null) {
+            existingCourse.price = req.body.price;
         }
 
         if (req.body.tags != null) {
             existingCourse.tags = req.body.tags;
-        }
-
-        if (req.body.instructor != null) {
-            existingCourse.instructor = req.body.instructor;
-        }
-
-        if (req.body.rating != null) {
-            existingCourse.rating = req.body.rating;
-        }
-
-        if (req.body.reviewsCount != null) {
-            existingCourse.reviewsCount = req.body.reviewsCount;
         }
 
         const updatedCourse = await existingCourse.save()
@@ -405,6 +386,7 @@ const updateCourse = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
+        return res.status(500).json({ success: false, message: "update course failed" })
     }
 }
 
