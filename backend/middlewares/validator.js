@@ -160,3 +160,12 @@ export const CreateCatalogSchema = Joi.object({
         .min(2)
         .required()
 })
+
+export const UpdateCourseSchema = Joi.object({
+    title: Joi.string().min(3).max(120),
+    category: Joi.string().min(2).max(60),
+    description: Joi.string().min(20).max(2000),
+    oldPrice: Joi.number().min(0).precision(2).strict(),
+    price: Joi.number().min(0).precision(2).strict(),
+    tags: Joi.array().min(1).max(200)
+})
