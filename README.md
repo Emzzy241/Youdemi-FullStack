@@ -12,6 +12,8 @@
 
 ## Picture of the database schema
 ![Youdemi-Database-Preview](./youdemi-mongodb-dbml-picture.png)
+
+
 _This is the current picture of the database schema as at 29/08/2026. Time: 18:32 UTC+1 (Nigerian Time)_
 
 ## APIs documentation
