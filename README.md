@@ -10,7 +10,7 @@
 * _JavaScript_
 * _Cloudinary_
 
-## Picture of the database schema
+## Entity-Relationship Diagram (ERD)
 ![Youdemi-Database-Preview](./youdemi-mongodb-dbml-picture.png)
 
 
